@@ -9,22 +9,21 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT,
+        allowNull: false
       },
-      access: {
-        type: Sequelize.STRING
-      },
-      userId: {
+      UserId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
-        references: {
-          model: 'Users',
-          key: 'id',
-          as: 'userId'
-        }
+        allowNull: false
+      },
+      isPublic: {
+        defaultValue: true,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
