@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 require('./server/routes')(app);
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 app.get('*', (req, res) => res.status(200).send({
-  message: 'BellaOrganizer - A beautiful document management system specially made for You!',
+  message: 'DocManager - A beautiful document management system specially made for You!',
 }));
 
 module.exports = app;

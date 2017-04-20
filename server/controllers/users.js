@@ -14,8 +14,15 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   findAll(req, res) {
+    let options = {};
+    if (req.query.limit || req.query.offset) {
+        options = {
+        limit: req.query.limit || 2,
+        offset: req.query.offset || 0
+      };
+    }
     return User
-      .all()
+      .findAll(options)
       .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
   },

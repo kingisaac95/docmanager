@@ -32,6 +32,24 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+  findUserDocuments(req, res) {
+    return Document
+      .findAll({
+        where: {
+          UserId: req.params.userId
+        }
+      })
+      .then(document => {
+        if (!document) {
+          return res.status(404).send({
+            message: 'No document found for this user'
+          })
+        } else {
+          return res.status(200).send(document)
+        }
+      })
+      .catch(error => res.status(400).send(error));
+  },
   update(req, res) {
     return Document
       .findById(req.params.documentId)

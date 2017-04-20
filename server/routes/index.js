@@ -5,7 +5,7 @@ const rolesController = require('../controllers').roles;
 module.exports = (app) => {
   // api base route
   app.get('/api', (req, res) => res.status(200).send({
-      message: "Weocme to Bella Organizer API!"
+      message: "Weocme to DocManager API!"
   }));
 
   // roles routes
@@ -28,4 +28,7 @@ module.exports = (app) => {
   app.get('/api/documents/:documentId', documentsController.findOne);
   app.put('/api/documents/:documentId', documentsController.update);
   app.delete('/api/documents/:documentId', documentsController.delete);
+
+  // find document for a particular user
+  app.get('/api/users/:userId/documents', documentsController.findUserDocuments);
 };
