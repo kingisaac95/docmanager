@@ -13,8 +13,20 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   findAll(req, res) {
+    let options = {};
+  
+    if (req.query.q) {
+      options.where = {
+        title: { $iLike: `%${ req.query.q }%` }
+      }
+    }
+  
+    if (req.query.limit || req.query.offset) {
+        options.limit = req.query.limit || 2,
+        options.offset = req.query.offset || 0
+    }
     return Document
-      .all()
+      .findAll(options)
       .then(document => res.status(200).send(document))
       .catch(error => res.status(400).send(error));
   },

@@ -15,6 +15,13 @@ module.exports = {
   },
   findAll(req, res) {
     let options = {};
+
+    if (req.query.q) {
+      options.where = {
+        username: { $iLike: `%${ req.query.q }%` }
+      }
+    }
+
     if (req.query.limit || req.query.offset) {
         options = {
         limit: req.query.limit || 2,
