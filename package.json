@@ -1,11 +1,13 @@
 {
-  "name": "bellaorganizer",
+  "name": "docmanager",
   "version": "1.0.0",
   "description": "A beautiful document management system specially made for You!",
   "main": "server.js",
   "scripts": {
     "migrate:test": "NODE_ENV=test sequelize db:migrate",
+    "undo:migrate:test": "NODE_ENV=test sequelize db:migrate:undo:all",
     "test": "gulp test",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha ./tests/**/*.js",
     "start:dev": "nodemon bin/www"
   },
   "repository": {
@@ -33,6 +35,7 @@
     "gulp": "^3.9.1",
     "gulp-env": "^0.4.0",
     "gulp-mocha": "^4.3.0",
+    "istanbul": "^0.4.5",
     "should": "^11.2.1",
     "supertest": "^3.0.0"
   }

@@ -21,5 +21,19 @@ module.exports = {
     email: faker.internet.email(),
     password: faker.internet.password(),
     roleId: 3
+  },
+  testUser: {
+    name: "John Doe I",
+    username: "jdoe1",
+    email: "john.doe@andela.com",
+    password: "password",
+    roleId: 1
+  },
+  updateTestUser: {
+    name: "John Doe",
+    username: "jdoe1",
+    email: "john.doe@andela.com",
+    password: "password",
+    roleId: 1
   }
 }
