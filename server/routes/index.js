@@ -5,7 +5,7 @@ const rolesController = require('../controllers').roles;
 module.exports = (app) => {
   // api base route
   app.get('/api', (req, res) => res.status(200).send({
-      message: "Weocme to DocManager API!"
+      message: "Welcome to DocManager API!"
   }));
 
   // roles routes

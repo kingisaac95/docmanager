@@ -4,6 +4,8 @@
   "description": "A beautiful document management system specially made for You!",
   "main": "server.js",
   "scripts": {
+    "migrate:test": "NODE_ENV=test sequelize db:migrate",
+    "test": "gulp test",
     "start:dev": "nodemon bin/www"
   },
   "repository": {
@@ -25,5 +27,13 @@
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.30.4"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "gulp": "^3.9.1",
+    "gulp-env": "^0.4.0",
+    "gulp-mocha": "^4.3.0",
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
   }
 }

@@ -10,7 +10,7 @@
   "test": {
     "username": "kingisaac95",
     "password": null,
-    "database": "docmanager",
+    "database": "docmanager-test",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"

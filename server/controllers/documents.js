@@ -17,7 +17,11 @@ module.exports = {
   
     if (req.query.q) {
       options.where = {
-        title: { $iLike: `%${ req.query.q }%` }
+        title: { $iLike: `%${ req.query.q }%` },
+      }
+    } else {
+      options.where = {
+        isPublic: true
       }
     }
   
@@ -31,8 +35,16 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   findOne(req, res) {
+    let options = {};
+
+    if (req.params.documentId) {
+      options.where = {
+        id: req.params.documentId,
+        isPublic: true
+      }
+    }
     return Document
-      .findById(req.params.documentId)
+      .findAll(options)
       .then(document => {
         if (!document) {
           return res.status(404).send({
