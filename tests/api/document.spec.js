@@ -74,8 +74,8 @@ describe('DocManager API Endpoints:', () => {
         .expect(200)
         .end((error, document) => {
           (document.body.title === "John Doe - My Documents").should.equal(true);
-          done();
         });
+      done();
     });
 
     it('should delete a document from the database', (done) => {
@@ -87,8 +87,8 @@ describe('DocManager API Endpoints:', () => {
         .expect(200)
         .end((error, document) => {
           should.not.exist(document.body.title);
-          done();
         });
+      done();
     });
   });
 });

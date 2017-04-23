@@ -3,7 +3,7 @@ const faker = require('faker');
 module.exports = {
   testDocument: {
     title: faker.lorem.text(),
-    content: faker.lorem.sentences(),
+    content: faker.lorem.sentence(),
     userId: 1,
     isPublic: true
   },

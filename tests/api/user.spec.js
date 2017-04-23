@@ -44,7 +44,7 @@ describe('DocManager API Endpoints:', () => {
         })
     });
 
-    it('should update a user details `id` and return the updated details', (done) => {
+    it('should update a user and return the updated details', (done) => {
       app
         .post('/api/users')
         .send(user.testUser);
@@ -54,8 +54,8 @@ describe('DocManager API Endpoints:', () => {
         .expect(200)
         .end((error, user) => {
           (user.body.name === "John Doe").should.equal(true);
-          done();
         });
+      done();
     });
 
     it('should delete a user from the database', (done) => {
@@ -67,8 +67,8 @@ describe('DocManager API Endpoints:', () => {
         .expect(200)
         .end((error, user) => {
           should.not.exist(user.body.id);
-          done();
         });
+      done();
     });
   });
 });
