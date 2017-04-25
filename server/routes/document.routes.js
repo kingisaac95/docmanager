@@ -1,16 +1,24 @@
 const documentsController = require('../controllers/documents');
+const auth = require('../middleware/authenticate');
 
 const documentRoutes = (router) => {
   router
     .route('/documents')
-    .get(documentsController.findAll)
-    .post(documentsController.create);
+    .post(auth.authorize, documentsController.create);
 
   router
-    .route('/users/:userId')
-    .get(documentsController.findOne)
-    .put(documentsController.update)
-    .delete(documentsController.delete);
+    .route('/documents')
+    .get(auth.authorize, auth.getAccessDetails, documentsController.findAll);
+
+  router
+    .route('/documents/:documentId')
+    .get(auth.authorize, documentsController.findOne)
+    .put(auth.authorize, documentsController.update)
+    .delete(auth.authorize, auth.isAdminOrUser, documentsController.delete);
+  
+  router
+    .route('/users/:userId/documents')
+    .get(auth.authorize, documentsController.findUserDocuments);
 };
 
 module.exports = documentRoutes;

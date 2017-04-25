@@ -19,10 +19,6 @@ const userRoutes = (router) => {
     .get(auth.authorize, usersController.findOne)
     .put(auth.authorize, usersController.update)
     .delete(auth.authorize, auth.isAdmin, usersController.delete);
-
-  router
-    .route('/users/:userId/documents')
-    .get(auth.authorize, usersController.findUserDocuments);
 };
 
 module.exports = userRoutes;

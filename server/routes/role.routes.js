@@ -1,4 +1,5 @@
 const rolesController = require('../controllers/roles');
+const auth = require('../middleware/authenticate');
 
 const roleRoutes = (router) => {
   router

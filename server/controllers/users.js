@@ -22,7 +22,8 @@ module.exports = {
             name: user.name,
             username: user.username,
             email: user.email,
-            roleId: user.RoleId
+            roleId: user.RoleId,
+            userId: user.id
           };
           // create token
           var token = jwt.sign({
@@ -63,7 +64,8 @@ module.exports = {
                 username: req.body.username,
                 email: req.body.email,
                 password: req.body.password,
-                RoleId: req.body.RoleId
+                RoleId: req.body.RoleId,
+            userId: user.id
               })
               .then(user => {
                 const userData = {
@@ -129,25 +131,6 @@ module.exports = {
           })
         } else {
           return res.status(200).send(user)
-        }
-      })
-      .catch(error => res.status(400).send(error));
-  },
-  findUserDocuments(req, res) {
-    return Document
-      .findAll({
-        where: {
-          UserId: req.params.userId
-        }
-      })
-      .then(document => {
-        if (!document) {
-          return res.status(404).json({
-            status: 404,
-            message: 'No document found for this user'
-          })
-        } else {
-          return res.status(200).send(document)
         }
       })
       .catch(error => res.status(400).send(error));
