@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const Document = require('../models').Document;
 
 module.exports = {
@@ -14,17 +15,27 @@ module.exports = {
   },
   findAll(req, res) {
     let options = {};
-  
+
+    /* get details of the user making the
+    * request from `authorize` middleware
+    */
+    const currentUserId = req.decoded.userData.userId;
+    const role = req.decoded.userData.roleId;
+
     if (req.query.q) {
       options.where = {
         title: { $iLike: `%${ req.query.q }%` },
       }
     }
-    // else {
-    //   options.where = {
-    //     isPublic: true
-    //   }
-    // }
+    if (role === 1) {
+      options.where = {
+
+      }
+    } else {
+      options.where = {
+        $or:[{isPublic: true}, {UserId: currentUserId}]
+      }
+    }
   
     if (req.query.limit || req.query.offset) {
         options.limit = req.query.limit || 2,
@@ -32,7 +43,16 @@ module.exports = {
     }
     return Document
       .findAll(options)
-      .then(document => res.status(200).send(document))
+      .then(document => {
+        if (document < 1) {
+          return res.status(404).json({
+            status: 404,
+            message: 'You currently have no documents, please create some.'
+          })
+        } else {
+          return res.status(200).send(document)
+        }
+      })
       .catch(error => res.status(400).send(error));
   },
   findOne(req, res) {
@@ -47,9 +67,28 @@ module.exports = {
     return Document
       .findAll(options)
       .then(document => {
-        if (!document) {
+        if (document < 1) {
           return res.status(404).send({
             message: 'Document Not Found'
+          })
+        } else {
+          return res.status(200).send(document)
+        }
+      })
+      .catch(error => res.status(400).send(error));
+  },
+  findUserDocuments(req, res) {
+    return Document
+      .findAll({
+        where: {
+          UserId: req.params.userId
+        }
+      })
+      .then(document => {
+        if (document < 1) {
+          return res.status(404).json({
+            status: 404,
+            message: 'No document found for this user'
           })
         } else {
           return res.status(200).send(document)
@@ -63,6 +102,7 @@ module.exports = {
       .then(document => {
         if (!document) {
           return res.status(404).send({
+            status: 404,
             message: 'Document Not Found!'
           })
         }
@@ -84,12 +124,14 @@ module.exports = {
       .then(document => {
         if (!document) {
           return res.status(404).send({
+            status: 404,
             message: 'Document Not Found!'
           })
         }
         document
           .destroy()
           .then(() => res.status(200).send({
+            status: 200,
             message: "Document Deleted!"
           }))
           .catch(error => res.status(400).send(error));
