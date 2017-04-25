@@ -19,11 +19,12 @@ module.exports = {
       options.where = {
         title: { $iLike: `%${ req.query.q }%` },
       }
-    } else {
-      options.where = {
-        isPublic: true
-      }
     }
+    // else {
+    //   options.where = {
+    //     isPublic: true
+    //   }
+    // }
   
     if (req.query.limit || req.query.offset) {
         options.limit = req.query.limit || 2,
@@ -49,24 +50,6 @@ module.exports = {
         if (!document) {
           return res.status(404).send({
             message: 'Document Not Found'
-          })
-        } else {
-          return res.status(200).send(document)
-        }
-      })
-      .catch(error => res.status(400).send(error));
-  },
-  findUserDocuments(req, res) {
-    return Document
-      .findAll({
-        where: {
-          UserId: req.params.userId
-        }
-      })
-      .then(document => {
-        if (!document) {
-          return res.status(404).send({
-            message: 'No document found for this user'
           })
         } else {
           return res.status(200).send(document)

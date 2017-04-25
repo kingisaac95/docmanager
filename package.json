@@ -24,6 +24,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "jsonwebtoken": "^7.3.0",
     "morgan": "^1.8.1",
     "path": "^0.12.7",
     "pg": "^6.1.5",
@@ -31,6 +32,7 @@
     "sequelize": "^3.30.4"
   },
   "devDependencies": {
+    "dotenv": "^4.0.0",
     "faker": "^4.1.0",
     "gulp": "^3.9.1",
     "gulp-env": "^0.4.0",
