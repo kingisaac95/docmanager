@@ -34,6 +34,7 @@
     "sequelize": "^3.30.4"
   },
   "devDependencies": {
+    "cors": "^2.8.3",
     "dotenv": "^4.0.0",
     "faker": "^4.1.0",
     "gulp": "^3.9.1",
