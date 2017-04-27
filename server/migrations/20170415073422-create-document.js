@@ -21,9 +21,13 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull: false
       },
-      isPublic: {
-        defaultValue: true,
-        type: Sequelize.BOOLEAN
+      RoleId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      access: {
+        defaultValue: 'public',
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

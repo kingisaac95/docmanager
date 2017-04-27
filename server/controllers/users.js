@@ -22,7 +22,7 @@ module.exports = {
             name: user.name,
             username: user.username,
             email: user.email,
-            roleId: user.RoleId,
+            role: user.RoleId,
             userId: user.id
           };
           // create token
@@ -60,19 +60,18 @@ module.exports = {
           if (!user) {
             User
               .create({
-                name: req.body.name,
-                username: req.body.username,
-                email: req.body.email,
-                password: req.body.password,
-                RoleId: req.body.RoleId,
-            userId: user.id
+                name: user.name,
+                username: user.username,
+                email: user.email,
+                role: user.RoleId,
+                userId: user.id
               })
               .then(user => {
                 const userData = {
                   name: user.name,
                   username: user.username,
                   email: user.email,
-                  roleId: user.roleId
+                  role: user.RoleId
                 };
                 // create token
                 var token = jwt.sign({
@@ -151,7 +150,7 @@ module.exports = {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
-            roleId: req.body.roleId
+            RoleId: req.body.role,
           })
           .then(() => res.status(200).send(user))
           .catch(error => res.status(400).send(error));

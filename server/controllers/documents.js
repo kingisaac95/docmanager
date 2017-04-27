@@ -3,12 +3,15 @@ const Document = require('../models').Document;
 
 module.exports = {
   create(req, res) {
+    const role = req.decoded.userData.role;
+
     return Document
       .create({
         title: req.body.title,
         content: req.body.content,
-        UserId: req.body.userId,
-        isPublic: req.body.isPublic
+        UserId: req.decoded.userData.userId,
+        RoleId: req.decoded.userData.role,
+        access: req.body.access
       })
       .then(document => res.status(200).send(document))
       .catch(error => res.status(400).send(error));
@@ -19,38 +22,54 @@ module.exports = {
     /* get details of the user making the
     * request from `authorize` middleware
     */
-    const currentUserId = req.decoded.userData.userId;
-    const role = req.decoded.userData.roleId;
+    const currentUser = req.decoded.userData.userId;
+    const role = req.decoded.userData.role;
 
     if (req.query.q) {
       options.where = {
         title: { $iLike: `%${ req.query.q }%` },
+        $or:[{access: 'public'}, {UserId: currentUser}]
       }
     }
-    if (role === 1) {
-      options.where = {
-
-      }
-    } else {
-      options.where = {
-        $or:[{isPublic: true}, {UserId: currentUserId}]
-      }
-    }
-  
+    
     if (req.query.limit || req.query.offset) {
         options.limit = req.query.limit || 2,
         options.offset = req.query.offset || 0
     }
+
     return Document
       .findAll(options)
-      .then(document => {
-        if (document < 1) {
+      .then(documents => {
+        if (documents < 1) {
           return res.status(404).json({
             status: 404,
             message: 'You currently have no documents, please create some.'
-          })
-        } else {
-          return res.status(200).send(document)
+          });
+        }
+
+        if (role === 1 || role === 2) {
+          return res.status(200).json(documents)
+        }
+
+        if (role !== 1 || role !== 2) {
+          const availableDocuments = documents.filter((document) => {
+            const availableDocumentsArray = [];
+
+            if (document.UserId === currentUser) {
+              return availableDocumentsArray.push(document);
+            }
+
+            if (document.UserId !== currentUser && document.access === 'public') {
+              return availableDocumentsArray.push(document);
+            }
+            if (document.UserId !== currentUser && document.access === 'role') {
+              if (role === document.RoleId) {
+                return availableDocumentsArray.push(document);
+              }
+            }
+          });
+
+          return res.status(200).json(availableDocuments);
         }
       })
       .catch(error => res.status(400).send(error));
@@ -61,7 +80,7 @@ module.exports = {
     if (req.params.documentId) {
       options.where = {
         id: req.params.documentId,
-        isPublic: true
+        access: 'public'
       }
     }
     return Document
@@ -69,7 +88,7 @@ module.exports = {
       .then(document => {
         if (document < 1) {
           return res.status(404).send({
-            message: 'Document Not Found'
+            message: 'Document Not Found.'
           })
         } else {
           return res.status(200).send(document)
@@ -110,8 +129,9 @@ module.exports = {
           .update({
             title: req.body.title,
             content: req.body.content,
-            UserId: req.body.userId,
-            isPublic: req.body.isPublic
+            UserId: req.decoded.userData.username,
+            RoleId: req.decoded.userData.role,
+            access: req.body.access
           })
           .then(() => res.status(200).send(document))
           .catch(error => res.status(400).send(error));

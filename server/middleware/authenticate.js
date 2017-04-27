@@ -26,8 +26,8 @@ const authorize = (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-  const role = req.decoded.userData.roleId;
-  if (role && role === 1) {
+  const role = req.decoded.userData.role;
+  if (role && role === 'Super-Admin' || role === 'Admin') {
     return next();
   }
   return res.status(401).send({
@@ -37,7 +37,7 @@ const isAdmin = (req, res, next) => {
 };
 
 const isAdminOrUser = (req, res, next) => {
-  const role = req.decoded.userData.roleId;
+  const role = req.decoded.userData.role;
   const userId = req.body.documentId;
   const currentUser = req.decoded.userData.userId;
   if (role === 1 || currentUser === userId) {

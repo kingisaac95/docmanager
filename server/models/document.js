@@ -28,8 +28,17 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    isPublic: {
-      defaultValue: true,
+    RoleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        isInt: {
+          message: 'Role Id must be an integer!'
+        }
+      }
+    },
+    access: {
+      defaultValue: 'public',
       type: DataTypes.STRING
     }
   }, {
