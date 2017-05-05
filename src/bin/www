@@ -34,4 +34,4 @@ server.listen(port, function(err) {
 });
 console.log('DocManager running on port: ' + port);
 
-module.exports = app;
+export default app;
