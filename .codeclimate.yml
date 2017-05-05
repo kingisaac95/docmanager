@@ -1,0 +1,28 @@
+engines:
+  duplications:
+    enabled: false
+    config:
+      languages:
+        #mass_threshold: 30
+        - javascript
+  eslint:
+    enabled: true
+    # ... CONFIG CONTENT ...
+    checks:
+      comma-dangle:
+        enabled: false
+  fixme:
+    enabled: true
+ratings:
+  paths:
+    - "src/"
+languages:
+  JavaScript: true
+exclude_paths:
+- "src/coverage"
+- "src/helpers/"
+- "src/tests"
+- .gitignore
+- .eslintignore
+- .travis.yml
+- .eslintrc.json
