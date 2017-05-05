@@ -1,0 +1,37 @@
+// This will be our application entry. We'll setup our server here.
+import http from 'http';
+import webpack from 'webpack';
+import path from 'path';
+import open from 'open';
+import config from '../../webpack.config';
+import app from '../server/app'; // The express app we just created
+
+/* eslint-disable no-console */
+
+const port = process.env.PORT || 8000;
+app.set('port', port);
+
+const compiler = webpack(config);
+
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
+app.get('*', function(req, res) {
+  res.sendFile(path.join( __dirname, '../index.html'));
+});
+
+const server = http.createServer(app);
+server.listen(port, function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    open(`http://localhost:${port}`);
+  }
+});
+console.log('DocManager running on port: ' + port);
+
+export default app;
