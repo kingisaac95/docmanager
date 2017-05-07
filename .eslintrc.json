@@ -32,7 +32,7 @@
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
     "no-shadow": ["error", { "allow": ["req", "res", "err", "user", "role", "document"] }],
-    "valid-jsdoc": ["error", {
+    /*"valid-jsdoc": ["error", {
       "requireReturn": true,
       "requireReturnType": true,
       "requireParamDescription": false,
@@ -44,7 +44,7 @@
             "MethodDefinition": true,
             "ClassDeclaration": true
         }
-    }],
+    }],*/
     "quotes": 0,
     "no-console": 1,
     "no-debugger": 1,
@@ -69,6 +69,8 @@
         "forbid": ["any"]
       }
     ],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prefer-stateless-function": [0, { "ignorePureComponents": true }],
     "react/jsx-boolean-value": 1,
     "react/jsx-closing-bracket-location": 0,
     "react/jsx-curly-spacing": 1,
@@ -94,7 +96,6 @@
     "react/prefer-es6-class": 1,
     "react/prop-types": 1,
     "react/react-in-jsx-scope": 1,
-    "react/require-extension": 1,
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
     "react/wrap-multilines": 1
