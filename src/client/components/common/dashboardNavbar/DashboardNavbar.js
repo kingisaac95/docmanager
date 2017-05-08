@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import image from '../../../assets/img/icon.png';
 
 class DashboardNavbar extends React.Component {
   render() {
@@ -7,17 +8,18 @@ class DashboardNavbar extends React.Component {
       <nav className="nav-border">
         <div className="nav-wrapper">
           <div className="row">
-            <div className="col s3">
-              <Link className="brand-logo">
-                <img src="icon.png" height="25" alt="docmanager logo" /> 
+            <div className="col s2">
+              <Link to="#" className="brand-logo">
+                <img src={image} height="25" alt="docmanager logo" /> 
                 DocManager
               </Link>
-              <Link data-activates="mobile-menu" className="button-collapse">
+              <Link
+                to="#" data-activates="mobile-menu" className="button-collapse">
                 <i className="material-icons">menu</i>
               </Link>
             </div>
 
-            <div className="col s5 hide-on-med-and-down">
+            <div className="col s4 hide-on-med-and-down">
               <form>
                 <div className="input-field">
                   <input id="search" type="search" required />
@@ -40,11 +42,11 @@ class DashboardNavbar extends React.Component {
                     <i className="material-icons left">home</i>Dashboard
                   </Link>
                 </li>
-              </ul>
-            </div>
-
-            <div className="col s2 hide-on-med-and-down">
-              <ul className="right">
+                <li>
+                  <Link to="document">
+                    <i className="material-icons left">description</i>Documents
+                  </Link>
+                </li>
                 <li>
                   <Link to="users">
                     <i className="material-icons left">list</i>Users
@@ -55,6 +57,11 @@ class DashboardNavbar extends React.Component {
           </div>
 
           <ul className="side-nav" id="mobile-menu">
+            <li>
+              <Link to="dashboard">
+                <i className="material-icons left">home</i>Dashboard
+              </Link>
+            </li>
             <li>
               <Link to="users">
                 <i className="material-icons left">list</i>Users

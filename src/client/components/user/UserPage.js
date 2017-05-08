@@ -1,26 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router';
+import AddUserModal from '../modals/addUserModal/AddUserModal';
 
 class UserPage extends React.Component {
+  openAddUserModal() {
+    $('#addUserModal').modal('open');
+  }
   render() {
     return (
       <div>
         <div className="fixed-action-btn horizontal right">
-          <Link
+          <a
+            onClick={this.openAddUserModal}
             className="btn-floating btn-large blue-bg signUp-open"
             data-target="signUp">
             <i className="large material-icons">add</i>
-          </Link>
+          </a>
           <ul>
             <li>
               <Link
+                to="#"
                 className="tooltip blue-bg white-color">Create new user
               </Link>
             </li>
           </ul>
         </div>
 
-        {/*<!-- container start -->*/}
         <div className="container">
           <div className="row intro">
             <div className="col m12">
@@ -28,7 +33,6 @@ class UserPage extends React.Component {
             </div>
           </div>
 
-          {/*<!-- row start -->*/}
           <div className="row">
             <div className="col s12 m3">
               <div className="card">
@@ -48,65 +52,27 @@ class UserPage extends React.Component {
             </div>
           </div>
 
-          {/* register user modal */}
-          <div id="signUp" className="modal">
-            <div className="modal-content">
-              <div className="center-align">
-                <h5 className="blue-color">Create New User</h5>
-                <h6 className="pink-color">
-                  * Note that all fields are required *
-                </h6>
-              </div>
-
-              <div className="row">
-                <form className="col s12">
-                  <div className="row modal-form-row">
-                    <div className="input-field col s12">
-                      <input id="fullName" type="text" className="validate" />
-                      <label htmlFor="fullName">Full Name</label>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="input-field col s12">
-                      <input id="email" type="email" className="validate" />
-                      <label htmlFor="email">Email</label>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="input-field col s12">
-                      <input id="username" type="text" className="validate" />
-                      <label htmlFor="username">Username</label>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="input-field col s12">
-                      <select id="role">
-                        <option value="Author" selected>Author</option>
-                        <option value="Contributor">Contributor</option>
-                      </select>
-                      <label htmlFor="role">Role?</label>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="input-field col s12">
-                      <input
-                        id="password"
-                        type="password"
-                        className="validate" />
-                      <label htmlFor="password">Password</label>
-                    </div>
-                  </div>            
-                </form>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button
-                className="btn-large waves-effect waves-light blue-bg"
-                type="submit"
-                name="action">
-                Add User</button>
+          <div className="row">
+            <div className="col m12 center-align">
+              <ul className="pagination">
+                <li className="disabled">
+                  <Link to="#">
+                    <i className="material-icons">chevron_left</i>
+                  </Link>
+                </li>
+                <li className="active">
+                  <Link to="#">Page 1</Link>
+                </li>
+                <li className="waves-effect">
+                  <Link to="#">
+                    <i className="material-icons">chevron_right</i>
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
+
+          <AddUserModal />
         </div>
       </div>
     );

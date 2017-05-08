@@ -21,12 +21,19 @@ export default {
   devServer: {
     contentBase: path.resolve(__dirname, 'src')
   },
+  resolve: {
+    alias: {
+      'jquery': path.join( __dirname, 'node_modules/jquery/dist/jquery' ),
+    }
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.ProvidePlugin({
       $: "jquery",
-      jQuery: "jquery"
+      jQuery: "jquery",
+      'window.$': 'jquery',
+      'window.jQuery': 'jquery'
     })
   ],
   module: {
@@ -40,12 +47,30 @@ export default {
       {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=image/svg+xml'},
       {test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-          `image-webpack-loader?bypassOnDebug&
-          optimizationLevel=7&interlaced=false`
-        ]
-      }
+        loaders:
+        ['file-loader?context=src/images&name=images/[path][name].[ext]', {
+          loader: 'image-webpack-loader',
+          query: {
+            mozjpeg: {
+              progressive: true,
+            },
+            gifsicle: {
+              interlaced: false,
+            },
+            optipng: {
+              optimizationLevel: 4,
+            },
+            pngquant: {
+              quality: '75-90',
+              speed: 3,
+            },
+          },
+        }],
+        exclude: /node_modules/,
+        include: __dirname,
+      },
+      {test: '/materialize-css/bin/',
+        loader: 'imports?jQuery=jquery,$=jquery,hammerjs'}
     ]
   }
 };

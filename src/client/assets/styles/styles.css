@@ -139,6 +139,7 @@ nav .input-field .label-icon i {
 #view-icon {
   color: #03a9f4;
 	border-radius: 5px;
+  border: 1px solid #03a9f4;
 	background: #ffffff;
 	z-index: 1000;
 	position: absolute;
@@ -151,6 +152,7 @@ nav .input-field .label-icon i {
 #edit-icon {
   color: #03a9f4;
 	border-radius: 5px;
+  border: 1px solid #03a9f4;
 	background: #ffffff;
 	z-index: 1000;
 	position: absolute;
@@ -163,4 +165,7 @@ nav .input-field .label-icon i {
 .doc-card {
   height: 180px;
   overflow: hidden;
+}
+#signUpModal {
+  max-height: 80%;
 }
