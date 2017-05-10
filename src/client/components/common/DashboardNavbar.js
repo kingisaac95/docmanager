@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import image from '../../../assets/img/icon.png';
+import image from '../../assets/img/icon.png';
 
 class DashboardNavbar extends React.Component {
   render() {
@@ -43,7 +43,7 @@ class DashboardNavbar extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="document">
+                  <Link to="documents">
                     <i className="material-icons left">description</i>Documents
                   </Link>
                 </li>
@@ -60,6 +60,11 @@ class DashboardNavbar extends React.Component {
             <li>
               <Link to="dashboard">
                 <i className="material-icons left">home</i>Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link to="documents">
+                <i className="material-icons left">description</i>Documents
               </Link>
             </li>
             <li>

@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUpModal from '../modals/signUpModal/SignUpModal';
+import SignUpModal from './modals/SignUpModal';
 
 class HomePage extends React.Component {
   render() {
@@ -29,7 +29,7 @@ class HomePage extends React.Component {
                   </div>
                   <div className="row center-align">
                     <button
-                      className="btn-large waves-effect waves-light deep-grey-bg"
+                    className="btn-large waves-effect waves-light deep-grey-bg"
                       type="submit"
                       name="action">
                       <i className="material-icons left">done</i>Sign In

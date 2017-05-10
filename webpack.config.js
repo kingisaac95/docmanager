@@ -6,11 +6,9 @@ export default {
   devtool: 'inline-source-map',
   noInfo: false,
   entry: [
-    // necessary for hot reloading with IE
     'eventsource-polyfill',
-    //note that it reloads the page if hot module reloading fails.
     'webpack-hot-middleware/client?reload=true',
-    path.resolve(__dirname, 'src')
+    path.resolve(__dirname, 'src/client/index.js')
   ],
   target: 'web',
   output: {
@@ -46,31 +44,34 @@ export default {
         loader: 'url?limit=10000&mimetype=application/octet-stream'},
       {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=image/svg+xml'},
-      {test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders:
-        ['file-loader?context=src/images&name=images/[path][name].[ext]', {
-          loader: 'image-webpack-loader',
-          query: {
-            mozjpeg: {
-              progressive: true,
-            },
-            gifsicle: {
-              interlaced: false,
-            },
-            optipng: {
-              optimizationLevel: 4,
-            },
-            pngquant: {
-              quality: '75-90',
-              speed: 3,
-            },
-          },
-        }],
-        exclude: /node_modules/,
-        include: __dirname,
-      },
       {test: '/materialize-css/bin/',
-        loader: 'imports?jQuery=jquery,$=jquery,hammerjs'}
+        loader: 'imports?jQuery=jquery,$=jquery,hammerjs'},
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        loaders: [
+          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack-loader'
+        ]
+      }
     ]
+  },
+  imageWebpackLoader: {
+    mozjpeg: {
+      quality: 65
+    },
+    pngquant:{
+      quality: "65-90",
+      speed: 4
+    },
+    svgo:{
+      plugins: [
+        {
+          removeViewBox: false
+        },
+        {
+          removeEmptyAttrs: false
+        }
+      ]
+    }
   }
 };

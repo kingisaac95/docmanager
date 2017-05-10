@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import Navbar from './common/navbar/Navbar';
-import DashboardNavbar from './common/dashboardNavbar/DashboardNavbar';
-import Footer from './common/footer/Footer';
+import Navbar from './common/Navbar';
+import DashboardNavbar from './common/DashboardNavbar';
+import Footer from './common/Footer';
 
 class App extends React.Component {
   render() {
@@ -9,8 +9,9 @@ class App extends React.Component {
     return (
       <div>
         {currentRoute.includes('user')
-          || currentRoute.includes('document') ? <DashboardNavbar /> : <Navbar /> }
-        {/*<DashboardNavbar />*/}
+          || currentRoute.includes('dashboard')
+          || currentRoute.includes('document') ? 
+            <DashboardNavbar /> : <Navbar /> }
         { this.props.children }
         <Footer />
       </div>

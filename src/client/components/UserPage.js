@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import AddUserModal from '../modals/addUserModal/AddUserModal';
+import AddUserModal from './modals/AddUserModal';
 
 class UserPage extends React.Component {
   openAddUserModal() {

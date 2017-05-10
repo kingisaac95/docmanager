@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import image from '../../../assets/img/icon.png';
+import image from '../../assets/img/icon.png';
 
 class Navbar extends React.Component {
   openSignUpModal() {

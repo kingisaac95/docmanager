@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import AddDocumentModal from '../modals/addDocumentModal/AddDocumentModal';
+import AddDocumentModal from './modals/AddDocumentModal';
 
 class DocumentPage extends React.Component {
   openDocumentModal() {
@@ -50,7 +50,7 @@ class DocumentPage extends React.Component {
                         <i className="material-icons">visibility</i>
                       </Link>
                       <Link
-                        to="#" id="edit-icon" to="#" className="white-color">
+                        to="#" id="edit-icon" className="white-color">
                         <i className="material-icons">edit</i>
                       </Link>
                     </span>
