@@ -1,6 +1,33 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 class AddDocumentModal extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      title: '',
+      content: '',
+    };
+
+    this.onClickSave = this.onClickSave.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    $(ReactDOM.findDOMNode(this.refs.access)).on('change',this.onChange);
+  }
+
+  onChange(event) {
+    this.setState({
+      [ event.target.name ] : event.target.value
+    });
+  }
+
+  onClickSave(event) {
+    console.log(this.state);
+  }
+
+
   render() {
     return (
       <div id="addDocumentModal" className="modal">
@@ -13,16 +40,26 @@ class AddDocumentModal extends React.Component {
           </div>
 
           <div className="row">
-            <form className="col s12">
+            <div className="col s12">
               <div className="row modal-form-row">
                 <div className="input-field col s12">
-                  <input id="title" type="text" className="validate" />
+                  <input
+                    name="title"
+                    type="text"
+                    onChange={this.onChange}
+                    value={this.state.title}
+                    className="validate" />
                   <label htmlFor="title">Title</label>
                 </div>
               </div>
               <div className="row">
                 <div className="input-field col s12">
-                  <select id="access">
+                  <select
+                    ref="access"
+                    name="access"
+                    value={this.state.access}
+                    onChange={this.onChange}>
+                    <option disabled >Select Access</option>
                     <option value="Private">Private</option>
                     <option value="Public">Public</option>
                     <option value="Role">Role</option>
@@ -31,17 +68,22 @@ class AddDocumentModal extends React.Component {
                 </div>
               </div>
               <div className="input-field col s12">
-                <textarea id="content" className="materialize-textarea" />
+                <textarea
+                  name="content"
+                  className="materialize-textarea"
+                  onChange={this.onChange}
+                  value={this.state.content} />
                 <label htmlFor="content">Content</label>
               </div>
-            </form>
+            </div>
           </div>
         </div>
         <div className="modal-footer">
           <button
             className="btn-large waves-effect waves-light blue-bg"
             type="submit"
-            name="action">Add Document</button>
+            name="action"
+            onClick={this.onClickSave} >Add Document</button>
         </div>
       </div>
     );

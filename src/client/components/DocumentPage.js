@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import AddDocumentModal from './modals/AddDocumentModal';
 
@@ -99,4 +100,10 @@ class DocumentPage extends React.Component {
   }
 }
 
-export default DocumentPage;
+mapStateToProps(state, ownProps) {
+  return {
+    
+  }
+}
+
+export default connect(mapStateToProps)(DocumentPage);

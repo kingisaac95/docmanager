@@ -111,6 +111,9 @@
     "react/react-in-jsx-scope": 1,
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
-    "react/wrap-multilines": 1
+    "react/wrap-multilines": 1,
+    "react/no-find-dom-node": 0,
+    "react/no-string-refs": 0,
+    "import/prefer-default-export": 0
   }
 }
