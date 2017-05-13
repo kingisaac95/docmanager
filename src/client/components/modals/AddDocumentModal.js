@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as documentActions from '../../actions/DocumentActions';
 
 class AddDocumentModal extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       title: '',
-      content: '',
+      content: ''
     };
 
     this.onClickSave = this.onClickSave.bind(this);
@@ -14,7 +17,7 @@ class AddDocumentModal extends React.Component {
   }
 
   componentDidMount() {
-    $(ReactDOM.findDOMNode(this.refs.access)).on('change',this.onChange);
+    $(ReactDOM.findDOMNode(this.refs.access)).on('change', this.onChange);
   }
 
   onChange(event) {
@@ -24,9 +27,11 @@ class AddDocumentModal extends React.Component {
   }
 
   onClickSave(event) {
-    console.log(this.state);
+    this.props.actions.createDocument(this.state);
   }
-
+  documentRow(document, index) {
+    return <div key={index}>{document.title}</div>;
+  }
 
   render() {
     return (
@@ -38,7 +43,7 @@ class AddDocumentModal extends React.Component {
               * Note that all fields are required *
             </h6>
           </div>
-
+          {this.props.documents.map(this.documentRow)}
           <div className="row">
             <div className="col s12">
               <div className="row modal-form-row">
@@ -90,4 +95,21 @@ class AddDocumentModal extends React.Component {
   }
 }
 
-export default AddDocumentModal;
+function mapStateToProps(state, ownProps) {
+  return {
+    documents: state.documents
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(documentActions, dispatch)
+  };
+}
+
+AddDocumentModal.propTypes = {
+  actions: PropTypes.object.isRequired,
+  documents: PropTypes.array.isRequired
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddDocumentModal);

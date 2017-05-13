@@ -12,7 +12,7 @@ import './assets/styles/styles.css';
 import './assets/styles/material-icons.css';
 import './assets/styles/fonts.css';
 
-const store = storeConfig()();
+const store = storeConfig();
 
 render (
   <Provider store={store}>

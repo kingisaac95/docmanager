@@ -8,7 +8,7 @@ export default {
   entry: [
     'eventsource-polyfill',
     'webpack-hot-middleware/client?reload=true',
-    path.resolve(__dirname, 'src/client/index.jsx')
+    path.resolve(__dirname, 'src/client/index.js')
   ],
   target: 'web',
   output: {

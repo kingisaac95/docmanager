@@ -30,7 +30,7 @@ export default {
 
   isAdmin(req, res, next) {
     const role = req.decoded.userData.role;
-    if (role && role === 'Super-Admin' || role === 'Admin') {
+    if (role && role === 1 || role === 2) {
       return next();
     }
     return res.status(401).send({

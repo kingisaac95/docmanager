@@ -28,6 +28,7 @@
   "author": "Orjiewuru Kingdom Isaac",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.1",
     "babel-polyfill": "6.8.0",
     "babel-register": "6.8.0",
     "bcrypt-nodejs": "0.0.3",

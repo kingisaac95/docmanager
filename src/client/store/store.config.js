@@ -5,7 +5,6 @@ import rootReducer from '../reducers';
 export default function storeConfig(initialState) {
   return createStore(
     rootReducer,
-    initialState,
-    {/* applyMiddleware(reduxImmutableStateInvariant())*/}
+    initialState
   );
 }
