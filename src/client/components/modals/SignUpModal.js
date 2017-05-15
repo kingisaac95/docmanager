@@ -1,6 +1,36 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { createUser } from '../../actions/SignUpActions';
 
 class SignUpModal extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: '',
+      username: '',
+      email: '',
+      roleId: 3,
+      password: ''
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onClickSubmit = this.onClickSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    $(ReactDOM.findDOMNode(this.refs.role)).on('change', this.onChange);
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name ]: e.target.value });
+  }
+
+  onClickSubmit() {
+    this.props.dispatch(createUser(this.state));
+  }
+
   render() {
     return (
       <div id="signUpModal" className="modal">
@@ -16,34 +46,57 @@ class SignUpModal extends React.Component {
             <form className="col s12">
               <div className="row modal-form-row">
                 <div className="input-field col s12">
-                  <input id="fullName" type="text" className="validate" />
-                  <label htmlFor="fullName">Full Name</label>
+                  <input
+                    onChange={this.onChange}
+                    name="name"
+                    type="text"
+                    className="validate"
+                  />
+                  <label htmlFor="name">Full Name</label>
                 </div>
               </div>
               <div className="row">
                 <div className="input-field col s12">
-                  <input id="email" type="email" className="validate" />
+                  <input
+                    onChange={this.onChange}
+                    name="email"
+                    type="email"
+                    className="validate"
+                  />
                   <label htmlFor="email">Email</label>
                 </div>
               </div>
               <div className="row">
                 <div className="input-field col s12">
-                  <input id="username" type="text" className="validate" />
+                  <input
+                    onChange={this.onChange}
+                    name="username"
+                    type="text"
+                    className="validate"
+                  />
                   <label htmlFor="username">Username</label>
                 </div>
               </div>
               <div className="row">
                 <div className="input-field col s12">
-                  <select id="role">
-                    <option value="Author">Author</option>
-                    <option value="Contributor">Contributor</option>
+                  <select
+                    ref="role"
+                    name="roleId"
+                    onChange={this.onChange}>
+                    <option value="3">Author</option>
+                    <option value="4">Contributor</option>
                   </select>
                   <label htmlFor="role">Role?</label>
                 </div>
               </div>
               <div className="row">
                 <div className="input-field col s12">
-                  <input id="password" type="password" className="validate" />
+                  <input
+                    onChange={this.onChange}
+                    name="password"
+                    type="password"
+                    className="validate"
+                  />
                   <label htmlFor="password">Password</label>
                 </div>
               </div>            
@@ -54,6 +107,7 @@ class SignUpModal extends React.Component {
           <button
             className="btn-large waves-effect waves-light deep-grey-bg"
             type="submit"
+            onClick={this.onClickSubmit}
             name="action">
             <i className="material-icons left">done</i>Register
           </button>
@@ -63,4 +117,15 @@ class SignUpModal extends React.Component {
   }
 }
 
-export default SignUpModal;
+SignUpModal.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+function mapStateToProps(state, props) {
+  return {
+    creating: state.signUp.creating,
+    user: state.signUp.user
+  };
+}
+
+export default connect(mapStateToProps)(SignUpModal);

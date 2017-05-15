@@ -1,26 +1,10 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import request from 'axios';
+import { loadUsers } from '../actions/UserActions';
 import AddUserModal from './modals/AddUserModal';
-
-const User = ({user}) => (
-  <div className="col s12 m3">
-    <div className="card">
-      <div className="card-content center-align">
-        <i className="fa fa-user fa-5x" />
-      </div>
-      <div className="blue-bg">
-        <div className="card-action white-color">
-          <h6>Name: <span>{user.name}</span></h6>
-          <h6>Role: <span>{user.role}</span></h6>
-          <h6>Email: <br />
-            <span>{user.email}</span>
-          </h6>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+import UserCard from './UserCard';
 
 class UserPage extends React.Component {
   constructor(props) {
@@ -35,14 +19,9 @@ class UserPage extends React.Component {
       users: []
     };
   }
+
   componentWillMount() {
-    request.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzSW4iOjg2NDAwLCJ1c2VyRGF0YSI6eyJuYW1lIjoiS2luZ2RvbSBPcmppZXd1cnUiLCJ1c2VybmFtZSI6Imtpbmdpc2FhYzk1IiwiZW1haWwiOiJraW5nZG9tLm9yamlld3VydUBhbmRlbGEuY29tIiwicm9sZSI6MSwidXNlcklkIjoxfSwiaWF0IjoxNDk0NjI5ODMzfQ.KKBgv5WdCssmVb1pqF8AYTcR4yDqkYdmpB-siTbwfjE';
-    request.get('http://localhost:8000/api/v1/users')
-      .then((res) => {
-        this.setState({users: res.data});
-      }, (err) => {
-        return err.response.data.message;
-      });
+    // this.props.dispatch(loadUsers());
   }
 
   openAddUserModal() {
@@ -51,6 +30,12 @@ class UserPage extends React.Component {
 
 
   render() {
+    if(this.props.loading){
+      return (
+        <div className="space">
+          <div>Loading documents...</div>
+        </div>);
+    }
     return (
       <div>
         <div className="fixed-action-btn horizontal right">
@@ -77,9 +62,10 @@ class UserPage extends React.Component {
             </div>
           </div>
 
-          {this.state.users
-            .map((user) =>
-              <User key={user.id} user={user} />
+          {this.props.users
+            .map((user) => <UserCard
+              key={user.id}
+              user={user} />
           )}
 
           <div className="row">
@@ -109,8 +95,16 @@ class UserPage extends React.Component {
   }
 }
 
-User.propTypes = {
-  user: PropTypes.object.isRequired
+UserPage.propTypes = {
+  users: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
-export default UserPage;
+function mapStateToProps(state, props) {
+  return {
+    loading: state.users.loading,
+    users: state.users.users
+  };
+}
+
+export default connect(mapStateToProps)(UserPage);

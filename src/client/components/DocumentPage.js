@@ -1,36 +1,9 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import request from 'axios';
 import AddDocumentModal from './modals/AddDocumentModal';
-
-const Document = ({document}) => (
-  <div className="col s12 m3">
-    <div className="card">
-      <div className="card-header blue-bg">
-        <h6 className="white-color">{document.title}
-          <span className="right" id="view">
-            <Link
-              to="#" id="view-icon" href="#" className="white-color">
-              <i className="material-icons">visibility</i>
-            </Link>
-            <Link
-              to="#" id="edit-icon" className="white-color">
-              <i className="material-icons">edit</i>
-            </Link>
-          </span>
-        </h6>
-      </div>
-      <div className="card-content doc-card">
-        <p>{document.content}</p>
-      </div>
-      <div className="card-action" id="card-action">
-        <h6>Created By: <br />
-          <span className="blue-color">{document.author}</span>
-        </h6>
-      </div>
-    </div>
-  </div>
-);
+import { loadDocuments } from '../actions/DocumentActions';
+import DocumentCard from './DocumentCard';
 
 class DocumentPage extends React.Component {
   constructor(props) {
@@ -47,13 +20,7 @@ class DocumentPage extends React.Component {
   }
 
   componentWillMount() {
-    request.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzSW4iOjg2NDAwLCJ1c2VyRGF0YSI6eyJuYW1lIjoiS2luZ2RvbSBPcmppZXd1cnUiLCJ1c2VybmFtZSI6Imtpbmdpc2FhYzk1IiwiZW1haWwiOiJraW5nZG9tLm9yamlld3VydUBhbmRlbGEuY29tIiwicm9sZSI6MSwidXNlcklkIjoxfSwiaWF0IjoxNDk0NjI5ODMzfQ.KKBgv5WdCssmVb1pqF8AYTcR4yDqkYdmpB-siTbwfjE';
-    request.get('http://localhost:8000/api/v1/documents')
-      .then((res) => {
-        this.setState({documents: res.data});
-      }, (err) => {
-        console.log('error', err.response.data.message);
-      });
+    this.props.dispatch(loadDocuments());
   }
 
   openDocumentModal() {
@@ -61,6 +28,12 @@ class DocumentPage extends React.Component {
   }
   
   render() {
+    if(this.props.loading){
+      return (
+        <div className="space">
+          <div>Loading documents...</div>
+        </div>);
+    }
     return (
       <div>
         <div className="fixed-action-btn horizontal right">
@@ -93,8 +66,8 @@ class DocumentPage extends React.Component {
             </div>
           </div>
           
-          {this.state.documents
-            .map((document) => <Document
+          {this.props.documents
+            .map((document) => <DocumentCard
               key={document.id}
               document={document} />
           )}
@@ -127,8 +100,17 @@ class DocumentPage extends React.Component {
   }
 }
 
-Document.propTypes = {
-  document: PropTypes.object.isRequired
+DocumentPage.propTypes = {
+  documents: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default DocumentPage;
+function mapStateToProps(state, props) {
+  return {
+    loading: state.documents.loading,
+    documents: state.documents.documents
+  };
+}
+
+export default connect(mapStateToProps)(DocumentPage);

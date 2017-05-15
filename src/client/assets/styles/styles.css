@@ -14,7 +14,10 @@ body {
   width: 80%;
 }
 
-nav ul a, nav .brand-logo {
+nav ul a {
+  color: #03a9f4;
+}
+nav .brand-logo {
   color: #767b8d;
 }
 
@@ -58,7 +61,7 @@ nav .input-field .label-icon i {
 }
 
 #user {
-  color: black;
+  color: #000;
   padding-top: 15px;
 }
 

@@ -5,7 +5,7 @@ dotenv.config();
 
 export default {
   authorize(req, res, next) {
-    const token = req.headers.authorization || req.headers['x-access-token'];
+    const token = req.headers.authorization;
     if (token) {
       // verify token
       jwt.verify(token, process.env.SECRETE_KEY, (error, decoded) => {

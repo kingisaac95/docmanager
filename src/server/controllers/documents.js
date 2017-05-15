@@ -40,7 +40,10 @@ export default {
     }
 
     return Document
-      .findAll(options)
+      .findAll({
+        options,
+        include: [models.User]
+      })
       .then(documents => {
         if (documents < 1) {
           return res.status(404).json({

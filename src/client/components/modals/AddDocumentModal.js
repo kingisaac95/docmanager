@@ -29,9 +29,7 @@ class AddDocumentModal extends React.Component {
   onClickSave(event) {
     this.props.actions.createDocument(this.state);
   }
-  documentRow(document, index) {
-    return <div key={index}>{document.title}</div>;
-  }
+  
 
   render() {
     return (
@@ -43,7 +41,6 @@ class AddDocumentModal extends React.Component {
               * Note that all fields are required *
             </h6>
           </div>
-          {this.props.documents.map(this.documentRow)}
           <div className="row">
             <div className="col s12">
               <div className="row modal-form-row">
@@ -95,21 +92,9 @@ class AddDocumentModal extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-    documents: state.documents
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(documentActions, dispatch)
-  };
-}
-
 AddDocumentModal.propTypes = {
-  actions: PropTypes.object.isRequired,
-  documents: PropTypes.array.isRequired
+  actions: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddDocumentModal);
+
+export default connect()(AddDocumentModal);

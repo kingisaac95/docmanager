@@ -9,47 +9,54 @@ const User = models.User;
 
 export default {
   login(req, res) {
-    return User
-      .findOne({
-        where: {
-          username: req.body.username
-        }
-      })
-      .then(user => {
-        if (!user) {
-          return res.status(404).json({
-            status: 404,
-            message: "Authentication failed! User not found."
-          });
-        } else if (user.matchPassword(req.body.password)) {
-          const userData = {
-            name: user.name,
-            username: user.username,
-            email: user.email,
-            role: user.RoleId,
-            userId: user.id
-          };
-          // create token
-          const token = jwt.sign({
-            expiresIn: 86400,
-            userData
-          }, process.env.SECRETE_KEY);
+    if(req.body.username === '' || req.body.password === '') {
+      res.status(400).json({
+        status: 'Bad Request',
+        message: 'Fields cannot be empty'
+      });
+    } else {
+      return User
+        .findOne({
+          where: {
+            username: req.body.username
+          }
+        })
+        .then(user => {
+          if (!user) {
+            return res.status(404).json({
+              status: 404,
+              message: "Authentication failed! User not found."
+            });
+          } else if (user.matchPassword(req.body.password)) {
+            const userData = {
+              name: user.name,
+              username: user.username,
+              email: user.email,
+              role: user.RoleId,
+              userId: user.id
+            };
+            // create token
+            const token = jwt.sign({
+              expiresIn: 86400,
+              userData
+            }, process.env.SECRETE_KEY);
 
-          // return token
-          res.status(200).json({
-            status: 200,
-            message: "Authentication successful!",
-            token: token
-          });
-        } else {
-          res.status(401).json({
-            status: 401,
-            password: user.matchPassword(req.body.password),
-            message: "Authentication failed! Wrong user credentials."
-          });
-        }
-      })
-      .catch(error => res.status(400).send(error));
+            // return token
+            res.status(200).json({
+              status: 200,
+              message: "Authentication successful!",
+              token: token
+            });
+          } else {
+            res.status(401).json({
+              status: 401,
+              password: user.matchPassword(req.body.password),
+              message: "Authentication failed! Wrong user credentials."
+            });
+          }
+        })
+        .catch(error => res.status(400).send(error));
+    }
   },
   logout(req, res) {
     res.setHeader['x-access-token'] = ' ';
@@ -61,7 +68,7 @@ export default {
   },
   create(req, res) {
     if(req.body.name && req.body.username && req.body.email
-      && req.body.password && req.body.roleId) {
+      && req.body.password && req.body.RoleId) {
       User
         .findOne({
           where: {
@@ -75,8 +82,7 @@ export default {
                 name: user.name,
                 username: user.username,
                 email: user.email,
-                role: user.RoleId,
-                userId: user.id
+                role: parseInt(user.RoleId),
               })
               .then(user => {
                 const userData = {
@@ -128,7 +134,10 @@ export default {
       };
     }
     return User
-      .findAll(options)
+      .findAll({
+        options,
+        include:[models.Role]
+      })
       .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
   },
