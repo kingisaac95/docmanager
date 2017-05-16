@@ -6,6 +6,7 @@ import { logout } from '../../actions/LogoutActions';
 
 class DashboardNavbar extends React.Component {
   logout(e) {
+    e.preventDefault();
     this.props.logout();
   }
 
@@ -44,24 +45,24 @@ class DashboardNavbar extends React.Component {
             <div className="col s6 hide-on-med-and-down">
               <ul className="right">
                 <li>
-                  <Link to="dashboard">
+                  <Link to="/dashboard">
                     <i className="material-icons left">home</i>Dashboard
                   </Link>
                 </li>
                 <li>
-                  <Link to="documents">
+                  <Link to="/documents">
                     <i className="material-icons left">description</i>Documents
                   </Link>
                 </li>
                 <li>
-                  <Link to="users">
+                  <Link to="/users">
                     <i className="material-icons left">list</i>Users
                   </Link>
                 </li>
                 <li>
-                  <a href="" onClick={this.logout.bind(this)}>
+                  <Link to="/" onClick={this.logout.bind(this)}>
                     <i className="material-icons left">list</i>Logout
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

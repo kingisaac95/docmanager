@@ -1,16 +1,11 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { createDocument } from '../../actions/DocumentActions';
+import { updateDocument } from '../../actions/DocumentActions';
 
-class AddDocumentModal extends React.Component {
+class EditDocumentModal extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      title: '',
-      access: '',
-      content: ''
-    };
 
     this.onClickSave = this.onClickSave.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -29,13 +24,15 @@ class AddDocumentModal extends React.Component {
   }
 
   onClickSave() {
-    this.props.dispatch(createDocument(this.state));
+    this.props.dispatch(updateDocument(this.state));
   }
   
 
   render() {
+    const { document } = this.props;
+
     return (
-      <div id="addDocumentModal" className="modal">
+      <div id="editDocumentModal" className="modal">
         <div className="modal-content">
           <div className="center-align">
             <h5 className="blue-color">Add New Document</h5>
@@ -51,7 +48,7 @@ class AddDocumentModal extends React.Component {
                     name="title"
                     type="text"
                     onChange={this.onChange}
-                    value={this.state.title}
+                    value={document.title}
                     className="validate" />
                   <label htmlFor="title">Title</label>
                 </div>
@@ -61,7 +58,7 @@ class AddDocumentModal extends React.Component {
                   <select
                     ref="access"
                     name="access"
-                    value={this.state.access}
+                    value={document.access}
                     onChange={this.onChange}>
                     <option disabled >Select Access</option>
                     <option value="Private">Private</option>
@@ -76,7 +73,7 @@ class AddDocumentModal extends React.Component {
                   name="content"
                   className="materialize-textarea"
                   onChange={this.onChange}
-                  value={this.state.content} />
+                  value={document.content} />
                 <label htmlFor="content">Content</label>
               </div>
             </div>
@@ -87,22 +84,29 @@ class AddDocumentModal extends React.Component {
             className="btn-large waves-effect waves-light blue-bg"
             type="submit"
             name="action"
-            onClick={this.onClickSave} >Add Document</button>
+            onClick={this.onClickSave} >Update Document</button>
         </div>
       </div>
     );
   }
 }
 
-AddDocumentModal.propTypes = {
-  dispatch: PropTypes.func.isRequired
+EditDocumentModal.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  document: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
-  return {
-    creating: state.document.creating,
-    document: state.document.document
-  };
+function mapStateToProps(state, ownProps) {
+  // console.log(ownProps)
+  // const documentId = ownProps.params.id;
+  let document = {};
+  // state.documents.documents.forEach(doc => {
+  //   const curDocId = String(doc.id);
+  //   if (curDocId === documentId) {
+  //     document = doc;
+  //   }
+  // });
+  return { document };
 }
 
-export default connect(mapStateToProps)(AddDocumentModal);
+export default connect(mapStateToProps)(EditDocumentModal);

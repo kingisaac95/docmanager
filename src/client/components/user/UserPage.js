@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import request from 'axios';
-import { loadUsers } from '../actions/UserActions';
-import AddUserModal from './modals/AddUserModal';
+import { loadUsers } from '../../actions/UserActions';
+import AddUserModal from '../modals/AddUserModal';
 import UserCard from './UserCard';
 
 class UserPage extends React.Component {
@@ -18,10 +18,12 @@ class UserPage extends React.Component {
       },
       users: []
     };
+    this.props.dispatch(loadUsers());
   }
 
-  componentWillMount() {
-    // this.props.dispatch(loadUsers());
+  componentDidMount() {
+    $('select').material_select();
+    $('.modal').modal();
   }
 
   openAddUserModal() {
@@ -98,6 +100,7 @@ class UserPage extends React.Component {
 UserPage.propTypes = {
   users: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, props) {

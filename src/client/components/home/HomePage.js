@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUpModal from './modals/SignUpModal';
+import SignUpModal from '../modals/SignUpModal';
 import SignInForm from './SignInForm';
 
 class HomePage extends React.Component {

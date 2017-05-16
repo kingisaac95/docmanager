@@ -107,7 +107,8 @@ export default {
       .findAll({
         where: {
           UserId: req.params.userId
-        }
+        },
+        include: [models.User]
       })
       .then(document => {
         if (document < 1) {

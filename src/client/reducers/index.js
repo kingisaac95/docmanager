@@ -4,13 +4,15 @@ import signUp from './SignUpReducer';
 import signIn from './SignInReducer';
 import auth from './AuthenticationReducer';
 import users from './UserReducer';
+import document from './AddDocumentReducer';
 
 const rootReducer = combineReducers({
   documents,
   signUp,
   signIn,
   auth,
-  users
+  users,
+  document
 });
 
 export default rootReducer;

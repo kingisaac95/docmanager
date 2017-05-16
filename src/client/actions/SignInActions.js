@@ -11,7 +11,8 @@ export function willSignInUser() {
 export function signInUser(userData) {
   return dispatch => {
     dispatch(willSignInUser());
-    request.post('http://localhost:8000/api/v1/users/login', userData)
+
+    return request.post('http://localhost:8000/api/v1/users/login', userData)
       .then(res => {
 
         // add token to local storage

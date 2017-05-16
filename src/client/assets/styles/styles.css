@@ -23,6 +23,7 @@ nav .brand-logo {
 
 nav {
   background: #fefefe;
+  border-bottom: 4px solid #03a9f4;
   padding: 0 60px;
 }
 
@@ -112,6 +113,7 @@ nav .input-field .label-icon i {
 }
 
 .dashboard-body {
+  background-color: #eee;
   background-color: rgba(0,0,0,.1);
 }
 
@@ -129,6 +131,10 @@ nav .input-field .label-icon i {
 
 .card-header {
   border-bottom: 1px solid rgba(160,160,160,0.2)
+}
+
+#card-content {
+  padding: 10px;
 }
 
 .pagination li a {
@@ -178,7 +184,7 @@ nav .input-field .label-icon i {
   color: #03a9f4;
 	border-radius: 5px;
 	background: #ffffff;
-	z-index: 1000;
+	z-index: 1;
 	position: absolute;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -191,7 +197,7 @@ nav .input-field .label-icon i {
   color: #03a9f4;
 	border-radius: 5px;
 	background: #ffffff;
-	z-index: 1000;
+	z-index: 1;
 	position: absolute;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -200,11 +206,15 @@ nav .input-field .label-icon i {
   transform:translate(-50%,-50%)
 }
 
-.doc-card {
-  height: 180px;
+.doc-card, .user-card {
+  height: 200px;
   overflow: hidden;
 }
 
 #signUpModal {
   max-height: 80%;
+}
+
+.doc-access {
+  z-index: 2;
 }

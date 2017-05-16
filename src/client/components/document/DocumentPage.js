@@ -1,8 +1,12 @@
 import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import AddDocumentModal from './modals/AddDocumentModal';
-import { loadDocuments } from '../actions/DocumentActions';
+import AddDocumentModal from '../modals/AddDocumentModal';
+import {
+    loadDocuments,
+    loadUserDocuments
+  } from '../../actions/DocumentActions';
 import DocumentCard from './DocumentCard';
 
 class DocumentPage extends React.Component {
@@ -17,16 +21,30 @@ class DocumentPage extends React.Component {
       },
       documents: []
     };
+    this.props.dispatch(loadDocuments());
+
+    this.roleChange = this.roleChange.bind(this);
   }
 
-  componentWillMount() {
-    this.props.dispatch(loadDocuments());
+  componentDidMount() {
+    $('select').material_select();
+    $('.modal').modal();
+    $(ReactDOM.findDOMNode(this.refs.role)).on('change', this.roleChange);
   }
 
   openDocumentModal() {
     $('#addDocumentModal').modal('open');
   }
   
+  roleChange(e) {
+    if(e.target.value === 'private') {
+      this.props.dispatch(loadUserDocuments());
+    }
+    if(e.target.value === 'public') {
+      this.props.dispatch(loadDocuments());
+    }
+  }
+
   render() {
     if(this.props.loading){
       return (
@@ -53,16 +71,20 @@ class DocumentPage extends React.Component {
 
         <div className="container row">
           <div className="row intro">
-            <div className="col m8">
-              <h5>Documents</h5>
-            </div>
-
-            <div className="col m4 owner-select right">
-              <select>
-                <option value="1">Public Access</option>
-                <option value="2">Role Access</option>
-                <option value="1">My documents</option>
-              </select>
+            <div className="col m12">
+              <div className="left">
+                <h5>Documents</h5>
+              </div>
+              <div className="doc-access right">
+                <select
+                  ref="role"
+                  onChange={this.roleChange}
+                >
+                  <option value="public">Public Access</option>
+                  <option value="role">Role Access</option>
+                  <option value="private">My documents</option>
+                </select>
+              </div>
             </div>
           </div>
           
@@ -106,7 +128,7 @@ DocumentPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
     loading: state.documents.loading,
     documents: state.documents.documents

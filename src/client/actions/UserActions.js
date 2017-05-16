@@ -22,7 +22,6 @@ export function getAllUsersFailed() {
 }
 export function loadUsers() {
   return dispatch => {
-    dispatch(getAllUsers());
     request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
     request.get('http://localhost:8000/api/v1/users')
       .then((res) => {

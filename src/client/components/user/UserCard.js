@@ -12,7 +12,7 @@ export default class UserCard extends React.Component{
             <i className="fa fa-user fa-5x" />
           </div>
           <div className="blue-bg">
-            <div className="card-action white-color">
+            <div className="card-action white-color user-card">
               <h6>Name: <span>{user.name}</span></h6>
               <h6>Role: <span>{user.Role.title}</span></h6>
               <h6>Email: <br />

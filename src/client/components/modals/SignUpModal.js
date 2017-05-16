@@ -20,6 +20,8 @@ class SignUpModal extends React.Component {
   }
 
   componentDidMount() {
+    $('select').material_select();
+    $('.modal').modal();
     $(ReactDOM.findDOMNode(this.refs.role)).on('change', this.onChange);
   }
 

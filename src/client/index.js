@@ -13,7 +13,7 @@ import '../../node_modules/materialize-css/dist/js/materialize.min';
 import '../../node_modules/materialize-css/dist/css/materialize.min.css';
 import './assets/styles/styles.css';
 import './assets/styles/material-icons.css';
-import './assets/styles/fontsAndAnimations.css';
+import './assets/styles/fonts.css';
 
 const store = storeConfig();
 

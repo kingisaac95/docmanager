@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { signInUser } from '../actions/SignInActions';
+import { signInUser } from '../../actions/SignInActions';
 
 class SignInForm extends React.Component {
   constructor(props) {
@@ -11,17 +11,19 @@ class SignInForm extends React.Component {
       password: ''
     };
 
-    this.onChnage = this.onChnage.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChnage(e) {
+  onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit() {
-    this.props.dispatch(signInUser(this.state));
-    this.context.router.push('/dashboard');
+    this.props.signInUser(this.state)
+      .then(() => {
+        this.context.router.push('/dashboard');
+      });
   }
 
   render() {
@@ -37,7 +39,7 @@ class SignInForm extends React.Component {
             <div className="row modal-form-row">
               <div className="input-field col s12">
                 <input
-                  onChange={this.onChnage}
+                  onChange={this.onChange}
                   name="username"
                   type="text"
                   className="validate" />
@@ -47,7 +49,7 @@ class SignInForm extends React.Component {
             <div className="row">
               <div className="input-field col s12">
                 <input
-                  onChange={this.onChnage}
+                  onChange={this.onChange}
                   name="password"
                   type="password"
                   className="validate" />
@@ -71,7 +73,7 @@ class SignInForm extends React.Component {
 }
 
 SignInForm.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  signInUser: PropTypes.func.isRequired
 };
 
 SignInForm.contextTypes = {
@@ -81,8 +83,8 @@ SignInForm.contextTypes = {
 function mapStateToProps(state) {
   return {
     signingIn: state.signIn.signingIn,
-    user: state.signIn.user
+    user: state.signIn.user,
   };
 }
 
-export default connect(mapStateToProps)(SignInForm);
+export default connect(mapStateToProps, { signInUser })(SignInForm);
