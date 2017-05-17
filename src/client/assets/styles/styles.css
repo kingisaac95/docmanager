@@ -10,20 +10,20 @@ body {
   background-position: left center;
 }
 
+.single-view {
+  font-family: 'Nunito', sans-serif;
+}
+
 .container {
   width: 80%;
 }
 
-nav ul a {
-  color: #03a9f4;
-}
-nav .brand-logo {
+nav .brand-logo, nav ul a {
   color: #767b8d;
 }
 
 nav {
   background: #fefefe;
-  border-bottom: 4px solid #03a9f4;
   padding: 0 60px;
 }
 
@@ -85,11 +85,19 @@ nav .input-field .label-icon i {
 }
 
 .deep-red-color {
-  color: #a8381e
+  color: #E96D63
+}
+
+.deep-red-bg-color, .deep-red-bg-color:hover, .deep-red-bg-color:focus {
+  background-color: #E96D63
 }
 
 .blue-color {
   color: #03a9f4;
+}
+
+.black-color {
+  color: #000;
 }
 
 .deep-grey-color, #card-action {
@@ -113,8 +121,7 @@ nav .input-field .label-icon i {
 }
 
 .dashboard-body {
-  background-color: #eee;
-  background-color: rgba(0,0,0,.1);
+  background-color: #d9e0e7;
 }
 
 .home-body nav {
@@ -201,7 +208,7 @@ nav .input-field .label-icon i {
 	position: absolute;
 	padding-left: 10px;
 	padding-right: 10px;
-	left: 60%;
+	left: 80%;
   top: 0;
   transform:translate(-50%,-50%)
 }
@@ -217,4 +224,18 @@ nav .input-field .label-icon i {
 
 .doc-access {
   z-index: 2;
+}
+
+.form-labels {
+  padding: 0;
+}
+
+.delete-icon {
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+  transition: transform .8s ease-in-out;
+}
+
+.delete-icon:hover {
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
 }

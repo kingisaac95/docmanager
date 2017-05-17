@@ -4,7 +4,8 @@ import signUp from './SignUpReducer';
 import signIn from './SignInReducer';
 import auth from './AuthenticationReducer';
 import users from './UserReducer';
-import document from './AddDocumentReducer';
+import updatedDocument from './UpdateDocumentReducer';
+import deleted from './DeleteDocumentReducer';
 
 const rootReducer = combineReducers({
   documents,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   signIn,
   auth,
   users,
-  document
+  updatedDocument,
+  deleted
 });
 
 export default rootReducer;

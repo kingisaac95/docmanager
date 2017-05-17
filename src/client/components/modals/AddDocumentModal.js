@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { createDocument } from '../../actions/DocumentActions';
 
 class AddDocumentModal extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
       title: '',
       access: '',
@@ -29,7 +29,7 @@ class AddDocumentModal extends React.Component {
   }
 
   onClickSave() {
-    this.props.dispatch(createDocument(this.state));
+    this.props.createDocument(this.state);
   }
   
 
@@ -63,7 +63,6 @@ class AddDocumentModal extends React.Component {
                     name="access"
                     value={this.state.access}
                     onChange={this.onChange}>
-                    <option disabled >Select Access</option>
                     <option value="Private">Private</option>
                     <option value="Public">Public</option>
                     <option value="Role">Role</option>
@@ -84,25 +83,31 @@ class AddDocumentModal extends React.Component {
         </div>
         <div className="modal-footer">
           <button
-            className="btn-large waves-effect waves-light blue-bg"
-            type="submit"
+          className="modal-close btn-large right waves-effect blue-bg"
             name="action"
             onClick={this.onClickSave} >Add Document</button>
+          <button
+          className="modal-close left btn-large waves-effect deep-red-bg-color"
+            name="action">Cancel</button>
         </div>
       </div>
     );
   }
 }
 
+AddDocumentModal.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
 AddDocumentModal.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  createDocument: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    creating: state.document.creating,
-    document: state.document.document
+    creating: document.creating,
+    documents: state.documents
   };
 }
 
-export default connect(mapStateToProps)(AddDocumentModal);
+export default connect(mapStateToProps, { createDocument })(AddDocumentModal);

@@ -2,7 +2,9 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import ReactPaginate from 'react-paginate';
 import AddDocumentModal from '../modals/AddDocumentModal';
+
 import {
     loadDocuments,
     loadUserDocuments
@@ -46,12 +48,6 @@ class DocumentPage extends React.Component {
   }
 
   render() {
-    if(this.props.loading){
-      return (
-        <div className="space">
-          <div>Loading documents...</div>
-        </div>);
-    }
     return (
       <div>
         <div className="fixed-action-btn horizontal right">
@@ -80,16 +76,14 @@ class DocumentPage extends React.Component {
                   ref="role"
                   onChange={this.roleChange}
                 >
-                  <option value="public">Public Access</option>
-                  <option value="role">Role Access</option>
+                  <option value="public">Public / Role</option>
                   <option value="private">My documents</option>
                 </select>
               </div>
             </div>
           </div>
           
-          {this.props.documents
-            .map((document) => <DocumentCard
+          {this.props.documents.map(document => <DocumentCard
               key={document.id}
               document={document} />
           )}
@@ -124,7 +118,6 @@ class DocumentPage extends React.Component {
 
 DocumentPage.propTypes = {
   documents: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

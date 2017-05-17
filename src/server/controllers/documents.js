@@ -136,7 +136,7 @@ export default {
           .update({
             title: req.body.title,
             content: req.body.content,
-            UserId: req.decoded.userData.username,
+            UserId: req.decoded.userData.userId,
             RoleId: req.decoded.userData.role,
             access: req.body.access
           })

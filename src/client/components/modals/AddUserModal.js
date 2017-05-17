@@ -55,10 +55,13 @@ class AddUserModal extends React.Component {
         </div>
         <div className="modal-footer">
           <button
-            className="btn-large waves-effect waves-light blue-bg"
+            className="btn-large right waves-effect waves-light blue-bg"
             type="submit"
             name="action">
             Add User</button>
+          <button
+          className="modal-close left btn-large waves-effect deep-red-bg-color"
+            name="action">Cancel</button>
         </div>
       </div>
     );

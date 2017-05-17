@@ -16,8 +16,7 @@ class DocumentSingleView extends React.Component {
             </span>
           </h6>
           <h5 className="center-align">{document.title}</h5>
-          <div className="space" />
-          <p>{document.content}</p>
+          <p className="single-view">{document.content}</p>
           <hr />
           <p>
             <span>

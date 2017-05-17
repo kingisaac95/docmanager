@@ -13,9 +13,10 @@ export function createDocumentFailure() {
 export function createDocument(document) {
   return dispatch => {
     request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
-    request.post('http://localhost:8000/api/v1/documents', document)
+    return request.post('http://localhost:8000/api/v1/documents', document)
       .then(res => {
         dispatch(createDocumentSuccess(res.data));
+        dispatch(loadDocuments());
       }, err => {
         dispatch(createDocumentFailure());
         throw('error', err.response.data.message);
@@ -23,12 +24,52 @@ export function createDocument(document) {
   };
 }
 
-export function updateDocument(document) {
-  return { type: types.UPDATE_DOCUMENT, document };
+export function updateDocument(id, document) {
+  return dispatch => {
+    request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
+    const user = jwt.decode(localStorage.jwtToken);
+    const userId = user.userData.userId;
+    return request
+      .put(`http://localhost:8000/api/v1/documents/${id}`, document)
+        .then(res => {
+          dispatch(updateDocumentSuccess(res.data));
+          dispatch(loadDocuments());
+        }, err => {
+          dispatch(updateDocumentFailure());
+          throw('error', err.response.data.message);
+        });
+  };
+}
+
+export function updateDocumentSuccess(document) {
+  return { type: types.UPDATE_DOCUMENT_SUCCESS, document };
+}
+
+export function updateDocumentFailure(document) {
+  return { type: types.UPDATE_DOCUMENT_FAILURE, document };
 }
 
 export function deleteDocument(document) {
-  return { type: types.DELETE_DOCUMENT, document };
+  return dispatch => {
+    request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
+    return request
+      .delete(`http://localhost:8000/api/v1/documents/${document}`)
+        .then(res => {
+          dispatch(deleteDocumentSuccess(res.data));
+          dispatch(loadDocuments());
+        }, err => {
+          dispatch(deleteDocumentFailure());
+          throw('error', err.response.data.message);
+        });
+  };
+}
+
+export function deleteDocumentSuccess(document) {
+  return { type: types.DELETE_DOCUMENT_SUCCESS, document };
+}
+
+export function deleteDocumentFailure(document) {
+  return { type: types.DELETE_DOCUMENT_FAILURE, document };
 }
 
 export function getAllDocumentsSuccess(documents) {

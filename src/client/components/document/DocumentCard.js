@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
-import { connect } from 'react-redux';
-import EditDocumentModal from '../modals/EditDocumentModal';
+import DeleteDocumentModal from '../modals/DeleteDocumentModal';
 
 class DocumentCard extends React.Component{
   constructor(props) {
     super(props);
+    this.state = {
+      documentId: this.props.document.id
+    };
   }
 
   componentDidMount() {
@@ -15,47 +17,62 @@ class DocumentCard extends React.Component{
     $(ReactDOM.findDOMNode(this.refs.role)).on('change', this.roleChange);
   }
 
-  openEditDocumentModal() {
-    alert('baa');
-    $('#editDocumentModal').modal('open');
+  openDeleteDocumentModal(id) {
+    $(`#deleteDocumentModal-${id}`).modal('open');
   }
 
   render() {
     const { document } = this.props;
+    
     return(
       <div className="col s12 m3">
         <div className="card">
           <div className="card-header blue-bg">
-            <h6 className="white-color">{document.title}
+            <h6 
+              className="white-color center-align">
+              {document.title.substring(0, 20)}...
               <span className="right" id="view">
-                <Link
-                  to={'documents/' + document.id}
+                {/*<Link
+                  to={'documents/' + document.id + '/view'}
                   id="view-icon"
                   className="white-color">
                   <i className="material-icons">visibility</i>
-                </Link>
-                <a
+                </Link>*/}
+                <Link
+                  to={'documents/' + document.id + '/edit'}
                   style={{cursor: 'pointer'}}
-                  onClick={this.openDocumentModal}
-                  to=""
                   id="edit-icon"
                   className="white-color">
                   <i className="material-icons">edit</i>
-                </a>
+                </Link>
               </span>
             </h6>
           </div>
-          <div id="card-content" className="card-content doc-card">
-            <p>{document.content}</p>
-          </div>
+          <Link
+            to={'documents/' + document.id + '/view'}
+            className="black-color">
+            <div id="card-content" className="card-content doc-card">
+              <p>{document.content.substring(0, 206)}...</p>
+            </div>
+          </Link>
           <div className="card-action" id="card-action">
-            <h6>Created By: <br />
-              <span className="blue-color">{document.User.name}</span>
+            <h6>Created By: 
+              <span
+                onClick={() => this.openDeleteDocumentModal(document.id)}
+                className="right deep-red-color delete-icon"
+                style={{cursor: 'pointer'}}>
+                <i className="material-icons small">delete</i>
+              </span>
+              <br />
+              <span className="blue-color">
+                {document.User.name.substring(0, 15)}..
+              </span>
             </h6>
           </div>
         </div>
 
-        <EditDocumentModal />
+        <DeleteDocumentModal document={document} />
+        
       </div>
     );
   }
