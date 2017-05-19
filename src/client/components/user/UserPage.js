@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import request from 'axios';
+import { Pagination } from 'react-materialize';
 import { loadUsers } from '../../actions/UserActions';
 import AddUserModal from '../modals/AddUserModal';
 import UserCard from './UserCard';
@@ -18,7 +19,8 @@ class UserPage extends React.Component {
       },
       users: []
     };
-    this.props.dispatch(loadUsers());
+
+    this.props.loadUsers(0);
   }
 
   componentDidMount() {
@@ -32,11 +34,15 @@ class UserPage extends React.Component {
 
 
   render() {
-    if(this.props.loading){
-      return (
-        <div className="space">
-          <div>Loading documents...</div>
-        </div>);
+    let pageInfo;
+    let pageCount;
+    let currentPage;
+    if (Object.keys(this.props.users).length !== 0) {
+
+      if (this.props.paginationDetails !== undefined) {
+        pageCount = this.props.paginationDetails.pageCount;
+        currentPage = this.props.paginationDetails.currentPage;
+      }
     }
     return (
       <div>
@@ -72,21 +78,12 @@ class UserPage extends React.Component {
 
           <div className="row">
             <div className="col m12 center-align">
-              <ul className="pagination">
-                <li className="disabled">
-                  <a href="">
-                    <i className="material-icons">chevron_left</i>
-                  </a>
-                </li>
-                <li className="active">
-                  <a href="">Page 1</a>
-                </li>
-                <li className="waves-effect">
-                  <a href="">
-                    <i className="material-icons">chevron_right</i>
-                  </a>
-                </li>
-              </ul>
+              <Pagination
+                items={pageCount}
+                activePage={currentPage}
+                maxButtons={6}
+                onSelect={this.onClick}
+              />
             </div>
           </div>
 
@@ -97,17 +94,22 @@ class UserPage extends React.Component {
   }
 }
 
+UserPage.defaultProps = {
+  users: [],
+  paginationDetails: {},
+};
+
 UserPage.propTypes = {
   users: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  loadUsers: PropTypes.func.isRequired,
+  paginationDetails: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state, props) {
   return {
-    loading: state.users.loading,
-    users: state.users.users
+    users: state.users.data,
+    paginationDetails: state.users.paginationDetails
   };
 }
 
-export default connect(mapStateToProps)(UserPage);
+export default connect(mapStateToProps, { loadUsers })(UserPage);

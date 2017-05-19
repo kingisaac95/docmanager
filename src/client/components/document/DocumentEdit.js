@@ -31,11 +31,16 @@ class DocumentEdit extends React.Component {
 
   onClickUpdate(id) {
     this.props.updateDocument(id, this.state).then(() => {
+      Materialize.toast('Document updated.', 3000, 'green');
       this.context.router.push('/documents');
     });
   }
 
   render() {
+    window.addEventListener("beforeunload", function (event) {
+      // Materialize.toast('Redirecting...', 1000, 'red');
+      this.context.router.push('/documents');
+    });
     const { document } = this.props;
     return (
       <div className="row">
@@ -109,7 +114,7 @@ DocumentEdit.contextTypes = {
 function mapStateToProps(state, ownProps) {
   const documentId = ownProps.params.id;
   let document = {};
-  state.documents.documents.forEach(doc => {
+  state.documents.data.forEach(doc => {
     const curDocId = String(doc.id);
     if (curDocId === documentId) {
       document = doc;

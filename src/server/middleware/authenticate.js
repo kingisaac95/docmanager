@@ -41,7 +41,7 @@ export default {
 
   isAdminOrUser(req, res, next) {
     const role = req.decoded.userData.role;
-    const userId = req.body.documentId;
+    const userId = req.decoded.userData.userId;
     const currentUser = req.decoded.userData.userId;
     if (role === 1 || currentUser === userId) {
       return next();

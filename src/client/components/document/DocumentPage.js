@@ -1,7 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { Pagination } from 'react-materialize';
 import ReactPaginate from 'react-paginate';
 import AddDocumentModal from '../modals/AddDocumentModal';
 
@@ -20,12 +22,12 @@ class DocumentPage extends React.Component {
         title: 'Document Title',
         content: 'Document Body',
         author: 'Document Author'
-      },
-      documents: []
+      }
     };
-    this.props.dispatch(loadDocuments());
 
+    this.props.loadDocuments(0);
     this.roleChange = this.roleChange.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
@@ -34,20 +36,34 @@ class DocumentPage extends React.Component {
     $(ReactDOM.findDOMNode(this.refs.role)).on('change', this.roleChange);
   }
 
+  onClick(pageNumber) {
+    const offset = (pageNumber - 1) * 8;
+    this.props.loadDocuments(offset);
+  }
+
   openDocumentModal() {
     $('#addDocumentModal').modal('open');
   }
   
   roleChange(e) {
     if(e.target.value === 'private') {
-      this.props.dispatch(loadUserDocuments());
-    }
-    if(e.target.value === 'public') {
-      this.props.dispatch(loadDocuments());
+      this.props.loadUserDocuments(0);
+    } else {
+      this.props.loadDocuments(0);
     }
   }
 
   render() {
+    let pageInfo;
+    let pageCount;
+    let currentPage;
+    if (Object.keys(this.props.documents).length !== 0) {
+
+      if (this.props.paginationDetails !== undefined) {
+        pageCount = this.props.paginationDetails.pageCount;
+        currentPage = this.props.paginationDetails.currentPage;
+      }
+    }
     return (
       <div>
         <div className="fixed-action-btn horizontal right">
@@ -91,21 +107,12 @@ class DocumentPage extends React.Component {
 
           <div className="row">
             <div className="col m12 center-align">
-              <ul className="pagination">
-                <li className="disabled">
-                  <a href="">
-                    <i className="material-icons">chevron_left</i>
-                  </a>
-                </li>
-                <li className="active">
-                  <a href="">Page 1</a>
-                </li>
-                <li className="waves-effect">
-                  <a href="">
-                    <i className="material-icons">chevron_right</i>
-                  </a>
-                </li>
-              </ul>
+              <Pagination
+                items={pageCount}
+                activePage={currentPage}
+                maxButtons={6}
+                onSelect={this.onClick}
+              />
             </div>
           </div>
 
@@ -116,16 +123,24 @@ class DocumentPage extends React.Component {
   }
 }
 
+DocumentPage.defaultProps = {
+  documents: [],
+  paginationDetails: {},
+};
+
 DocumentPage.propTypes = {
   documents: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  paginationDetails: PropTypes.object.isRequired,
+  loadDocuments: PropTypes.func.isRequired,
+  loadUserDocuments: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    loading: state.documents.loading,
-    documents: state.documents.documents
+    documents: state.documents.data,
+    paginationDetails: state.documents.paginationDetails
   };
 }
 
-export default connect(mapStateToProps)(DocumentPage);
+export default connect(mapStateToProps,
+  { loadDocuments, loadUserDocuments })(DocumentPage);

@@ -3,8 +3,26 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import image from '../../assets/img/icon.png';
 import { logout } from '../../actions/LogoutActions';
+import { loadDocuments, searchDocuments } from '../../actions/DocumentActions';
+import { loadUsers, searchUsers } from '../../actions/UserActions';
 
 class DashboardNavbar extends React.Component {
+  onChange(e) {
+    const query = e.target.value;
+    if (location.pathname === '/documents' && query === '') {
+      this.props.loadDocuments(0);
+    }
+    if (location.pathname === '/users' && query === '') {
+      this.props.loadUsers(0);
+    }
+    if (location.pathname === '/documents' && query !== '') {
+      this.props.searchDocuments(e.target.value);
+    }
+    if (location.pathname === '/users' && query !== '') {
+      this.props.searchUsers(e.target.value);
+    }
+  }
+
   logout(e) {
     e.preventDefault();
     this.props.logout();
@@ -29,9 +47,13 @@ class DashboardNavbar extends React.Component {
             <div className="col s2 hide-on-med-and-down">
               <form>
                 <div className="input-field">
-                  <input id="search" type="search" required />
+                  <input
+                    onChange={this.onChange.bind(this)}
+                    type="search" />
                   <label className="label-icon" htmlFor="search">
-                    <i className="material-icons">search</i>
+                    <i
+                      className="material-icons"
+                      style={{color: 'black'}}>search</i>
                   </label>
                   <i className="material-icons closed">close</i>
                 </div>
@@ -92,7 +114,11 @@ class DashboardNavbar extends React.Component {
 }
 
 DashboardNavbar.propTypes = {
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  searchDocuments: PropTypes.func.isRequired,
+  loadDocuments: PropTypes.func.isRequired,
+  searchUsers: PropTypes.func.isRequired,
+  loadUsers: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -101,4 +127,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { logout })(DashboardNavbar);
+export default connect(
+  mapStateToProps, {
+    logout,
+    searchDocuments,
+    loadDocuments,
+    searchUsers,
+    loadUsers })(DashboardNavbar);

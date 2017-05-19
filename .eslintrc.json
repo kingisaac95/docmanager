@@ -21,6 +21,9 @@
     "jquery": true,
     "mocha": true
   },
+  "globals" : {
+    "Materialize": true
+  },
   "rules": {
     "max-len":[1, 80, 2],
     "indent": [1, 2],

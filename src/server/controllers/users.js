@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt-nodejs';
 import models from '../models';
+import pagination from '../../helpers/pagination';
 
 dotenv.config();
 
@@ -127,18 +128,20 @@ export default {
       };
     }
 
-    if (req.query.limit || req.query.offset) {
-      options = {
-        limit: req.query.limit || 2,
-        offset: req.query.offset || 0
-      };
-    }
+    options.offset = req.query.offset > 0 ? req.query.offset : 0;
+    options.limit = req.query.limit > 0 ? req.query.limit : 12;
+    options.order = [['createdAt', 'DESC']];
+    options.include = [models.Role];
+
     return User
-      .findAll({
-        options,
-        include:[models.Role]
+      .findAndCountAll(options)
+      .then(data => {
+        const paginationDetails = pagination(
+          options.limit, options.offset, data.count);
+        return res.status(200).send({ 
+          data: data.rows,
+          paginationDetails });
       })
-      .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
   },
   findOne(req, res) {

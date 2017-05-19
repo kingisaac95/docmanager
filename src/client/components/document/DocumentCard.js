@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
+import jwt from 'jsonwebtoken';
 import DeleteDocumentModal from '../modals/DeleteDocumentModal';
 
 class DocumentCard extends React.Component{
@@ -23,6 +24,32 @@ class DocumentCard extends React.Component{
 
   render() {
     const { document } = this.props;
+    let edit = null, button = null;
+    const user = jwt.decode(localStorage.jwtToken);
+    if(user) {
+      const userId = user.userData.userId;
+      const role = user.userData.role;
+      if (document.User.id === userId || role === 1 || role === 2) {
+        button = (
+          <span
+            onClick={() => this.openDeleteDocumentModal(document.id)}
+            className="right deep-red-color delete-icon"
+            style={{cursor: 'pointer'}}>
+            <i className="material-icons small">delete</i>
+          </span>
+        );
+
+        edit = (
+          <Link
+              to={'documents/' + document.id + '/edit'}
+              style={{cursor: 'pointer'}}
+              id="edit-icon"
+              className="white-color">
+            <i className="material-icons">edit</i>
+          </Link>
+        );
+      }
+    }
     
     return(
       <div className="col s12 m3">
@@ -31,21 +58,7 @@ class DocumentCard extends React.Component{
             <h6 
               className="white-color center-align">
               {document.title.substring(0, 20)}...
-              <span className="right" id="view">
-                {/*<Link
-                  to={'documents/' + document.id + '/view'}
-                  id="view-icon"
-                  className="white-color">
-                  <i className="material-icons">visibility</i>
-                </Link>*/}
-                <Link
-                  to={'documents/' + document.id + '/edit'}
-                  style={{cursor: 'pointer'}}
-                  id="edit-icon"
-                  className="white-color">
-                  <i className="material-icons">edit</i>
-                </Link>
-              </span>
+              { edit }
             </h6>
           </div>
           <Link
@@ -57,12 +70,7 @@ class DocumentCard extends React.Component{
           </Link>
           <div className="card-action" id="card-action">
             <h6>Created By: 
-              <span
-                onClick={() => this.openDeleteDocumentModal(document.id)}
-                className="right deep-red-color delete-icon"
-                style={{cursor: 'pointer'}}>
-                <i className="material-icons small">delete</i>
-              </span>
+              { button }
               <br />
               <span className="blue-color">
                 {document.User.name.substring(0, 15)}..

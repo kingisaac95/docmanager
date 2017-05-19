@@ -7,6 +7,11 @@ class DocumentSingleView extends React.Component {
   }
   render() {
     const { document } = this.props;
+    const length = Object.getOwnPropertyNames(document).length;
+    if(length === 0) {
+      this.context.router.push('/documents');
+    }
+
     return (
       <div className="row">
         <div className="col m8 offset-m2">
@@ -41,10 +46,14 @@ DocumentSingleView.propTypes = {
   document: PropTypes.object.isRequired
 };
 
+DocumentSingleView.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state, ownProps) {
   const documentId = ownProps.params.id;
   let document = {};
-  state.documents.documents.forEach(doc => {
+  state.documents.data.forEach(doc => {
     const curDocId = String(doc.id);
     if (curDocId === documentId) {
       document = doc;

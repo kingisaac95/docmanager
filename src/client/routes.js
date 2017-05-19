@@ -7,6 +7,7 @@ import Documents from './components/document/DocumentPage';
 import Users from './components/user/UserPage';
 import Document from './components/document/DocumentSingleView';
 import EditDocument from './components/document/DocumentEdit';
+import EditUser from './components/user/UserEdit';
 import requireAuthentication from './utils/requireAuthentication';
 
 export default (
@@ -21,5 +22,8 @@ export default (
     <Route
       path="documents/:id/edit"
       component={requireAuthentication(EditDocument)} />
+    <Route
+      path="users/:id/edit"
+      component={requireAuthentication(EditUser)} />
   </Route>
 );

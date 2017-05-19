@@ -30,6 +30,7 @@ class AddDocumentModal extends React.Component {
 
   onClickSave() {
     this.props.createDocument(this.state);
+    Materialize.toast('Document created.', 3000, 'green');
   }
   
 
