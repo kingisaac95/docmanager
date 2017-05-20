@@ -1,10 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Pagination } from 'react-materialize';
-import ReactPaginate from 'react-paginate';
 import AddDocumentModal from '../modals/AddDocumentModal';
 
 import {
