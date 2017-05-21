@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import TinyMCE from 'react-tinymce';
 import { connect } from 'react-redux';
 import { createDocument } from '../../actions/DocumentActions';
 
@@ -8,12 +9,13 @@ class AddDocumentModal extends React.Component {
     super(props);
     this.state = {
       title: '',
-      access: '',
+      access: 'private',
       content: ''
     };
 
     this.onClickSave = this.onClickSave.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleEditorChange = this.handleEditorChange.bind(this);
   }
 
   componentDidMount() {
@@ -32,7 +34,14 @@ class AddDocumentModal extends React.Component {
     this.props.createDocument(this.state);
     Materialize.toast('Document created.', 3000, 'green');
   }
-  
+
+  handleEditorChange (e) {
+    const content = e.target.getContent();
+    this.setState({
+      content
+    });
+    // console.log('Content was updated:', e.target.getContent());
+  }
 
   render() {
     return (
@@ -72,12 +81,19 @@ class AddDocumentModal extends React.Component {
                 </div>
               </div>
               <div className="input-field col s12">
-                <textarea
+                <TinyMCE
                   name="content"
-                  className="materialize-textarea"
-                  onChange={this.onChange}
-                  value={this.state.content} />
-                <label htmlFor="content">Content</label>
+                  id="content"
+                  apiKey="6kvdpw49pmj4tn5h8ylf8ms3x8k2t4i1hxx7cb7cqqnes7ds"
+                  config={{
+                    height: 300,
+                    plugins: 'link image code',
+                    toolbar: `undo redo | 
+                      bold italic | alignleft aligncenter alignright | code`
+                  }}
+                  content={this.state.content}
+                  onChange={this.handleEditorChange}
+                />
               </div>
             </div>
           </div>

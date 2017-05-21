@@ -71,9 +71,9 @@ nav .input-field .label-icon i {
 }
 
 .modal {
-  max-height: 90%;
-  padding-left: 60px;
-  padding-right: 60px;
+  max-height: 80%;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .pink-color {
