@@ -21,6 +21,9 @@
     "jquery": true,
     "mocha": true
   },
+  "globals" : {
+    "Materialize": true
+  },
   "rules": {
     "max-len":[1, 80, 2],
     "indent": [1, 2],
@@ -32,7 +35,7 @@
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
     "no-shadow": ["error", { "allow": ["req", "res", "err", "user", "role", "document"] }],
-    "valid-jsdoc": ["error", {
+    /*"valid-jsdoc": ["error", {
       "requireReturn": true,
       "requireReturnType": true,
       "requireParamDescription": false,
@@ -44,7 +47,7 @@
             "MethodDefinition": true,
             "ClassDeclaration": true
         }
-    }],
+    }],*/
     "quotes": 0,
     "no-console": 1,
     "no-debugger": 1,
@@ -69,13 +72,28 @@
         "forbid": ["any"]
       }
     ],
+    "jsx-a11y/no-static-element-interactions": [
+      0,
+      {
+        "handlers": [
+          "onClick",
+          "onMouseDown",
+          "onMouseUp",
+          "onKeyPress",
+          "onKeyDown",
+          "onKeyUp"
+        ]
+      }
+    ],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prefer-stateless-function": [0, { "ignorePureComponents": true }],
     "react/jsx-boolean-value": 1,
     "react/jsx-closing-bracket-location": 0,
     "react/jsx-curly-spacing": 1,
     "react/jsx-indent-props": 0,
     "react/jsx-key": 1,
     "react/jsx-max-props-per-line": 0,
-    "react/jsx-no-bind": 1,
+    "react/jsx-no-bind": 0,
     "react/jsx-no-duplicate-props": 1,
     "react/jsx-no-literals": 0,
     "react/jsx-no-undef": 1,
@@ -94,9 +112,11 @@
     "react/prefer-es6-class": 1,
     "react/prop-types": 1,
     "react/react-in-jsx-scope": 1,
-    "react/require-extension": 1,
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
-    "react/wrap-multilines": 1
+    "react/wrap-multilines": 1,
+    "react/no-find-dom-node": 0,
+    "react/no-string-refs": 0,
+    "import/prefer-default-export": 0
   }
 }

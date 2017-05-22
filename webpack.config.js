@@ -6,11 +6,9 @@ export default {
   devtool: 'inline-source-map',
   noInfo: false,
   entry: [
-    // necessary for hot reloading with IE
     'eventsource-polyfill',
-    //note that it reloads the page if hot module reloading fails.
     'webpack-hot-middleware/client?reload=true',
-    path.resolve(__dirname, 'src')
+    path.resolve(__dirname, 'src/client/index.js')
   ],
   target: 'web',
   output: {
@@ -21,9 +19,20 @@ export default {
   devServer: {
     contentBase: path.resolve(__dirname, 'src')
   },
+  resolve: {
+    alias: {
+      'jquery': path.join( __dirname, 'node_modules/jquery/dist/jquery' ),
+    }
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      'window.$': 'jquery',
+      'window.jQuery': 'jquery'
+    })
   ],
   module: {
     loaders: [
@@ -34,7 +43,39 @@ export default {
       {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=application/octet-stream'},
       {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=image/svg+xml'}
+        loader: 'url?limit=10000&mimetype=image/svg+xml'},
+      {test: '/materialize-css/bin/',
+        loader: 'imports?jQuery=jquery,$=jquery,hammerjs'},
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        loaders: [
+          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack-loader'
+        ]
+      }
     ]
+  },
+  imageWebpackLoader: {
+    mozjpeg: {
+      quality: 65
+    },
+    pngquant:{
+      quality: "65-90",
+      speed: 4
+    },
+    svgo:{
+      plugins: [
+        {
+          removeViewBox: false
+        },
+        {
+          removeEmptyAttrs: false
+        }
+      ]
+    }
+  },
+  node: {
+    net: 'empty',
+    dns: 'empty'
   }
 };

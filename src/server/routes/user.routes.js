@@ -12,13 +12,13 @@ const userRoutes = (router) => {
 
   router
     .route('/users')
-    .get(auth.authorize, auth.isAdmin, usersController.findAll);
+    .get(auth.authorize, usersController.findAll);
 
   router
     .route('/users/:userId')
     .get(auth.authorize, usersController.findOne)
     .put(auth.authorize, usersController.update)
-    .delete(auth.authorize, auth.isAdmin, usersController.delete);
+    .delete(auth.authorize, usersController.delete);
 };
 
 export default userRoutes;
