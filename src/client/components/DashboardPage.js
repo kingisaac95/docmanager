@@ -38,7 +38,6 @@ class DashboardPage extends React.Component {
               <p>Total Users: {this.props.users.totalCount}</p>
             </div>
           </div>
-        
           <div className="col m6 about-card">
             <h5>Famous quotes tailored for you</h5>
             <hr />
@@ -48,7 +47,7 @@ class DashboardPage extends React.Component {
         </div>
         <div className="space" />
         <div className="row center-align">
-          <p>Did notice any bugs? Please feel free to submit the issue @
+          <p>Did you notice any bugs? Please feel free to submit the issue @
             <a href="https://github.com/kingisaac95/docmanager/issues">
             DocManager Issues Page</a>
           </p>

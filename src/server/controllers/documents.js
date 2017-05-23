@@ -5,8 +5,6 @@ const Document = models.Document;
 
 export default {
   create(req, res) {
-    const role = req.decoded.userData.role;
-
     return Document
       .create({
         title: req.body.title,
@@ -19,7 +17,7 @@ export default {
       .catch(error => res.status(400).send(error));
   },
   findAll(req, res) {
-    let options = {};
+    const options = {};
 
     /* get details of the user making the
     * request from `authorize` middleware
@@ -29,19 +27,19 @@ export default {
 
     if (req.query.q) {
       options.where = {
-        title: { $iLike: `%${ req.query.q }%` },
-        $or:[{access: 'public'}, {UserId: currentUser}]
+        title: { $iLike: `%${req.query.q}%` },
+        $or: [{ access: 'public' }, { UserId: currentUser }]
       };
     }
 
     options.offset = req.query.offset > 0 ? req.query.offset : 0;
     options.limit = req.query.limit > 0 ? req.query.limit : 12;
     options.order = [['createdAt', 'DESC']];
-    options.include = [models.User];    
+    options.include = [models.User];
 
     return Document
       .findAndCountAll(options)
-      .then(documents => {
+      .then((documents) => {
         if (documents < 1) {
           return res.status(404).json({
             status: 404,
@@ -51,7 +49,7 @@ export default {
         if (role === 1 || role === 2) {
           const paginationDetails = pagination(
             options.limit, options.offset, documents.count);
-          return res.status(200).send({ 
+          return res.status(200).send({
             data: documents.rows,
             paginationDetails });
         }
@@ -77,7 +75,7 @@ export default {
 
           const paginationDetails = pagination(
             options.limit, options.offset, documents.count);
-          return res.status(200).send({ 
+          return res.status(200).send({
             data: availableDocuments,
             paginationDetails });
         }
@@ -85,18 +83,18 @@ export default {
       .catch(error => res.status(400).send(error));
   },
   findOne(req, res) {
-    let options = {};
+    const options = {};
     if (req.params.documentId) {
       options.where = {
         id: req.params.documentId,
-        access: 'public'
+        // access: 'public'
       };
     }
     return Document
-      .findAll(options)
-      .then(document => {
-        if (document < 1) {
-          return res.status(404).send({
+      .findOne(options)
+      .then((document) => {
+        if (!document) {
+          res.status(404).send({
             message: 'Document Not Found.'
           });
         } else {
@@ -106,7 +104,7 @@ export default {
       .catch(error => res.status(400).send(error));
   },
   findUserDocuments(req, res) {
-    let options = {};
+    const options = {};
     options.where = {
       UserId: req.params.userId
     };
@@ -114,19 +112,19 @@ export default {
     options.limit = req.query.limit > 0 ? req.query.limit : 12;
     options.order = [['createdAt', 'DESC']];
     options.include = [models.User];
-    
+
     return Document
       .findAndCountAll(options)
-      .then(documents => {
+      .then((documents) => {
         if (documents < 1) {
-          return res.status(404).json({
+          res.status(404).json({
             status: 404,
             message: 'No document found for this user'
           });
         } else {
           const paginationDetails = pagination(
             options.limit, options.offset, documents.count);
-          return res.status(200).send({ 
+          return res.status(200).send({
             data: documents.rows,
             paginationDetails });
         }
@@ -136,7 +134,7 @@ export default {
   update(req, res) {
     return Document
       .findById(req.params.documentId)
-      .then(document => {
+      .then((document) => {
         if (!document) {
           return res.status(404).send({
             status: 404,
@@ -159,7 +157,7 @@ export default {
   delete(req, res) {
     return Document
       .findById(req.params.documentId)
-      .then(document => {
+      .then((document) => {
         if (!document) {
           return res.status(404).send({
             status: 404,
@@ -170,7 +168,7 @@ export default {
           .destroy()
           .then(() => res.status(200).send({
             status: 200,
-            message: "Document Deleted!"
+            message: 'Document Deleted!'
           }))
           .catch(error => res.status(400).send(error));
       })

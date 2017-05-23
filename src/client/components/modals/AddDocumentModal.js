@@ -43,7 +43,7 @@ class AddDocumentModal extends React.Component {
   }
 
   /**
-   * Quote Reducer
+   * render
    * @function
    * @returns {jsx} jsx markup
    */
