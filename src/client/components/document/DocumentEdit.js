@@ -36,11 +36,18 @@ class DocumentEdit extends React.Component {
     });
   }
 
-  render() {
-    window.addEventListener("beforeunload", function (event) {
-      // Materialize.toast('Redirecting...', 1000, 'red');
-      this.context.router.push('/documents');
+  handleEditorChange (e) {
+    const content = e.target.getContent();
+    this.setState({
+      content
     });
+  }
+
+  render() {
+    // window.addEventListener("beforeunload", function (event) {
+    //   // Materialize.toast('Redirecting...', 1000, 'red');
+    //   this.context.router.push('/documents');
+    // });
     const { document } = this.props;
     return (
       <div className="row">
@@ -78,13 +85,18 @@ class DocumentEdit extends React.Component {
                 </div>
               </div>
               <div className="input-field col s12">
-                <p className="form-labels">Content</p>
-                <textarea
+                <TinyMCE
                   name="content"
-                  placeholder="Content"
-                  className="materialize-textarea"
-                  onChange={this.onChange}
-                  value={this.state.content} />
+                  id="content"
+                  config={{
+                    height: 300,
+                    plugins: 'link image code',
+                    toolbar: `undo redo | 
+                      bold italic | alignleft aligncenter alignright | code`
+                  }}
+                  content={this.state.content}
+                  onChange={this.handleEditorChange}
+                />
               </div>
               <div className="col s12">
                 <button

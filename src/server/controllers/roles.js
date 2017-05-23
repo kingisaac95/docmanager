@@ -8,7 +8,7 @@ export default {
       .create({
         title: req.body.title
       })
-      .then(role => res.status(200).send(role))
+      .then(role => res.status(201).send(role))
       .catch(error => res.status(400).send(error));
   },
   findAll(req, res) {

@@ -15,7 +15,7 @@ export default {
         RoleId: req.decoded.userData.role,
         access: req.body.access
       })
-      .then(document => res.status(200).send(document))
+      .then(document => res.status(201).send(document))
       .catch(error => res.status(400).send(error));
   },
   findAll(req, res) {

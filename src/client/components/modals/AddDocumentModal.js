@@ -40,9 +40,13 @@ class AddDocumentModal extends React.Component {
     this.setState({
       content
     });
-    // console.log('Content was updated:', e.target.getContent());
   }
 
+  /**
+   * Quote Reducer
+   * @function
+   * @returns {jsx} jsx markup
+   */
   render() {
     return (
       <div id="addDocumentModal" className="modal">
@@ -72,7 +76,8 @@ class AddDocumentModal extends React.Component {
                     ref="access"
                     name="access"
                     value={this.state.access}
-                    onChange={this.onChange}>
+                    onChange={this.onChange}
+                  >
                     <option value="Private">Private</option>
                     <option value="Public">Public</option>
                     <option value="Role">Role</option>
@@ -84,7 +89,6 @@ class AddDocumentModal extends React.Component {
                 <TinyMCE
                   name="content"
                   id="content"
-                  apiKey="6kvdpw49pmj4tn5h8ylf8ms3x8k2t4i1hxx7cb7cqqnes7ds"
                   config={{
                     height: 300,
                     plugins: 'link image code',
@@ -100,12 +104,14 @@ class AddDocumentModal extends React.Component {
         </div>
         <div className="modal-footer">
           <button
-          className="modal-close btn-large right waves-effect blue-bg"
+            className="modal-close btn-large right waves-effect blue-bg"
             name="action"
-            onClick={this.onClickSave} >Add Document</button>
+            onClick={this.onClickSave}
+          >Add Document</button>
           <button
-          className="modal-close left btn-large waves-effect deep-red-bg-color"
-            name="action">Cancel</button>
+            className="modal-close left btn-large waves-effect deep-red-bg-color"
+            name="action"
+          >Cancel</button>
         </div>
       </div>
     );
@@ -122,7 +128,7 @@ AddDocumentModal.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    creating: document.creating,
+
     documents: state.documents
   };
 }
