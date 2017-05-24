@@ -9,10 +9,9 @@ services:
   - postgresql
 
 before_script:
-  - sudo -u postgres createuser kingisaac95
-  - psql -c 'create database docmanager_test;' -U postgres
+  - psql -c 'CREATE DATABASE docmanager_test;' -U postgres
+  - psql -c 'CREATE USER kingisaac95 WITH PASSWORD null;' -U postgres
 
 script:
-  - npm run migrate
   - npm run migrate:test
   - npm test
