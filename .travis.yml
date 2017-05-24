@@ -5,5 +5,11 @@ node_js:
   - node
   - 6
 
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database docmanager-test;' -U postgres
+
 script:
   npm test
