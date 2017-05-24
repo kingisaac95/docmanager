@@ -1,4 +1,3 @@
-'use strict';
 export default (sequelize, DataTypes) => {
   const Document = sequelize.define('Document', {
     title: {
@@ -10,7 +9,7 @@ export default (sequelize, DataTypes) => {
         }
       }
     },
-    content: { 
+    content: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {

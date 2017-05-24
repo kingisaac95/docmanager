@@ -19,6 +19,16 @@ export default function documentReducer(state = initialState, action) {
     case types.CREATE_DOCUMENT_FAILURE:
       return Object.assign({}, state, { creating: false });
 
+    // case types.UPDATE_DOCUMENT_SUCCESS: {
+    //   const newState = [];
+    //   return newState.map((doc) => {
+    //     if (doc.id === action.document.id) {
+    //       return action.document;
+    //     }
+    //     return doc;
+    //   });
+    // }
+
     case types.GET_ALL_DOCUMENTS_SUCCESS:
       return action.documents;
     case types.GET_ALL_DOCUMENTS_FAILED:

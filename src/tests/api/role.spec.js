@@ -14,7 +14,7 @@ describe('Role CRUD test', () => {
     app
       .post('/api/v1/roles')
       .send(role.superAdminRole)
-      .expect(200)
+      .expect(201)
       .then((res) => {
         res.body.should.have.property('title');
       });

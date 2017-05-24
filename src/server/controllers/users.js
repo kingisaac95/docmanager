@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt-nodejs';
+// import bcrypt from 'bcrypt-nodejs';
 import models from '../models';
 import pagination from '../../helpers/pagination';
 
@@ -10,7 +10,7 @@ const User = models.User;
 
 export default {
   login(req, res) {
-    if(req.body.username === '' || req.body.password === '') {
+    if (req.body.username === '' || req.body.password === '') {
       res.status(400).json({
         status: 'Bad Request',
         message: 'Fields cannot be empty'
@@ -22,11 +22,11 @@ export default {
             username: req.body.username
           }
         })
-        .then(user => {
+        .then((user) => {
           if (!user) {
             return res.status(404).json({
               status: 404,
-              message: "Authentication failed! User not found."
+              message: 'Authentication failed! User not found.'
             });
           } else if (user.matchPassword(req.body.password)) {
             const userData = {
@@ -45,14 +45,14 @@ export default {
             // return token
             res.status(200).json({
               status: 200,
-              message: "Authentication successful!",
-              token: token
+              message: 'Authentication successful!',
+              token
             });
           } else {
             res.status(401).json({
               status: 401,
               password: user.matchPassword(req.body.password),
-              message: "Authentication failed! Wrong user credentials."
+              message: 'Authentication failed! Wrong user credentials.'
             });
           }
         })
@@ -60,7 +60,7 @@ export default {
     }
   },
   logout(req, res) {
-    res.setHeader['x-access-token'] = '';
+    res.setHeader.authorization = '';
     res.status(200)
       .json({
         success: true,
@@ -68,8 +68,8 @@ export default {
       });
   },
   create(req, res) {
-    if(req.body.name && req.body.username && req.body.email
-      && req.body.password && req.body.RoleId) {
+    if (req.body.name && req.body.username && req.body.email
+      && req.body.password && req.body.roleId) {
       User
         .findOne({
           where: {
@@ -77,54 +77,55 @@ export default {
           }
         })
         .then((user) => {
-          if (!user) {
-            User
-              .create({
-                name: user.name,
-                username: user.username,
-                email: user.email,
-                role: parseInt(user.RoleId),
-              })
-              .then(user => {
-                const userData = {
-                  name: user.name,
-                  username: user.username,
-                  email: user.email,
-                  role: user.RoleId
-                };
-                // create token
-                const token = jwt.sign({
-                  expiresIn: 86400,
-                  userData
-                }, process.env.SECRETE_KEY);
-
-                return res.status(201).json({
-                  status: 201,
-                  message: "User registration successful",
-                  token: token
-                });
-              });
-          } else {
-            return res.status(409).json({
-              status: 409,
-              message: "User already exits"
+          if (user) {
+            return res.status(400).json({
+              status: 400,
+              message: 'User already exists'
             });
           }
+
+          User
+            .create({
+              name: req.body.name,
+              username: req.body.username,
+              email: req.body.email,
+              password: req.body.password,
+              RoleId: parseInt(req.body.roleId, 10),
+            })
+            .then((curUser) => {
+              const userData = {
+                name: curUser.name,
+                username: curUser.username,
+                email: curUser.email,
+                role: curUser.RoleId
+              };
+              // create token
+              const token = jwt.sign({
+                expiresIn: 86400,
+                userData
+              }, process.env.SECRETE_KEY);
+
+              return res.status(201).json({
+                status: 201,
+                message: 'User registration successful',
+                token
+              });
+            });
         })
         .catch(error => res.status(400).send(error));
     } else {
       return res.status(400).send({
         status: 400,
-        message: "Please fill in the all fields"
+        message: 'Please fill in the all fields'
       });
     }
   },
   findAll(req, res) {
-    let options = {};
+    const options = {};
 
     if (req.query.q) {
       options.where = {
-        username: { $iLike: `%${ req.query.q }%` }
+        username: { $iLike: `%${req.query.q}%` }
       };
     }
 
@@ -135,10 +136,10 @@ export default {
 
     return User
       .findAndCountAll(options)
-      .then(data => {
+      .then((data) => {
         const paginationDetails = pagination(
           options.limit, options.offset, data.count);
-        return res.status(200).send({ 
+        return res.status(200).send({
           data: data.rows,
           paginationDetails });
       })
@@ -147,9 +148,9 @@ export default {
   findOne(req, res) {
     return User
       .findById(req.params.userId)
-      .then(user => {
+      .then((user) => {
         if (!user) {
-          return res.status(404).send({
+          res.status(404).send({
             message: 'User Not Found!'
           });
         } else {
@@ -161,7 +162,7 @@ export default {
   update(req, res) {
     return User
       .findById(req.params.userId)
-      .then(user => {
+      .then((user) => {
         if (!user) {
           return res.status(404).json({
             status: 404,
@@ -174,7 +175,7 @@ export default {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
-            RoleId: req.body.role,
+            RoleId: parseInt(req.body.roleId, 10)
           })
           .then(() => res.status(200).send(user))
           .catch(error => res.status(400).send(error));
@@ -184,7 +185,7 @@ export default {
   delete(req, res) {
     return User
       .findById(req.params.userId)
-      .then(user => {
+      .then((user) => {
         if (!user) {
           return res.status(404).json({
             status: 404,
@@ -195,7 +196,7 @@ export default {
           .destroy()
           .then(() => res.status(200).json({
             status: 200,
-            message: "User Deleted!"
+            message: 'User Deleted!'
           }))
           .catch(error => res.status(400).send(error));
       })

@@ -1,4 +1,4 @@
-const faker = require('faker');
+import faker from 'faker';
 
 export const superAdmin = {
   name: faker.name.findName(),
@@ -22,16 +22,23 @@ export const user = {
   roleId: 3
 };
 export const testUser = {
-  name: "John Doe I",
-  username: "jdoe1",
-  email: "john.doe@andela.com",
-  password: "password",
+  name: 'John Doe I',
+  username: 'jdoe1',
+  email: 'john.doe@andela.com',
+  password: 'password',
   roleId: 1
 };
+export const regularUser = {
+  name: 'John Doe',
+  username: 'jdoe',
+  email: 'john.doe@andela.com',
+  password: 'password',
+  roleId: 3
+};
 export const updateTestUser = {
-  name: "John Doe",
-  username: "jdoe1",
-  email: "john.doe@andela.com",
-  password: "password",
+  name: 'John Doe',
+  username: 'jdoe1',
+  email: 'john.doe@andela.com',
+  password: 'password',
   roleId: 1
 };

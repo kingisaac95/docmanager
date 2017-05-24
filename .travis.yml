@@ -1,1 +1,9 @@
-after_success: npm run coverage
+dist: trusty
+language: node_js
+
+node_js:
+  - node
+  - 6
+
+script:
+  npm test

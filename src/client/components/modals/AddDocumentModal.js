@@ -78,9 +78,9 @@ class AddDocumentModal extends React.Component {
                     value={this.state.access}
                     onChange={this.onChange}
                   >
-                    <option value="Private">Private</option>
-                    <option value="Public">Public</option>
-                    <option value="Role">Role</option>
+                    <option value="private">Private</option>
+                    <option value="public">Public</option>
+                    <option value="role">Role</option>
                   </select>
                   <label htmlFor="access">Access Type</label>
                 </div>

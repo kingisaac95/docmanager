@@ -5,16 +5,23 @@ const Document = models.Document;
 
 export default {
   create(req, res) {
-    return Document
-      .create({
-        title: req.body.title,
-        content: req.body.content,
-        UserId: req.decoded.userData.userId,
-        RoleId: req.decoded.userData.role,
-        access: req.body.access
-      })
-      .then(document => res.status(201).send(document))
-      .catch(error => res.status(400).send(error));
+    if (req.body.title && req.body.content && req.body.access) {
+      Document
+        .create({
+          title: req.body.title,
+          content: req.body.content,
+          UserId: req.decoded.userData.userId,
+          RoleId: req.decoded.userData.role,
+          access: req.body.access
+        })
+        .then(document => res.status(201).send(document))
+        .catch(error => res.status(400).send(error));
+    } else {
+      return res.status(400).send({
+        status: 400,
+        message: 'Please fill in the all fields'
+      });
+    }
   },
   findAll(req, res) {
     const options = {};
