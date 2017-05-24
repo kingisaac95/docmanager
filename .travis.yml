@@ -13,6 +13,6 @@ before_script:
   - psql -c 'create database docmanager_test;' -U postgres
 
 script:
-  npm migrate
-  npm migrate:test
-  npm test
+  - npm run migrate
+  - npm run migrate:test
+  - npm test
