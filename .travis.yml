@@ -11,8 +11,9 @@ services:
 before_script:
   - npm install
   - npm install -g sequelize-cli
+  - npm install sequelize
+  - psql -c 'create database docmanager_test;' -U postgres
   - sudo -u postgres createuser kingisaac95
-  - createdb docmanager_test
   - npm run migrate:test
 
 script:
