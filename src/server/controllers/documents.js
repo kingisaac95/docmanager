@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import models from '../models';
+import pagination from '../../helpers/pagination';
 
 const Document = models.Document;
 
@@ -33,14 +33,14 @@ export default {
         $or:[{access: 'public'}, {UserId: currentUser}]
       };
     }
-    
-    if (req.query.limit || req.query.offset) {
-      options.limit = req.query.limit || 2,
-      options.offset = req.query.offset || 0;
-    }
+
+    options.offset = req.query.offset > 0 ? req.query.offset : 0;
+    options.limit = req.query.limit > 0 ? req.query.limit : 12;
+    options.order = [['createdAt', 'DESC']];
+    options.include = [models.User];    
 
     return Document
-      .findAll(options)
+      .findAndCountAll(options)
       .then(documents => {
         if (documents < 1) {
           return res.status(404).json({
@@ -48,13 +48,16 @@ export default {
             message: 'You currently have no documents, please create some.'
           });
         }
-
         if (role === 1 || role === 2) {
-          return res.status(200).json(documents);
+          const paginationDetails = pagination(
+            options.limit, options.offset, documents.count);
+          return res.status(200).send({ 
+            data: documents.rows,
+            paginationDetails });
         }
 
-        if (role !== 1 || role !== 2) {
-          const availableDocuments = documents.filter((document) => {
+        if (role !== 1 && role !== 2) {
+          const availableDocuments = documents.rows.filter((document) => {
             const availableDocumentsArray = [];
 
             if (document.UserId === currentUser) {
@@ -72,14 +75,17 @@ export default {
             }
           });
 
-          return res.status(200).json(availableDocuments);
+          const paginationDetails = pagination(
+            options.limit, options.offset, documents.count);
+          return res.status(200).send({ 
+            data: availableDocuments,
+            paginationDetails });
         }
       })
       .catch(error => res.status(400).send(error));
   },
   findOne(req, res) {
     let options = {};
-
     if (req.params.documentId) {
       options.where = {
         id: req.params.documentId,
@@ -100,20 +106,29 @@ export default {
       .catch(error => res.status(400).send(error));
   },
   findUserDocuments(req, res) {
+    let options = {};
+    options.where = {
+      UserId: req.params.userId
+    };
+    options.offset = req.query.offset > 0 ? req.query.offset : 0;
+    options.limit = req.query.limit > 0 ? req.query.limit : 12;
+    options.order = [['createdAt', 'DESC']];
+    options.include = [models.User];
+    
     return Document
-      .findAll({
-        where: {
-          UserId: req.params.userId
-        }
-      })
-      .then(document => {
-        if (document < 1) {
+      .findAndCountAll(options)
+      .then(documents => {
+        if (documents < 1) {
           return res.status(404).json({
             status: 404,
             message: 'No document found for this user'
           });
         } else {
-          return res.status(200).send(document);
+          const paginationDetails = pagination(
+            options.limit, options.offset, documents.count);
+          return res.status(200).send({ 
+            data: documents.rows,
+            paginationDetails });
         }
       })
       .catch(error => res.status(400).send(error));
@@ -132,7 +147,7 @@ export default {
           .update({
             title: req.body.title,
             content: req.body.content,
-            UserId: req.decoded.userData.username,
+            UserId: req.decoded.userData.userId,
             RoleId: req.decoded.userData.role,
             access: req.body.access
           })

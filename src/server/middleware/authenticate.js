@@ -5,7 +5,7 @@ dotenv.config();
 
 export default {
   authorize(req, res, next) {
-    const token = req.headers.authorization || req.headers['x-access-token'];
+    const token = req.headers.authorization;
     if (token) {
       // verify token
       jwt.verify(token, process.env.SECRETE_KEY, (error, decoded) => {
@@ -30,7 +30,7 @@ export default {
 
   isAdmin(req, res, next) {
     const role = req.decoded.userData.role;
-    if (role && role === 'Super-Admin' || role === 'Admin') {
+    if (role && role === 1 || role === 2) {
       return next();
     }
     return res.status(401).send({
@@ -41,7 +41,7 @@ export default {
 
   isAdminOrUser(req, res, next) {
     const role = req.decoded.userData.role;
-    const userId = req.body.documentId;
+    const userId = req.decoded.userData.userId;
     const currentUser = req.decoded.userData.userId;
     if (role === 1 || currentUser === userId) {
       return next();
