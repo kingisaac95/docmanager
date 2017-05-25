@@ -1,39 +1,32 @@
-const faker = require('faker');
+import faker from 'faker';
 
-module.exports = {
-  superAdmin: {
+export default [
+  {
     name: faker.name.findName(),
     username: faker.internet.userName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    roleId: 1
+    RoleId: 1
   },
-  admin: {
+  {
     name: faker.name.findName(),
     username: faker.internet.userName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    roleId: 2
+    RoleId: 1
   },
-  user: {
+  {
     name: faker.name.findName(),
     username: faker.internet.userName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    roleId: 3
+    RoleId: 1
   },
-  testUser: {
-    name: "John Doe I",
-    username: "jdoe1",
-    email: "john.doe@andela.com",
-    password: "password",
-    roleId: 1
-  },
-  updateTestUser: {
-    name: "John Doe",
-    username: "jdoe1",
-    email: "john.doe@andela.com",
-    password: "password",
-    roleId: 1
+  {
+    name: 'Kingdom Orjiewuru',
+    username: 'kingisaac95',
+    email: faker.internet.email(),
+    password: 'password',
+    RoleId: 1
   }
-};
+];

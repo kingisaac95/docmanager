@@ -12,7 +12,7 @@ export default {
         if (error) {
           res.status(400).send({
             status: false,
-            message: "Error! Failed to authenticate token."
+            message: 'Error! Failed to authenticate token.'
           });
         } else {
           req.decoded = decoded;
@@ -23,7 +23,7 @@ export default {
       // if no token was provided
       return res.status(401).send({
         status: 401,
-        message: "Error! No access token provided."
+        message: 'Error! No access token provided.'
       });
     }
   },
@@ -35,7 +35,7 @@ export default {
     }
     return res.status(401).send({
       status: 401,
-      message: "Error! Unauthorized Access. Please contact system administrator"
+      message: 'Error! Unauthorized Access. Please contact system administrator'
     });
   },
 

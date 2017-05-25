@@ -8,7 +8,7 @@ export default {
       .create({
         title: req.body.title
       })
-      .then(role => res.status(200).send(role))
+      .then(role => res.status(201).send(role))
       .catch(error => res.status(400).send(error));
   },
   findAll(req, res) {
@@ -20,9 +20,9 @@ export default {
   findOne(req, res) {
     return Role
       .findById(req.params.roleId)
-      .then(role => {
+      .then((role) => {
         if (!role) {
-          return res.status(404).send({
+          res.status(404).send({
             message: 'Role Not Found'
           });
         } else {
@@ -34,7 +34,7 @@ export default {
   update(req, res) {
     return Role
       .findById(req.params.roleId)
-      .then(role => {
+      .then((role) => {
         if (!role) {
           return res.status(404).send({
             message: 'Role Not Found!'
@@ -52,7 +52,7 @@ export default {
   delete(req, res) {
     return Role
       .findById(req.params.roleId)
-      .then(role => {
+      .then((role) => {
         if (!role) {
           return res.status(404).send({
             message: 'Role Not Found!'
@@ -61,7 +61,7 @@ export default {
         role
           .destroy()
           .then(() => res.status(200).send({
-            message: "Role Deleted!"
+            message: 'Role Deleted!'
           }))
           .catch(error => res.status(400).send(error));
       })

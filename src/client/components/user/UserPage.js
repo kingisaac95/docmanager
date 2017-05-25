@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import request from 'axios';
 import { Pagination } from 'react-materialize';
 import { loadUsers } from '../../actions/UserActions';
 import AddUserModal from '../modals/AddUserModal';
@@ -50,14 +49,16 @@ class UserPage extends React.Component {
           <a
             onClick={this.openAddUserModal}
             className="btn-floating btn-large blue-bg signUp-open"
-            data-target="signUp">
+            data-target="signUp"
+          >
             <i className="large material-icons">add</i>
           </a>
           <ul>
             <li>
               <Link
                 to="#"
-                className="tooltip blue-bg white-color">Create new user
+                className="tooltip blue-bg white-color"
+              >Create new user
               </Link>
             </li>
           </ul>
@@ -71,9 +72,7 @@ class UserPage extends React.Component {
           </div>
 
           {this.props.users
-            .map((user) => <UserCard
-              key={user.id}
-              user={user} />
+            .map(user => <UserCard key={user.id} user={user} />
           )}
 
           <div className="row">
@@ -105,7 +104,13 @@ UserPage.propTypes = {
   paginationDetails: PropTypes.object.isRequired,
 };
 
-function mapStateToProps(state, props) {
+/**
+ * Map state to props
+ * @function
+ * @param {object} state - the state of the app
+ * @returns {object} exposed state
+ */
+function mapStateToProps(state) {
   return {
     users: state.users.data,
     paginationDetails: state.users.paginationDetails

@@ -1,96 +1,99 @@
 // import dependencies
-const request = require ('supertest'); // import test tool
-const should = require('should'); // import should for accertion
-const server = require('../../bin/www'); // import the app
-const role = require('../../helpers/roles'); // import role helper
+import request from 'supertest'; // import test tool
+import should from 'should'; // import should for accertion
+import server from '../../server/app'; // import the app
+import * as role from '../helpers/roles'; // import document helper
 
 process.env.NODE_ENV = 'test'; // set enviroment to test
 
 // supertest agent for executing http requests
 const app = request(server);
 
-describe('DocManager API Endpoints:', () => {
-  // role tests
-  describe('Role CRUD test', () => {
-    it('should create, and return an `id` that increaments', (done) => {
-      app
-        .post('/api/roles')
-        .send(role.superAdminRole)
-        .expect(200)
-        .end((error, role) => {
-          role.body.should.have.property('id');
-          role.body.should.have.property('title');
-        });
+describe('Role CRUD test', () => {
+  it('should create a role, and return an `id` that increaments', (done) => {
+    app
+      .post('/api/v1/roles')
+      .send(role.superAdminRole)
+      .expect(201)
+      .then((res) => {
+        res.body.should.have.property('title');
+      });
+    done();
+  });
 
-      app
-        .post('/api/roles')
-        .send(role.adminRole)
-        .expect(200)
-        .end((error, role) => {
-          role.body.should.have.property('id');
-          role.body.should.have.property('title');
-        });
+  it('should find all roles and return a json containing all roles', (done) => {
+    app
+      .get('api/v1/roles')
+      .expect(200)
+      .then((res) => {
+        res.body.should.have.property('title');
+      });
+    done();
+  });
 
-      app
-        .post('/api/roles')
-        .send(role.userRole)
-        .expect(200)
-        .end((error, role) => {
-          role.body.should.have.property('id');
-          role.body.should.have.property('title');
-        });  
+  it('should find and return a role by id', (done) => {
+    app
+      .get('api/v1/roles/1')
+      .expect(200);
+    done();
+  });
 
-      done();
-    });
+  it('should not find a role that does not exist', (done) => {
+    app
+      .get('api/v1/roles/2000')
+      .expect(404)
+      .then((res) => {
+        res.body.should.have.property('message');
+        res.body.message.should.equal('Role Not Found');
+      });
+    done();
+  });
 
-    it(`should find all roles and return a
-      json containing all roles`, (done) => {
-      app
-        .get('api/roles')
-        .expect(200)
-        .end((error) => {
-          done();
-        });
-    });
+  it('should update a role details and return the updated details',
+  (done) => {
+    app
+      .put('/api/v1/roles/5')
+      .send(role.updateTestRole)
+      .expect(200)
+      .then((res) => {
+        res.body.title.should.equal('Test User');
+      });
+    done();
+  });
 
-    it('should find a role based on `id` and return the role', (done) => {
-      app
-          .post('/api/roles')
-          .send(role.userRole);
-      app
-        .get('api/roles/4')
-        .expect(200)
-        .end((error) => {
-          done();
-        });
-    });
+  it('should not update a role that does not exist',
+  (done) => {
+    app
+      .put('/api/v1/roles/2000')
+      .send(role.updateTestRole)
+      .expect(404)
+      .then((res) => {
+        res.body.message.should.equal('Role Not Found!');
+      });
+    done();
+  });
 
-    it('should update a role details and return the updated details',
-    (done) => {
-      app
-        .post('/api/roles')
-        .send(role.testRole);
-      app
-        .put('/api/roles/5')
-        .send(role.updateTestRole)
-        .expect(200)
-        .end((error, role) => {
-          (role.body.title === "Test User").should.equal(true);
-          done();
-        });
-    });
+  it('should delete a role from the database', (done) => {
+    app
+      .delete('/api/v1/roles/4')
+      .expect(200)
+      .then((res) => {
+        should.not.exist(res.body.title);
+        res.body.should.have.property('message');
+        res.body.message.should.equal('Role Deleted!');
+      });
+    done();
+  });
 
-    it('should delete a role from the database', (done) => {
-      app
-        .post('/api/roles')
-        .send(role.testRole);
-      app
-        .delete('/api/roles/6')
-        .expect(200)
-        .end((error, role) => {
-          should.not.exist(role.body.title);
-          done();
-        });
-    });
+  it('should not delete a role that does not exist in the database',
+  (done) => {
+    app
+      .delete('/api/v1/roles/2000')
+      .expect(404)
+      .then((res) => {
+        res.body.should.have.property('message');
+        res.body.message.should.equal('Role Not Found!');
+      });
+    done();
   });
 });

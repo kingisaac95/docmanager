@@ -18,7 +18,7 @@ const userRoutes = (router) => {
     .route('/users/:userId')
     .get(auth.authorize, usersController.findOne)
     .put(auth.authorize, usersController.update)
-    .delete(auth.authorize, usersController.delete);
+    .delete(auth.authorize, auth.isAdminOrUser, usersController.delete);
 };
 
 export default userRoutes;
