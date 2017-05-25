@@ -1,19 +1,17 @@
+sudo: required
 dist: trusty
 language: node_js
 
 node_js:
-  - node
   - 6
-
-services:
-  - postgresql
-
+ 
 before_script:
+  - nvm install 6
+  - npm install
   - npm install -g sequelize-cli
-  - sequelize init
-  - psql -c 'create database docmanager_test;' -U postgres
   - sudo -u postgres createuser kingisaac95
-  - npm run migrate:test
+  - createdb docmanager_test
+  - NODE_ENV=test npm run db:migrate
 
 script:
   - npm test
