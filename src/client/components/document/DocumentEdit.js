@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import TinyMCE from 'react-tinymce';
 import { connect } from 'react-redux';
 import { updateDocument } from '../../actions/DocumentActions';
 
@@ -15,6 +16,7 @@ class DocumentEdit extends React.Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.handleEditorChange = this.handleEditorChange.bind(this);
     this.onClickUpdate = this.onClickUpdate.bind(this);
   }
 
@@ -25,7 +27,7 @@ class DocumentEdit extends React.Component {
 
   onChange(e) {
     this.setState({
-      [ e.target.name ] : e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
@@ -36,16 +38,26 @@ class DocumentEdit extends React.Component {
     });
   }
 
+  handleEditorChange(e) {
+    const content = e.target.getContent();
+    this.setState({ content });
+  }
+
+  redirect() {
+    window.history.back();
+  }
+
   render() {
-    window.addEventListener("beforeunload", function (event) {
-      // Materialize.toast('Redirecting...', 1000, 'red');
-      this.context.router.push('/documents');
-    });
     const { document } = this.props;
     return (
       <div className="row">
         <div className="col m8 offset-m2">
           <div className="center-align">
+            <a
+              className="fa fa-arrow-left fa-2x left"
+              style={{ cursor: 'pointer' }}
+              onClick={this.redirect}
+            />
             <h5 className="blue-color">Edit Document</h5>
           </div>
           <div className="row">
@@ -59,7 +71,8 @@ class DocumentEdit extends React.Component {
                     type="text"
                     onChange={this.onChange}
                     value={this.state.title}
-                    className="validate" />
+                    className="validate"
+                  />
                 </div>
               </div>
               <div className="row">
@@ -70,7 +83,8 @@ class DocumentEdit extends React.Component {
                     id="access"
                     name="access"
                     value={this.state.access}
-                    onChange={this.onChange}>
+                    onChange={this.onChange}
+                  >
                     <option value="private">Private</option>
                     <option value="public">Public</option>
                     <option value="role">Role</option>
@@ -78,19 +92,33 @@ class DocumentEdit extends React.Component {
                 </div>
               </div>
               <div className="input-field col s12">
-                <p className="form-labels">Content</p>
-                <textarea
+                <TinyMCE
                   name="content"
-                  placeholder="Content"
-                  className="materialize-textarea"
-                  onChange={this.onChange}
-                  value={this.state.content} />
+                  id="content"
+                  config={{
+                    height: 300,
+                    plugins: 'link image code',
+                    toolbar: `undo redo | 
+                      bold italic | alignleft aligncenter alignright | code`
+                  }}
+                  content={this.state.content}
+                  onChange={this.handleEditorChange}
+                />
               </div>
+              <br />
               <div className="col s12">
+                <button
+                  className="btn-large waves-effect waves-light deep-red-bg-color left"
+                  name="update"
+                  onClick={this.redirect}
+                >
+                  Cancel
+                </button>
                 <button
                   className="btn-large waves-effect waves-light blue-bg right"
                   name="update"
-                  onClick={() => this.onClickUpdate(document.id)}>
+                  onClick={() => this.onClickUpdate(document.id)}
+                >
                   Update Document
                 </button>
               </div>
@@ -101,6 +129,10 @@ class DocumentEdit extends React.Component {
     );
   }
 }
+
+DocumentEdit.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 DocumentEdit.propTypes = {
   document: PropTypes.object.isRequired,
@@ -114,14 +146,13 @@ DocumentEdit.contextTypes = {
 function mapStateToProps(state, ownProps) {
   const documentId = ownProps.params.id;
   let document = {};
-  state.documents.data.forEach(doc => {
+  state.documents.data.forEach((doc) => {
     const curDocId = String(doc.id);
     if (curDocId === documentId) {
       document = doc;
     }
   });
   return { document };
-  
 }
 
 export default connect(mapStateToProps, { updateDocument })(DocumentEdit);

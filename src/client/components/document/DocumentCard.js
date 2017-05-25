@@ -50,6 +50,10 @@ class DocumentCard extends React.Component{
         );
       }
     }
+
+    function createContent() {
+      return {__html: document.content.substring(0, 206)};
+    }
     
     return(
       <div className="col s12 m3">
@@ -65,7 +69,7 @@ class DocumentCard extends React.Component{
             to={'documents/' + document.id + '/view'}
             className="black-color">
             <div id="card-content" className="card-content doc-card">
-              <p>{document.content.substring(0, 206)}...</p>
+              <p dangerouslySetInnerHTML={createContent()} />
             </div>
           </Link>
           <div className="card-action" id="card-action">

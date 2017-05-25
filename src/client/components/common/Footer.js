@@ -1,6 +1,15 @@
 import React from 'react';
 
+/**
+ * Footer
+ * @class
+ */
 class Footer extends React.Component {
+  /**
+   * Footer
+   * @function
+   * @returns {jsx} the current state
+   */
   render() {
     return (
       <div>

@@ -26,11 +26,12 @@ class SignUpModal extends React.Component {
   }
 
   onChange(e) {
-    this.setState({ [e.target.name ]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onClickSubmit() {
     this.props.dispatch(createUser(this.state));
+    Materialize.toast('Account created! Please login to continue', 3000, 'green');
   }
 
   render() {
@@ -84,7 +85,8 @@ class SignUpModal extends React.Component {
                   <select
                     ref="role"
                     name="roleId"
-                    onChange={this.onChange}>
+                    onChange={this.onChange}
+                  >
                     <option value="3">Author</option>
                     <option value="4">Contributor</option>
                   </select>
@@ -101,18 +103,21 @@ class SignUpModal extends React.Component {
                   />
                   <label htmlFor="password">Password</label>
                 </div>
-              </div>            
+              </div>
             </form>
           </div>
         </div>
         <div className="modal-footer">
           <button
-            className="btn-large waves-effect waves-light deep-grey-bg"
-            type="submit"
+            className="modal-close btn-large right waves-effect blue-bg"
+            name="action"
             onClick={this.onClickSubmit}
-            name="action">
-            <i className="material-icons left">done</i>Register
+          ><i className="material-icons left">done</i>Register
           </button>
+          <button
+            className="modal-close left btn-large waves-effect deep-red-bg-color"
+            name="action"
+          >Cancel</button>
         </div>
       </div>
     );
@@ -123,7 +128,7 @@ SignUpModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
     creating: state.signUp.creating,
     user: state.signUp.user

@@ -29,6 +29,13 @@ class DashboardNavbar extends React.Component {
   }
 
   render() {
+    let message = null;
+    const user = this.props.user;
+    if (user.name) {
+      message = (
+        <h6 id="user">Hi, <span>{ user.name }</span></h6>
+      );
+    }
     return (
       <nav className="nav-border">
         <div className="nav-wrapper">
@@ -61,7 +68,7 @@ class DashboardNavbar extends React.Component {
             </div>
 
             <div className="col s2 hide-on-med-and-down center-align">
-              <h6 id="user">Hi, <span>Orjiewuru Kingdom</span></h6>
+              { message }
             </div>
 
             <div className="col s6 hide-on-med-and-down">
@@ -113,17 +120,22 @@ class DashboardNavbar extends React.Component {
   }
 }
 
+DashboardNavbar.defaultProps = {
+  user: {}
+};
+
 DashboardNavbar.propTypes = {
   logout: PropTypes.func.isRequired,
   searchDocuments: PropTypes.func.isRequired,
   loadDocuments: PropTypes.func.isRequired,
   searchUsers: PropTypes.func.isRequired,
   loadUsers: PropTypes.func.isRequired,
+  user: PropTypes.object,
 };
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    user: state.auth.user.userData
   };
 }
 

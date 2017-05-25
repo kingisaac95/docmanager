@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 import { updateUser } from '../../actions/UserActions';
 
 class UserEdit extends React.Component {
@@ -11,7 +12,7 @@ class UserEdit extends React.Component {
       name: props.user.name,
       username: props.user.username,
       email: props.user.email,
-      role: props.user.RoleId,
+      roleId: props.user.RoleId,
       password: ''
     };
 
@@ -26,7 +27,7 @@ class UserEdit extends React.Component {
 
   onChange(e) {
     this.setState({
-      [ e.target.name ] : e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
@@ -55,7 +56,8 @@ class UserEdit extends React.Component {
                     type="text"
                     onChange={this.onChange}
                     value={this.state.name}
-                    className="validate" />
+                    className="validate"
+                  />
                 </div>
               </div>
               <div className="row modal-form-row">
@@ -67,7 +69,8 @@ class UserEdit extends React.Component {
                     type="text"
                     onChange={this.onChange}
                     value={this.state.username}
-                    className="validate" />
+                    className="validate"
+                  />
                 </div>
               </div>
               <div className="row modal-form-row">
@@ -79,9 +82,10 @@ class UserEdit extends React.Component {
                     type="email"
                     onChange={this.onChange}
                     value={this.state.email}
-                    className="validate" />
+                    className="validate"
+                  />
                 </div>
-              </div> 
+              </div>
               <div className="row modal-form-row">
                 <div className="input-field col s12">
                   <p className="form-labels">Password</p>
@@ -92,14 +96,16 @@ class UserEdit extends React.Component {
                     required=""
                     onChange={this.onChange}
                     value={this.state.password}
-                    className="validate" />
+                    className="validate"
+                  />
                 </div>
-              </div>             
+              </div>
               <div className="col s12">
                 <button
                   className="btn-large waves-effect waves-light blue-bg right"
                   name="update"
-                  onClick={() => this.onClickUpdate(user.id)}>
+                  onClick={() => this.onClickUpdate(user.id)}
+                >
                   Update User
                 </button>
               </div>
