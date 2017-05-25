@@ -30,8 +30,10 @@ export function signInUser(userData) {
         setAuthorizationToken(token);
 
         dispatch(setCurrentUser(jwt.decode(token)));
-
         dispatch(signInUserSuccess(res.data));
+
+        const newUser = jwt.decode(token);
+        Materialize.toast(`Welcome, ${newUser.userData.name}`, 3000, 'green');
       }, (err) => {
         dispatch(signInUserFailure());
         Materialize.toast(err.response.data.message, 3000, 'red');
