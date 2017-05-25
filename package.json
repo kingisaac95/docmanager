@@ -4,16 +4,20 @@
   "description": "A beautiful document management system specially made for You!",
   "main": "server.js",
   "scripts": {
-    "start": "",
-    "start:dev": "npm-run-all --parallel start:dev lint:watch",
+    "start": "npm-run-all --parallel start:dev lint:watch",
     "migrate:test": "NODE_ENV=test sequelize db:migrate",
     "undo:migrate:test": "NODE_ENV=test sequelize db:migrate:undo:all",
-    "migrate": "NODE_ENV=development sequelize db:migrate",
+    "migrate": "cross-env NODE_ENV=development sequelize db:migrate",
     "undo:migrate": "NODE_ENV=development sequelize db:migrate:undo:all",
+    "start:dev": "babel-node -- \"./src/bin/www\"",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
-    "test": "mocha --reporter progress tools/testSetup.js \"src/tests/**/*.js\"",
-    "test:watch": "npm run test -- --watch"
+    "seed:test-db": "NODE_ENV=test babel-node ./src/tests/seeders/dbSeeders",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "server-side-test": "NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha \"src/tests/**/*.spec.js\" --timeout 10000 && npm run report-coverage",
+    "test": "npm run seed:test-db && npm run server-side-test",
+    "test:watch": "npm run test -- --watch",
+    "webpack-fix": "webpack --progress --profile --colors --display-error-details --display-cached"
   },
   "repository": {
     "type": "git",
