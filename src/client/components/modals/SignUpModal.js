@@ -12,7 +12,8 @@ class SignUpModal extends React.Component {
       username: '',
       email: '',
       roleId: 3,
-      password: ''
+      password: '',
+      confirm_password: ''
     };
 
     this.onChange = this.onChange.bind(this);
@@ -29,7 +30,17 @@ class SignUpModal extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onClickSubmit() {
+  onClickSubmit(e) {
+    e.preventDefault();
+    if (this.state.name === '' || this.state.email === '' ||
+      this.state.username === '' || this.state.password === '') {
+      return Materialize.toast('All fields must be filles', 3000, 'red');
+    }
+
+    if (this.state.password !== this.state.confirm_password) {
+      return Materialize.toast('Passwords do not match!', 3000, 'red');
+    }
+
     this.props.dispatch(createUser(this.state));
     Materialize.toast('Account created! Please login to continue', 3000, 'green');
   }
@@ -53,6 +64,7 @@ class SignUpModal extends React.Component {
                     onChange={this.onChange}
                     name="name"
                     type="text"
+                    placeholder="&#xf234;"
                     className="validate"
                   />
                   <label htmlFor="name">Full Name</label>
@@ -64,6 +76,7 @@ class SignUpModal extends React.Component {
                     onChange={this.onChange}
                     name="email"
                     type="email"
+                    placeholder="&#xf0e0;"
                     className="validate"
                   />
                   <label htmlFor="email">Email</label>
@@ -75,22 +88,10 @@ class SignUpModal extends React.Component {
                     onChange={this.onChange}
                     name="username"
                     type="text"
+                    placeholder="&#xf2c0;"
                     className="validate"
                   />
                   <label htmlFor="username">Username</label>
-                </div>
-              </div>
-              <div className="row">
-                <div className="input-field col s12">
-                  <select
-                    ref="role"
-                    name="roleId"
-                    onChange={this.onChange}
-                  >
-                    <option value="3">Author</option>
-                    <option value="4">Contributor</option>
-                  </select>
-                  <label htmlFor="role">Role?</label>
                 </div>
               </div>
               <div className="row">
@@ -99,9 +100,22 @@ class SignUpModal extends React.Component {
                     onChange={this.onChange}
                     name="password"
                     type="password"
+                    placeholder="&#xf084;"
                     className="validate"
                   />
                   <label htmlFor="password">Password</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="input-field col s12">
+                  <input
+                    onChange={this.onChange}
+                    name="confirm_password"
+                    type="password"
+                    placeholder="&#xf084;"
+                    className="validate"
+                  />
+                  <label htmlFor="password">Confirm Password</label>
                 </div>
               </div>
             </form>
@@ -109,7 +123,7 @@ class SignUpModal extends React.Component {
         </div>
         <div className="modal-footer">
           <button
-            className="modal-close btn-large right waves-effect blue-bg"
+            className="modal-close btn-large right waves-effect deep-grey-bg"
             name="action"
             onClick={this.onClickSubmit}
           ><i className="material-icons left">done</i>Register

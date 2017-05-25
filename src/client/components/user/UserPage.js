@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Pagination } from 'react-materialize';
 import { loadUsers } from '../../actions/UserActions';
-import AddUserModal from '../modals/AddUserModal';
 import UserCard from './UserCard';
 
 class UserPage extends React.Component {
@@ -27,17 +26,11 @@ class UserPage extends React.Component {
     $('.modal').modal();
   }
 
-  openAddUserModal() {
-    $('#addUserModal').modal('open');
-  }
-
 
   render() {
-    let pageInfo;
     let pageCount;
     let currentPage;
     if (Object.keys(this.props.users).length !== 0) {
-
       if (this.props.paginationDetails !== undefined) {
         pageCount = this.props.paginationDetails.pageCount;
         currentPage = this.props.paginationDetails.currentPage;
@@ -46,13 +39,6 @@ class UserPage extends React.Component {
     return (
       <div>
         <div className="fixed-action-btn horizontal right">
-          <a
-            onClick={this.openAddUserModal}
-            className="btn-floating btn-large blue-bg signUp-open"
-            data-target="signUp"
-          >
-            <i className="large material-icons">add</i>
-          </a>
           <ul>
             <li>
               <Link
@@ -85,8 +71,6 @@ class UserPage extends React.Component {
               />
             </div>
           </div>
-
-          <AddUserModal />
         </div>
       </div>
     );

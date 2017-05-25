@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-// import bcrypt from 'bcrypt-nodejs';
 import models from '../models';
 import pagination from '../../helpers/pagination';
 
@@ -90,14 +89,14 @@ export default {
               username: req.body.username,
               email: req.body.email,
               password: req.body.password,
-              RoleId: parseInt(req.body.roleId, 10),
+              RoleId: 3,
             })
             .then((curUser) => {
               const userData = {
                 name: curUser.name,
                 username: curUser.username,
                 email: curUser.email,
-                role: curUser.RoleId
+                role: 3
               };
               // create token
               const token = jwt.sign({
@@ -175,7 +174,7 @@ export default {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
-            RoleId: parseInt(req.body.roleId, 10)
+            RoleId: 3
           })
           .then(() => res.status(200).send(user))
           .catch(error => res.status(400).send(error));

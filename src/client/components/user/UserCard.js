@@ -2,29 +2,27 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import jwt from 'jsonwebtoken';
 
-export default class UserCard extends React.Component{
+export default class UserCard extends React.Component {
 
   render() {
     const { user } = this.props;
-    let edit = null, button = null;
+    let edit = null;
     const curUser = jwt.decode(localStorage.jwtToken);
-    if(curUser) {
+    if (curUser) {
       const userId = curUser.userData.userId;
-      const role = curUser.userData.role;
-      if (user.id === userId || role === 1 || role === 2) {
+      if (user.id === userId) {
         edit = (
           <Link
-              to={'users/' + user.id + '/edit'}
-              style={{cursor: 'pointer'}}
-              id="edit-icon"
-              className="white-color">
-            <i className="material-icons">edit</i>
-          </Link>
+            to={`users/${user.id}/edit`}
+            style={{ cursor: 'pointer' }}
+            id="edit-icon"
+            className="white-color"
+          ><i className="material-icons">edit</i></Link>
         );
       }
     }
-                
-    return(
+
+    return (
       <div className="col s12 m3">
         <div className="card">
           <div className="card-content center-align">

@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import http from 'axios';
-import TinyMCE from 'react-tinymce';
 
 class DocumentSingleView extends React.Component {
   constructor(props) {
@@ -18,7 +16,7 @@ class DocumentSingleView extends React.Component {
           document: res.data
         });
       }, (err) => {
-        throw(err.response.message);
+        throw (err.response.message);
       });
   }
 
@@ -28,7 +26,7 @@ class DocumentSingleView extends React.Component {
 
   render() {
     function createContent(content) {
-      return {__html: content };
+      return { __html: content };
     }
     const { document: { access, User = {}, createdAt = '', content, title } } = this.state;
 
@@ -37,7 +35,7 @@ class DocumentSingleView extends React.Component {
         <div className="col m8 offset-m2">
           <a
             className="fa fa-arrow-left fa-2x left"
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', color: '#767b8d' }}
             onClick={this.redirect}
           />
           <h6>
@@ -66,26 +64,9 @@ class DocumentSingleView extends React.Component {
   }
 }
 
-DocumentSingleView.propTypes = {
-  document: PropTypes.object.isRequired
-};
-
 DocumentSingleView.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired
 };
 
-// function mapStateToProps(state, ownProps) {
-//   const documentId = ownProps.params.id;
-//   console.log(ownProps, state.documents)
-//   let document = {};
-//   state.documents.data.forEach(doc => {
-//     const curDocId = String(doc.id);
-//     if (curDocId === documentId) {
-//       document = doc;
-//     }
-//   });
-//   return { document }; 
-// }
-
-// export default connect(mapStateToProps)(DocumentSingleView);
 export default DocumentSingleView;

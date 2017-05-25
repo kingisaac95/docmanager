@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import TinyMCE from 'react-tinymce';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 import { updateDocument } from '../../actions/DocumentActions';
 
 class DocumentEdit extends React.Component {
@@ -55,7 +56,7 @@ class DocumentEdit extends React.Component {
           <div className="center-align">
             <a
               className="fa fa-arrow-left fa-2x left"
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', color: '#767b8d' }}
               onClick={this.redirect}
             />
             <h5 className="blue-color">Edit Document</h5>

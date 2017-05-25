@@ -30,7 +30,11 @@ class AddDocumentModal extends React.Component {
     });
   }
 
-  onClickSave() {
+  onClickSave(e) {
+    e.preventDefault();
+    if (this.state.title === '' || this.state.content === '') {
+      return Materialize.toast('All fields must be filles', 3000, 'red');
+    }
     this.props.createDocument(this.state);
     Materialize.toast('Document created.', 3000, 'green');
   }
@@ -50,6 +54,12 @@ class AddDocumentModal extends React.Component {
   render() {
     return (
       <div id="addDocumentModal" className="modal">
+        <a
+          to="#"
+          style={{ cursor: 'pointer' }}
+          id="close-add-document"
+          className="modal-close white-color"
+        ><i className="fa fa-close fa-2x deep-grey-color" /></a>
         <div className="modal-content">
           <div className="center-align">
             <h5 className="blue-color">Add New Document</h5>
@@ -57,50 +67,52 @@ class AddDocumentModal extends React.Component {
               * Note that all fields are required *
             </h6>
           </div>
-          <div className="row">
-            <div className="col s12">
-              <div className="row modal-form-row">
-                <div className="input-field col s12">
-                  <input
-                    name="title"
-                    type="text"
-                    onChange={this.onChange}
-                    value={this.state.title}
-                    className="validate" />
-                  <label htmlFor="title">Title</label>
+          <form>
+            <div className="row">
+              <div className="col s12">
+                <div className="row modal-form-row">
+                  <div className="input-field col s12">
+                    <input
+                      name="title"
+                      type="text"
+                      onChange={this.onChange}
+                      value={this.state.title}
+                      className="validate" />
+                    <label htmlFor="title">Title</label>
+                  </div>
                 </div>
-              </div>
-              <div className="row">
-                <div className="input-field col s12">
-                  <select
-                    ref="access"
-                    name="access"
-                    value={this.state.access}
-                    onChange={this.onChange}
-                  >
-                    <option value="private">Private</option>
-                    <option value="public">Public</option>
-                    <option value="role">Role</option>
-                  </select>
-                  <label htmlFor="access">Access Type</label>
+                <div className="row">
+                  <div className="input-field col s12">
+                    <select
+                      ref="access"
+                      name="access"
+                      value={this.state.access}
+                      onChange={this.onChange}
+                    >
+                      <option value="private">Private</option>
+                      <option value="public">Public</option>
+                      <option value="role">Role</option>
+                    </select>
+                    <label htmlFor="access">Access Type</label>
+                  </div>
                 </div>
-              </div>
-              <div className="input-field col s12">
-                <TinyMCE
-                  name="content"
-                  id="content"
-                  config={{
-                    height: 300,
-                    plugins: 'link image code',
-                    toolbar: `undo redo | 
-                      bold italic | alignleft aligncenter alignright | code`
-                  }}
-                  content={this.state.content}
-                  onChange={this.handleEditorChange}
-                />
+                <div className="input-field col s12">
+                  <TinyMCE
+                    name="content"
+                    id="content"
+                    config={{
+                      height: 300,
+                      plugins: 'link image code',
+                      toolbar: `undo redo | 
+                        bold italic | alignleft aligncenter alignright | code`
+                    }}
+                    content={this.state.content}
+                    onChange={this.handleEditorChange}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
         <div className="modal-footer">
           <button

@@ -10,6 +10,10 @@ body {
   background-position: left center;
 }
 
+textarea, input {
+	font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+}
+
 .single-view {
   font-family: 'Nunito', sans-serif;
 }
@@ -132,6 +136,23 @@ nav .input-field .label-icon i {
   margin-top: 5%;
 }
 
+#close-add-document {
+	border-radius: 5px;
+	z-index: 1;
+	position: absolute;
+	padding-left: 10px;
+	padding-right: 10px;
+	right: 5%;
+  top: 30px;
+  transform:translate(-50%,-50%)
+}
+
+#addDocumentModal {
+  max-height: 100%;
+  width: 100%;
+  top: 0% !important;
+}
+
 #card-action, .card-header {
   padding: 5px 24px;
 }
@@ -148,11 +169,13 @@ nav .input-field .label-icon i {
   border-radius: 2px;
 }
 
-.input-field input[type="text"]:focus + label, .input-field input[type="password"]:focus + label {
+.input-field input[type="text"]:focus + label, .input-field input[type="password"]:focus + label,
+.input-field input[type="email"]:focus + label {
   color: #8b929a;
 }
 
-.input-field input[type="text"]:focus, .input-field input[type="password"]:focus {
+.input-field input[type="text"]:focus, .input-field input[type="password"]:focus,
+.input-field input[type="email"]:focus {
   border-bottom: 1px solid #8b929a;
   box-shadow: 0 1px 0 0 #8b929a;
 }
