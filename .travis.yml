@@ -9,9 +9,9 @@ before_script:
   - nvm install 6
   - npm install
   - npm install -g sequelize-cli
+  - psql -c 'create database docmanager_test;' -U postgres
   - sudo -u postgres createuser kingisaac95
-  - createdb docmanager_test
-  - NODE_ENV=test npm run db:migrate
+  - npm run migrate:test
 
 script:
   - npm test
