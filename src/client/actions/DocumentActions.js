@@ -1,7 +1,27 @@
 import request from 'axios';
 import jwt from 'jsonwebtoken';
 import * as types from '../constants/types';
-// import Materialize from 'materialize'
+
+export function getAllDocumentsSuccess(documents) {
+  return { type: types.GET_ALL_DOCUMENTS_SUCCESS, documents };
+}
+
+export function getAllDocumentsFailed() {
+  return { type: types.GET_ALL_DOCUMENTS_FAILED };
+}
+
+export function loadDocuments(offset) {
+  return (dispatch) => {
+    request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
+    request.get(`/api/v1/documents/?offset=${offset}`)
+      .then((res) => {
+        dispatch(getAllDocumentsSuccess(res.data));
+      }, (err) => {
+        dispatch(getAllDocumentsFailed());
+        throw ('error', err.response.data.message);
+      });
+  };
+}
 
 export function createDocumentSuccess(document) {
   return { type: types.CREATE_DOCUMENT_SUCCESS, document };
@@ -12,31 +32,16 @@ export function createDocumentFailure() {
 }
 
 export function createDocument(document) {
-  return dispatch => {
+  return (dispatch) => {
     request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
     return request.post('/api/v1/documents', document)
-      .then(res => {
+      .then((res) => {
         dispatch(createDocumentSuccess(res.data));
         dispatch(loadDocuments(0));
-      }, err => {
+      }, (err) => {
         dispatch(createDocumentFailure());
-        throw('error', err.response.data.message);
+        throw ('error', err.response.data.message);
       });
-  };
-}
-
-export function updateDocument(id, document) {
-  return dispatch => {
-    request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
-    return request
-      .put(`/api/v1/documents/${id}`, document)
-        .then(res => {
-          dispatch(updateDocumentSuccess(res.data));
-          dispatch(loadDocuments(0));
-        }, err => {
-          dispatch(updateDocumentFailure());
-          throw('error', err.response.data.message);
-        });
   };
 }
 
@@ -48,17 +53,17 @@ export function updateDocumentFailure(document) {
   return { type: types.UPDATE_DOCUMENT_FAILURE, document };
 }
 
-export function deleteDocument(document) {
-  return dispatch => {
+export function updateDocument(id, document) {
+  return (dispatch) => {
     request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
     return request
-      .delete(`/api/v1/documents/${document}`)
-        .then(res => {
-          dispatch(deleteDocumentSuccess(res.data));
+      .put(`/api/v1/documents/${id}`, document)
+        .then((res) => {
+          dispatch(updateDocumentSuccess(res.data));
           dispatch(loadDocuments(0));
-        }, err => {
-          dispatch(deleteDocumentFailure());
-          throw('error', err.response.data.message);
+        }, (err) => {
+          dispatch(updateDocumentFailure());
+          throw ('error', err.response.data.message);
         });
   };
 }
@@ -71,36 +76,30 @@ export function deleteDocumentFailure(document) {
   return { type: types.DELETE_DOCUMENT_FAILURE, document };
 }
 
-export function getAllDocumentsSuccess(documents) {
-  return { type: types.GET_ALL_DOCUMENTS_SUCCESS, documents };
-}
-
-export function getAllDocumentsFailed() {
-  return { type: types.GET_ALL_DOCUMENTS_FAILED };
-}
-
-export function loadDocuments(offset) {
-  return dispatch => {
+export function deleteDocument(document) {
+  return (dispatch) => {
     request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
-    request.get(`/api/v1/documents/?offset=${offset}`)
-      .then((res) => {
-        dispatch(getAllDocumentsSuccess(res.data));
-      }, (err) => {
-        dispatch(getAllDocumentsFailed());
-        throw('error', err.response.data.message);
-      });
+    return request
+      .delete(`/api/v1/documents/${document}`)
+        .then((res) => {
+          dispatch(deleteDocumentSuccess(res.data));
+          dispatch(loadDocuments(0));
+        }, (err) => {
+          dispatch(deleteDocumentFailure());
+          throw ('error', err.response.data.message);
+        });
   };
 }
 
 export function searchDocuments(query) {
-  return dispatch => {
+  return (dispatch) => {
     request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
     request.get(`/api/v1/documents/?q=${query}&offset=0`)
       .then((res) => {
         dispatch(getAllDocumentsSuccess(res.data));
       }, (err) => {
         dispatch(getAllDocumentsFailed());
-        throw('error', err.response.data.message);
+        throw ('error', err.response.data.message);
       });
   };
 }
@@ -114,7 +113,7 @@ export function getUserDocumentsFailed() {
 }
 
 export function loadUserDocuments() {
-  return dispatch => {
+  return (dispatch) => {
     request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
     const user = jwt.decode(localStorage.jwtToken);
     const userId = user.userData.userId;
@@ -123,7 +122,7 @@ export function loadUserDocuments() {
         dispatch(getUserDocumentsSuccess(res.data));
       }, (err) => {
         dispatch(getUserDocumentsFailed());
-        throw('error', err.response.data.message);
+        throw ('error', err.response.data.message);
       });
   };
 }

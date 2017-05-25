@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import image from '../../assets/img/icon.png';
-import { logout } from '../../actions/LogoutActions';
+import logout from '../../actions/LogoutActions';
 import { loadDocuments, searchDocuments } from '../../actions/DocumentActions';
 import { loadUsers, searchUsers } from '../../actions/UserActions';
 
@@ -145,4 +145,5 @@ export default connect(
     searchDocuments,
     loadDocuments,
     searchUsers,
-    loadUsers })(DashboardNavbar);
+    loadUsers }
+)(DashboardNavbar);
