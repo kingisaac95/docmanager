@@ -34,6 +34,7 @@ export function signInUser(userData) {
         dispatch(signInUserSuccess(res.data));
       }, (err) => {
         dispatch(signInUserFailure());
+        Materialize.toast(err.response.data.message, 3000, 'red');
         throw ('error', err.response.data.message);
       });
   };

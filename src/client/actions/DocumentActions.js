@@ -18,6 +18,7 @@ export function loadDocuments(offset) {
         dispatch(getAllDocumentsSuccess(res.data));
       }, (err) => {
         dispatch(getAllDocumentsFailed());
+        Materialize.toast(err.response.data.message, 3000, 'red');
         throw ('error', err.response.data.message);
       });
   };
@@ -40,6 +41,7 @@ export function createDocument(document) {
         dispatch(loadDocuments(0));
       }, (err) => {
         dispatch(createDocumentFailure());
+        Materialize.toast(err.response.data.message, 3000, 'red');
         throw ('error', err.response.data.message);
       });
   };
@@ -63,6 +65,7 @@ export function updateDocument(id, document) {
           dispatch(loadDocuments(0));
         }, (err) => {
           dispatch(updateDocumentFailure());
+          Materialize.toast(err.response.data.message, 3000, 'red');
           throw ('error', err.response.data.message);
         });
   };
@@ -86,6 +89,7 @@ export function deleteDocument(document) {
           dispatch(loadDocuments(0));
         }, (err) => {
           dispatch(deleteDocumentFailure());
+          Materialize.toast(err.response.data.message, 3000, 'red');
           throw ('error', err.response.data.message);
         });
   };
@@ -99,6 +103,7 @@ export function searchDocuments(query) {
         dispatch(getAllDocumentsSuccess(res.data));
       }, (err) => {
         dispatch(getAllDocumentsFailed());
+        Materialize.toast(err.response.data.message, 3000, 'red');
         throw ('error', err.response.data.message);
       });
   };
@@ -122,6 +127,7 @@ export function loadUserDocuments() {
         dispatch(getUserDocumentsSuccess(res.data));
       }, (err) => {
         dispatch(getUserDocumentsFailed());
+        Materialize.toast(err.response.data.message, 3000, 'red');
         throw ('error', err.response.data.message);
       });
   };

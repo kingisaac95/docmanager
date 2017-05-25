@@ -20,6 +20,7 @@ export function createUser(user) {
         dispatch(createUserSuccess(res.data));
       }, (err) => {
         dispatch(createUserFailure());
+        Materialize.toast(err.response.data.message, 3000, 'red');
         throw ('error', err.response.data.message);
       });
   };

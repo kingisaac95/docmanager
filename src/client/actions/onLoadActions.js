@@ -19,6 +19,7 @@ export function loadQuote() {
         dispatch(getQuoteSuccess(res.data));
       }, (err) => {
         dispatch(getQuoteFailed());
+        Materialize.toast(err.response.data.message, 3000, 'red');
         throw ('error', err.response.data.message);
       });
   };

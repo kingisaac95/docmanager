@@ -13,6 +13,7 @@ export function loadUsers(offset) {
         dispatch(getAllUsersSuccess(res.data));
       }, (err) => {
         dispatch(getAllUsersFailed());
+        Materialize.toast(err.response.data.message, 3000, 'red');
         throw ('error', err.response.data.message);
       });
   };
@@ -33,6 +34,7 @@ export function updateUser(id, user) {
           dispatch(loadUsers());
         }, (err) => {
           dispatch(updateUserFailure());
+          Materialize.toast(err.response.data.message, 3000, 'red');
           throw ('error', err.response.data.message);
         });
   };
@@ -54,6 +56,7 @@ export function searchUsers(query) {
         dispatch(getAllUsersSuccess(res.data));
       }, (err) => {
         dispatch(getAllUsersFailed());
+        Materialize.toast(err.response.data.message, 3000, 'red');
         throw ('error', err.response.data.message);
       });
   };
