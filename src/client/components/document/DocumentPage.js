@@ -52,15 +52,37 @@ class DocumentPage extends React.Component {
   }
 
   render() {
-    let pageInfo;
     let pageCount;
     let currentPage;
     if (Object.keys(this.props.documents).length !== 0) {
-
       if (this.props.paginationDetails !== undefined) {
         pageCount = this.props.paginationDetails.pageCount;
         currentPage = this.props.paginationDetails.currentPage;
       }
+    }
+    let noDoc = null;
+    let pagination = null;
+    if (this.props.documents.length === 0) {
+      noDoc = (
+        <div className="row center-align">
+          <h6>Sorry, no documents found.
+            Please try to create a document by clicking the ( + ) below.
+          </h6>
+        </div>
+      );
+    } else {
+      pagination = (
+        <div className="row">
+          <div className="col m12 center-align">
+            <Pagination
+              items={pageCount}
+              activePage={currentPage}
+              maxButtons={6}
+              onSelect={this.onClick}
+            />
+          </div>
+        </div>
+      );
     }
     return (
       <div>
@@ -96,23 +118,17 @@ class DocumentPage extends React.Component {
               </div>
             </div>
           </div>
-          
-          {this.props.documents.map(document => <DocumentCard
-              key={document.id}
-              document={document} />
-          )}
-          
 
-          <div className="row">
-            <div className="col m12 center-align">
-              <Pagination
-                items={pageCount}
-                activePage={currentPage}
-                maxButtons={6}
-                onSelect={this.onClick}
-              />
-            </div>
-          </div>
+          { noDoc }
+
+          {this.props.documents.map(document =>
+            <DocumentCard
+              key={document.id}
+              document={document}
+            />
+          )}
+
+          { pagination }
 
           <AddDocumentModal />
         </div>

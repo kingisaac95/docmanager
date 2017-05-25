@@ -1,73 +1,200 @@
 // import dependencies
-const request = require ('supertest'); // import test tool
-const should = require('should'); // import should for accertion
-const server = require('../../bin/www'); // import the app
-const user = require('../../helpers/users'); // import user helper
+import request from 'supertest'; // import test tool
+import should from 'should'; // import should for accertion
+import server from '../../server/app'; // import the app
+import * as user from '../helpers/users'; // import document helper
 
 process.env.NODE_ENV = 'test'; // set enviroment to test
 
 // supertest agent for executing http requests
 const app = request(server);
 
-describe('DocManager API Endpoints:', () => {
-  // user tests
-  describe('User CRUD test', () => {
-    it('should create, and return an `id`', (done) => {
+let adminUser;
+
+describe('User CRUD test', () => {
+  before((done) => {
+    app
+    .post('/api/v1/users')
+    .send(user.testUser)
+    .end(() => {
       app
-        .post('/api/users')
-        .send(user.superAdmin)
-        .expect(200)
-        .end((error, user) => {
-          user.body.should.have.property('id');
+        .post('/api/v1/users/login')
+        .send({ username: 'jdoe1', password: 'password' })
+        .end((err, res) => {
+          adminUser = res.body.token;
           done();
         });
     });
+  });
 
-    it('should find all users and return a json containing all users',
-      (done) => {
+  describe(('user POST actions'), () => {
+    it('should login a user, and return a token', (done) => {
+      app
+      .post('/api/v1/users')
+      .send(user.testUser)
+      .end(() => {
         app
-          .get('api/users')
+          .post('/api/v1/users/login')
+          .send({ username: 'jdoe1', password: 'password' })
           .expect(200)
-          .end((error) => {
+          .end(() => {
             done();
           });
       });
+    });
 
-    it('should find a user based on `id` and return the user', (done) => {
+    it('should not login with false credentials', (done) => {
       app
-        .post('/api/users')
-        .send(user.user);
+      .post('/api/v1/users')
+      .send(user.testUser)
+      .end(() => {
+        app
+          .post('/api/v1/users/login')
+          .send({ username: 'jdoe1', password: 'passwordoo' })
+          .expect(401)
+          .end((err, res) => {
+            res.body.message.should.equal('Authentication failed! Wrong user credentials.');
+            done();
+          });
+      });
+    });
+
+    it('should not login an unexisting username', (done) => {
       app
-        .get('api/users/1')
-        .expect(200)
-        .end((error) => {
+        .post('/api/v1/users/login')
+        .send({ username: 'kingisaacD95', password: 'password' })
+        .expect(404)
+        .end((err, res) => {
+          res.body.message.should.equal('Authentication failed! User not found.');
           done();
         });
     });
 
-    it('should update a user and return the updated details', (done) => {
+    it('should not create a user if he already exists', (done) => {
       app
-        .post('/api/users')
-        .send(user.testUser);
+        .post('/api/v1/users')
+        .send(user.testUser)
+        .end(() => {
+          app
+            .post('/api/v1/users')
+            .send(user.testUser)
+            .expect(400)
+            .end((err, res) => {
+              res.body.message.should.equal('User already exists');
+            });
+          done();
+        });
+    });
+  });
+
+  describe(('create user actions'), () => {
+    it('should create a user, and return an `id` that increments', (done) => {
       app
-        .put('/api/users/3')
-        .send(user.updateTestUser)
+        .post('/api/v1/users')
+        .send(user.user)
+        .set('Authorization', adminUser)
+        .expect(201)
+        .end((err, res) => {
+          res.body.message.should.equal('User registration successful');
+          done();
+        });
+    });
+  });
+
+  describe(('user GET actions'), () => {
+    it('should find all users and return a json containing all users', (done) => {
+      app
+        .get('api/v1/users')
+        .set('Authorization', adminUser)
         .expect(200)
-        .end((error, user) => {
-          (user.body.name === "John Doe").should.equal(true);
+        .then((res) => {
+          res.body.should.have.property('id');
         });
       done();
     });
 
+    it('should find and return a user by id', (done) => {
+      app
+        .get('api/v1/users/1')
+        .set('Authorization', adminUser)
+        .expect(200);
+      done();
+    });
+
+    it('should not find a user that does not exist', (done) => {
+      app
+        .get('api/v1/users/2000')
+        .set('Authorization', adminUser)
+        .expect(404)
+        .then((res) => {
+          res.body.should.have.property('message');
+          res.body.message.should.equal('User Not Found');
+        });
+      done();
+    });
+  });
+  describe(('user PUT actions'), () => {
+    it('should update a user details and return the updated details',
+    (done) => {
+      app
+        .put('/api/v1/users/5')
+        .send(user.updateTestUser)
+        .set('Authorization', adminUser)
+        .expect(200)
+        .then((res) => {
+          res.body.name.should.equal('John Doe');
+        });
+      done();
+    });
+
+    it('should not update a user that does not exist',
+    (done) => {
+      app
+        .put('/api/v1/users/2000')
+        .send(user.updateTestuser)
+        .set('Authorization', adminUser)
+        .expect(404)
+        .then((res) => {
+          res.body.message.should.equal('User Not Found!');
+        });
+      done();
+    });
+  });
+  describe(('user DELETE actions'), () => {
     it('should delete a user from the database', (done) => {
       app
-        .post('/api/users')
-        .send(user.testUser);
-      app
-        .delete('/api/users/4')
+        .delete('/api/v1/users/4')
+        .set('Authorization', adminUser)
         .expect(200)
-        .end((error, user) => {
-          should.not.exist(user.body.id);
+        .then((res) => {
+          should.not.exist(res.body.username);
+          res.body.should.have.property('message');
+          res.body.message.should.equal('User Deleted!');
+        });
+      done();
+    });
+
+    it('should not delete a user that does not exist in the database',
+    (done) => {
+      app
+        .delete('/api/v1/users/2000')
+        .set('Authorization', adminUser)
+        .expect(404)
+        .then((res) => {
+          res.body.should.have.property('message');
+          res.body.message.should.equal('User Not Found!');
+        });
+      done();
+    });
+
+    it('only an admin or the user himself can delete a user account',
+    (done) => {
+      app
+        .delete('/api/v1/users/')
+        .set('Authorization', adminUser)
+        .expect(401)
+        .then((res) => {
+          res.body.message.should.equal('Error! Unauthorized to perform this operation. Please contact system administrator');
         });
       done();
     });

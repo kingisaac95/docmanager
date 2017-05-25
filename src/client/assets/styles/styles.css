@@ -171,7 +171,7 @@ nav .input-field .label-icon i {
   transition: 0.3s;
 }
 
-.intro-card:hover, .card:hover {
+.intro-card:hover, .card:hover, .about-card {
   box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
 }
