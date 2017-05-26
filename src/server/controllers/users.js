@@ -181,6 +181,25 @@ export default {
       })
       .catch(error => res.status(400).send(error));
   },
+  makeAdmin(req, res) {
+    return User
+      .findById(req.params.userId)
+      .then((user) => {
+        if (!user) {
+          return res.status(404).json({
+            status: 404,
+            message: 'User Not Found!'
+          });
+        }
+        user
+          .update({
+            RoleId: 2
+          })
+          .then(() => res.status(200).send(user))
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
   delete(req, res) {
     return User
       .findById(req.params.userId)

@@ -18,7 +18,6 @@ class DeleteDocumentModal extends React.Component {
     this.props.deleteDocument(id);
     Materialize.toast('Document deleted.', 3000, 'red');
   }
-  
 
   render() {
     const { document } = this.props;

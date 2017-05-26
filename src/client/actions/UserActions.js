@@ -18,12 +18,15 @@ export function loadUsers(offset) {
       });
   };
 }
+
 export function updateUserSuccess(user) {
   return { type: types.UPDATE_USER_SUCCESS, user };
 }
+
 export function updateUserFailure() {
   return { type: types.UPDATE_USER_FAILED };
 }
+
 export function updateUser(id, user) {
   return (dispatch) => {
     request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
@@ -59,5 +62,29 @@ export function searchUsers(query) {
         Materialize.toast(err.response.data.message, 3000, 'red');
         throw ('error', err.response.data.message);
       });
+  };
+}
+
+export function upgradeUserSuccess(user) {
+  return { type: types.UPGRADE_USER_SUCCESS, user };
+}
+
+export function upgradeUserFailure() {
+  return { type: types.UPGRADE_USER_FAILED };
+}
+
+export function makeAdmin(id) {
+  return (dispatch) => {
+    request.defaults.headers.common['Authorization'] = localStorage.jwtToken;
+    return request
+      .patch(`/api/v1/users/${id}`)
+        .then((res) => {
+          dispatch(upgradeUserSuccess(res.data));
+          dispatch(loadUsers());
+        }, (err) => {
+          dispatch(upgradeUserFailure());
+          Materialize.toast(err.response.data.message, 3000, 'red');
+          throw ('error', err.response.data.message);
+        });
   };
 }

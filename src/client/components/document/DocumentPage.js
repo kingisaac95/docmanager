@@ -14,7 +14,7 @@ import DocumentCard from './DocumentCard';
 class DocumentPage extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       document: {
         title: 'Document Title',
@@ -42,7 +42,7 @@ class DocumentPage extends React.Component {
   openDocumentModal() {
     $('#addDocumentModal').modal('open');
   }
-  
+
   roleChange(e) {
     if(e.target.value === 'private') {
       this.props.loadUserDocuments(0);

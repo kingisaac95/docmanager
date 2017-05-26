@@ -1,12 +1,28 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import jwt from 'jsonwebtoken';
+import MakeAdminModal from '../modals/MakeAdminModal';
 
 export default class UserCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userData: this.props.user.id
+    };
+  }
+
+  componentDidMount() {
+    $('.modal').modal();
+  }
+
+  openMakeAdminModal(id) {
+    $(`#makeAdminModal-${id}`).modal('open');
+  }
 
   render() {
     const { user } = this.props;
     let edit = null;
+    let makeAdmin = null;
     const curUser = jwt.decode(localStorage.jwtToken);
     if (curUser) {
       const userId = curUser.userData.userId;
@@ -15,10 +31,23 @@ export default class UserCard extends React.Component {
           <Link
             to={`users/${user.id}/edit`}
             style={{ cursor: 'pointer' }}
-            id="edit-icon"
+            id="admin-icon"
             className="white-color"
           ><i className="material-icons">edit</i></Link>
         );
+      }
+      if (curUser.userData.role === 1) {
+        if (user.RoleId === 3 || user.RoleId === 4) {
+          makeAdmin = (
+            <a
+              to="#"
+              style={{ cursor: 'pointer', fontStyle: 'bold' }}
+              id="make-admin"
+              className="deep-red-color"
+              onClick={() => this.openMakeAdminModal(user.id)}
+            ><i className="fa fa-power-off" /> Make Admin</a>
+          );
+        }
       }
     }
 
@@ -27,6 +56,7 @@ export default class UserCard extends React.Component {
         <div className="card">
           <div className="card-content center-align">
             { edit }
+            { makeAdmin }
             <i className="fa fa-user fa-5x" />
           </div>
           <div className="blue-bg">
@@ -40,6 +70,7 @@ export default class UserCard extends React.Component {
             </div>
           </div>
         </div>
+        <MakeAdminModal user={user} />
       </div>
     );
   }

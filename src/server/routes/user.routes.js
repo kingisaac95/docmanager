@@ -18,6 +18,7 @@ const userRoutes = (router) => {
     .route('/users/:userId')
     .get(auth.authorize, usersController.findOne)
     .put(auth.authorize, usersController.update)
+    .patch(auth.authorize, usersController.makeAdmin)
     .delete(auth.authorize, auth.isAdminOrUser, usersController.delete);
 };
 

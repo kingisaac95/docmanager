@@ -147,6 +147,17 @@ nav .input-field .label-icon i {
   transform:translate(-50%,-50%)
 }
 
+#make-admin {
+	border-radius: 5px;
+	z-index: 1;
+	position: absolute;
+	padding-left: 10px;
+	padding-right: 10px;
+	right: 5%;
+  top: 15px;
+  transform:translate(-50%,-50%)
+}
+
 #addDocumentModal {
   max-height: 100%;
   width: 100%;
