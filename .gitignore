@@ -3,9 +3,6 @@ logs
 *.log
 npm-debug.log*
 
-# Apple folder files
-.DS_Store
-
 # Runtime data
 pids
 *.pid
@@ -18,7 +15,7 @@ lib-cov
 coverage
 
 # nyc test coverage
-/.nyc_output/**
+.nyc_output
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -30,7 +27,7 @@ coverage
 build/Release
 
 # Dependency directories
-/node_modules/**
+node_modules
 jspm_packages
 
 # Optional npm cache directory
@@ -38,7 +35,3 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
-
-/coverage
-
-.env
