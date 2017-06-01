@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Pagination } from 'react-materialize';
+import $ from 'jquery';
 import AddDocumentModal from '../modals/AddDocumentModal';
 
 import {
@@ -11,7 +12,14 @@ import {
   } from '../../actions/DocumentActions';
 import DocumentCard from './DocumentCard';
 
+/**
+ * DocumentPage
+ * @class
+ */
 class DocumentPage extends React.Component {
+  /**
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
 
@@ -34,23 +42,44 @@ class DocumentPage extends React.Component {
     $(ReactDOM.findDOMNode(this.refs.role)).on('change', this.roleChange);
   }
 
+  /**
+   * onClick handler
+   * @method
+   * @param {integer} pageNumber
+   * @returns {object} - docs
+   */
   onClick(pageNumber) {
     const offset = (pageNumber - 1) * 8;
     this.props.loadDocuments(offset);
   }
 
+  /**
+   * openDocumentModal
+   * @method
+   * @returns {action} - opens modal
+   */
   openDocumentModal() {
     $('#addDocumentModal').modal('open');
   }
 
+  /**
+   * roleChange controller
+   * @param {event} e
+   * @returns {action} - load users/documents action
+   */
   roleChange(e) {
-    if(e.target.value === 'private') {
+    if (e.target.value === 'private') {
       this.props.loadUserDocuments(0);
     } else {
       this.props.loadDocuments(0);
     }
   }
 
+  /**
+   * render method
+   * @method
+   * @returns {jsx} - jsx
+   */
   render() {
     let pageCount;
     let currentPage;
@@ -149,6 +178,11 @@ DocumentPage.propTypes = {
   loadUserDocuments: PropTypes.func.isRequired
 };
 
+/**
+ * mapStateToProps
+ * @param {object} state
+ * @returns {object} - current docs
+ */
 function mapStateToProps(state) {
   return {
     documents: state.documents.data,

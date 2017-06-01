@@ -3,23 +3,37 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import { makeAdmin } from '../../actions/UserActions';
 
+/**
+ * @class
+ */
 class MakeAdminModal extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+  /**
+   * componentDidMoount
+   * @method
+   * @returns {action} - activate modal
+   */
   componentDidMount() {
     $('.modal').modal();
   }
 
+  /**
+   * onClickUpgrade
+   * @method
+   * @param {integer} id
+   * @returns {object} - user objec
+   */
   onClickUpgrade(id) {
     this.props.makeAdmin(id);
     Materialize.toast('User upgraded to Admin.', 3000, 'green');
   }
 
+  /**
+   * render
+   * @function
+   * @returns {jsx} jsx markup
+   */
   render() {
     const { user } = this.props;
-    console.log(user);
     return (
       <div id={`makeAdminModal-${user.id}`} className="modal">
         <div className="modal-content">

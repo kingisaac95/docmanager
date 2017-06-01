@@ -1,12 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router';
+import $ from 'jquery';
 import image from '../../assets/img/icon.png';
 
+/**
+ * Navbar
+ * @class
+ */
 class Navbar extends React.Component {
+  /**
+   * sign up modal invocator
+   * @method
+   * @returns {boolean} - true
+   */
   openSignUpModal() {
     $('#signUpModal').modal('open');
   }
 
+  /**
+   * render
+   * @method
+   * @param {event} e
+   * @returns {action} - action success or failure
+   */
   render() {
     return (
       <div>

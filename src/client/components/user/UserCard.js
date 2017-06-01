@@ -1,9 +1,17 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import jwt from 'jsonwebtoken';
+import $ from 'jquery';
 import MakeAdminModal from '../modals/MakeAdminModal';
 
+/**
+ * @class
+ */
 export default class UserCard extends React.Component {
+  /**
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -11,14 +19,30 @@ export default class UserCard extends React.Component {
     };
   }
 
+  /**
+   * lifecycle method - componentDidMount
+   * @method
+   * @returns {action} - activates select button
+   */
   componentDidMount() {
     $('.modal').modal();
   }
 
+  /**
+   * make admin modal activate
+   * @method
+   * @param {integer} id
+   * @returns {action} - activates modal
+   */
   openMakeAdminModal(id) {
     $(`#makeAdminModal-${id}`).modal('open');
   }
 
+  /**
+   * render
+   * @function
+   * @returns {jsx} jsx markup
+   */
   render() {
     const { user } = this.props;
     let edit = null;

@@ -1,7 +1,15 @@
 import React, { PropTypes } from 'react';
 import http from 'axios';
 
+/**
+ * DocumentSinglView
+ * @class
+ */
 class DocumentSingleView extends React.Component {
+  /**
+   * constructor method
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
 
@@ -9,6 +17,12 @@ class DocumentSingleView extends React.Component {
       document: {}
     };
   }
+
+  /**
+   * lifecycle method
+   * @method
+   * @returns {object} - response object
+   */
   componentDidMount() {
     http.get(`/api/v1/documents/${this.props.params.id}`)
       .then((res) => {
@@ -20,11 +34,27 @@ class DocumentSingleView extends React.Component {
       });
   }
 
+  /**
+   * redirect method
+   * @method
+   * @returns {action} - redirect user to a page back
+   */
   redirect() {
-    window.history.back();
+    this.window.history.back();
   }
 
+  /**
+   * render method
+   * @method
+   * @returns {jsx} - jsx
+   */
   render() {
+    /**
+     * convert html to plain text for display
+     * @function
+     * @param {object} content
+     * @returns {object} - object containing plain text
+     */
     function createContent(content) {
       return { __html: content };
     }

@@ -3,7 +3,15 @@ import Navbar from './common/Navbar';
 import DashboardNavbar from './common/DashboardNavbar';
 import Footer from './common/Footer';
 
+/**
+ * @class
+ */
 class App extends React.Component {
+  /**
+   * render
+   * @function
+   * @returns {jsx} jsx markup
+   */
   render() {
     const currentRoute = window.location.pathname;
     return (

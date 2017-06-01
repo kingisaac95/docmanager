@@ -2,7 +2,15 @@ import React from 'react';
 import SignUpModal from '../modals/SignUpModal';
 import SignInForm from './SignInForm';
 
+/**
+ * @class
+ */
 class HomePage extends React.Component {
+  /**
+   * render method
+   * @method
+   * @returns {jsx} - jsx
+   */
   render() {
     return (
       <div className="home-body">
@@ -20,7 +28,7 @@ class HomePage extends React.Component {
             </div>
           </div>
 
-          <SignUpModal  />
+          <SignUpModal />
         </div>
       </div>
     );

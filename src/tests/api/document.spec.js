@@ -12,7 +12,8 @@ const app = request(server);
 let adminUser;
 
 
-describe('Document CRUD test', () => {
+
+describe('Document', () => {
   before((done) => {
     app
     .post('/api/v1/users')
@@ -29,10 +30,10 @@ describe('Document CRUD test', () => {
   });
 
   describe('document POST actions:', () => {
-    it('should create a document, and return an `id` that increments', (done) => {
+    it('should create a document, and return an id', (done) => {
       app
         .post('/api/v1/documents')
-        .send(document.document)
+        .send(document.testDocument)
         .set('Authorization', adminUser)
         .expect(201)
         .then((res) => {
@@ -43,7 +44,7 @@ describe('Document CRUD test', () => {
     it('should not create a document if any field is empty', (done) => {
       app
         .post('/api/v1/documents')
-        .send(document.document)
+        .send(document.invalid)
         .set('Authorization', adminUser)
         .expect(400)
         .then((res) => {
@@ -54,7 +55,7 @@ describe('Document CRUD test', () => {
     it('should not create a document if no token is provided', (done) => {
       app
         .post('/api/v1/documents')
-        .send(document.document)
+        .send(document.testDocument)
         .expect(401)
         .then((res) => {
           res.body.message.should.equal('Error! No access token provided.');
@@ -62,8 +63,9 @@ describe('Document CRUD test', () => {
       done();
     });
   });
+
   describe('document GET actions:', () => {
-    it('should find all documents and return a json containing all documents', (done) => {
+    it('should return all documents', (done) => {
       app
         .get('api/v1/documents')
         .set('Authorization', adminUser)
@@ -74,7 +76,7 @@ describe('Document CRUD test', () => {
       done();
     });
 
-    it('should find and return a document by id', (done) => {
+    it('should return a document based on Id', (done) => {
       app
         .get('api/v1/documents/1')
         .set('Authorization', adminUser)

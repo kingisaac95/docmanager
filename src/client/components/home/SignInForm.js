@@ -2,7 +2,15 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { signInUser } from '../../actions/SignInActions';
 
+/**
+ * SignInForm
+ * @class
+ */
 class SignInForm extends React.Component {
+  /**
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
 
@@ -15,10 +23,22 @@ class SignInForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  /**
+   * On Change Event handler
+   * @method
+   * @param {event} e
+   * @returns {object} - current state
+   */
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  /**
+   * Form Submit handler
+   * @method
+   * @param {event} e
+   * @returns {action} - action success or failure
+   */
   onSubmit(e) {
     e.preventDefault();
     if (this.state.username === '' || this.state.password === '') {
@@ -30,6 +50,11 @@ class SignInForm extends React.Component {
       });
   }
 
+  /**
+   * render
+   * @method
+   * @returns {jsx} - jsx
+   */
   render() {
     return (
       <div className="card intro-card col m5 offset-m8">
@@ -89,6 +114,11 @@ SignInForm.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
+/**
+ * mapStateToProps
+ * @param {object} state
+ * @returns {object} - exposed state
+ */
 function mapStateToProps(state) {
   return {
     signingIn: state.signIn.signingIn,

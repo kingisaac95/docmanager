@@ -1,9 +1,17 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 import { createUser } from '../../actions/SignUpActions';
 
+/**
+ * @class
+ */
 class SignUpModal extends React.Component {
+  /**
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
 
@@ -20,16 +28,33 @@ class SignUpModal extends React.Component {
     this.onClickSubmit = this.onClickSubmit.bind(this);
   }
 
+  /**
+   * lifecycle method - componentDidMount
+   * @method
+   * @returns {action} - activates select button
+   */
   componentDidMount() {
     $('select').material_select();
     $('.modal').modal();
     $(ReactDOM.findDOMNode(this.refs.role)).on('change', this.onChange);
   }
 
+  /**
+   * change event handler
+   * @method
+   * @param {event} e
+   * @returns {object} - current state
+   */
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  /**
+   * submit event handler
+   * @method
+   * @param {event} e
+   * @returns {object} - current state
+   */
   onClickSubmit(e) {
     e.preventDefault();
     if (this.state.name === '' || this.state.email === '' ||
@@ -42,9 +67,13 @@ class SignUpModal extends React.Component {
     }
 
     this.props.dispatch(createUser(this.state));
-    Materialize.toast('Account created! Please login to continue', 3000, 'green');
   }
 
+  /**
+   * render
+   * @function
+   * @returns {jsx} jsx markup
+   */
   render() {
     return (
       <div id="signUpModal" className="modal">
@@ -142,6 +171,11 @@ SignUpModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
+/**
+ * mapStateToProps
+ * @param {objec} state
+ * @returns {object} - exposed state
+ */
 function mapStateToProps(state) {
   return {
     creating: state.signUp.creating,

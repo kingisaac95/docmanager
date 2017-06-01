@@ -30,8 +30,10 @@ export default {
 
   isAdmin(req, res, next) {
     const role = req.decoded.userData.role;
-    if (role && role === 1 || role === 2) {
-      return next();
+    if (role) {
+      if (role === 1 || role === 2) {
+        return next();
+      }
     }
     return res.status(401).send({
       status: 401,

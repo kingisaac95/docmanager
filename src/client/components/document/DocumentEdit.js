@@ -5,7 +5,15 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import { updateDocument } from '../../actions/DocumentActions';
 
+/**
+ * Document edit
+ * @class
+ */
 class DocumentEdit extends React.Component {
+  /**
+   * @method
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
 
@@ -21,17 +29,35 @@ class DocumentEdit extends React.Component {
     this.onClickUpdate = this.onClickUpdate.bind(this);
   }
 
+  /**
+   * handle chage event
+   * @method
+   * @param {event} e
+   * @returns {object} - changed state
+   */
   componentDidMount() {
     $(ReactDOM.findDOMNode(this.refs.access)).on('change', this.onChange);
     $('select').material_select();
   }
 
+  /**
+   * handle chage event
+   * @method
+   * @param {event} e
+   * @returns {object} - changed state
+   */
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
+  /**
+   * handle chage event
+   * @method
+   * @param {event} id
+   * @returns {object} - updated doc
+   */
   onClickUpdate(id) {
     this.props.updateDocument(id, this.state).then(() => {
       Materialize.toast('Document updated.', 3000, 'green');
@@ -39,15 +65,31 @@ class DocumentEdit extends React.Component {
     });
   }
 
+  /**
+   * handle chage event
+   * @method
+   * @param {event} e
+   * @returns {object} - changed state
+   */
   handleEditorChange(e) {
     const content = e.target.getContent();
     this.setState({ content });
   }
 
+  /**
+   * redirect method
+   * @method
+   * @returns {action} - redirect user to a page back
+   */
   redirect() {
-    window.history.back();
+    this.window.history.back();
   }
 
+  /**
+   * render
+   * @method
+   * @returns {jsx} - jsx
+   */
   render() {
     const { document } = this.props;
     return (
@@ -144,6 +186,12 @@ DocumentEdit.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
+/**
+ * mapStateToProps
+ * @param {object} state
+ * @param {object} ownProps
+ * @returns {object} - current docs
+ */
 function mapStateToProps(state, ownProps) {
   const documentId = ownProps.params.id;
   let document = {};

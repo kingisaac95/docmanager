@@ -5,7 +5,15 @@ import jwt from 'jsonwebtoken';
 import $ from 'jquery';
 import DeleteDocumentModal from '../modals/DeleteDocumentModal';
 
+/**
+ * DocumentCard
+ * @class
+ */
 class DocumentCard extends React.Component {
+  /**
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -13,16 +21,32 @@ class DocumentCard extends React.Component {
     };
   }
 
+  /**
+   * componentDidMount
+   * @method
+   * @returns {action} - open modal
+   */
   componentDidMount() {
     $('select').material_select();
     $('.modal').modal();
     $(ReactDOM.findDOMNode(this.refs.role)).on('change', this.roleChange);
   }
 
+  /**
+   * componentDidMount
+   * @method
+   * @param {number} id - id of the modal
+   * @returns {action} - open modal
+   */
   openDeleteDocumentModal(id) {
     $(`#deleteDocumentModal-${id}`).modal('open');
   }
 
+  /**
+   * render
+   * @method
+   * @returns {jsx} - jsx
+   */
   render() {
     const { document } = this.props;
     let edit = null, button = null;
@@ -53,6 +77,11 @@ class DocumentCard extends React.Component {
       }
     }
 
+    /**
+     * convert html to plain text for display
+     * @function
+     * @returns {object} - object containing plain text
+     */
     function createContent() {
       return { __html: document.content.substring(0, 206) };
     }

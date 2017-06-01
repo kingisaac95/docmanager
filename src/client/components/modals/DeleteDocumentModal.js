@@ -1,24 +1,40 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 import { deleteDocument } from '../../actions/DocumentActions';
 
+/**
+ * @class
+ */
 class DeleteDocumentModal extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+  /**
+   * lifecycle method - componentDidMount
+   * @method
+   * @returns {action} - activate modal and open modal
+   */
   componentDidMount() {
     $(ReactDOM.findDOMNode(this.refs.access)).on('change', this.onChange);
     $('select').material_select();
     $('.modal').modal();
   }
 
+  /**
+   * delete event handler
+   * @method
+   * @param {integer} id
+   * @returns {object} - current state
+   */
   onClickDelete(id) {
     this.props.deleteDocument(id);
     Materialize.toast('Document deleted.', 3000, 'red');
   }
 
+  /**
+   * render
+   * @function
+   * @returns {jsx} jsx markup
+   */
   render() {
     const { document } = this.props;
     return (
@@ -49,4 +65,4 @@ DeleteDocumentModal.propTypes = {
   deleteDocument: PropTypes.func.isRequired
 };
 
-export default connect(null, {deleteDocument})(DeleteDocumentModal);
+export default connect(null, { deleteDocument })(DeleteDocumentModal);

@@ -2,9 +2,17 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import TinyMCE from 'react-tinymce';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 import { createDocument } from '../../actions/DocumentActions';
 
+/**
+ * @class
+ */
 class AddDocumentModal extends React.Component {
+  /**
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -18,18 +26,35 @@ class AddDocumentModal extends React.Component {
     this.handleEditorChange = this.handleEditorChange.bind(this);
   }
 
+  /**
+   * componentDidMount
+   * @method
+   * @returns {action} - modal activate and modal open
+   */
   componentDidMount() {
     $(ReactDOM.findDOMNode(this.refs.access)).on('change', this.onChange);
     $('select').material_select();
     $('.modal').modal();
   }
 
+  /**
+   * change event handler
+   * @method
+   * @param {event} e
+   * @returns {object} - current state
+   */
   onChange(e) {
     this.setState({
-      [ e.target.name ] : e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
+  /**
+   * save event handler
+   * @method
+   * @param {event} e
+   * @returns {object} - current state
+   */
   onClickSave(e) {
     e.preventDefault();
     if (this.state.title === '' || this.state.content === '') {
@@ -39,7 +64,13 @@ class AddDocumentModal extends React.Component {
     Materialize.toast('Document created.', 3000, 'green');
   }
 
-  handleEditorChange (e) {
+  /**
+   * editor change event handler
+   * @method
+   * @param {event} e
+   * @returns {void} - current state
+   */
+  handleEditorChange(e) {
     const content = e.target.getContent();
     this.setState({
       content
@@ -138,6 +169,12 @@ AddDocumentModal.propTypes = {
   createDocument: PropTypes.func.isRequired
 };
 
+/**
+ * mapStateToProps
+ * @function
+ * @param {object} state
+ * @returns {object} - exposed state
+ */
 function mapStateToProps(state) {
   return {
 

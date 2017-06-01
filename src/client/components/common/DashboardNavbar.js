@@ -6,7 +6,28 @@ import logout from '../../actions/LogoutActions';
 import { loadDocuments, searchDocuments } from '../../actions/DocumentActions';
 import { loadUsers, searchUsers } from '../../actions/UserActions';
 
+/**
+ * Dashboard navbar
+ * @class
+ */
 class DashboardNavbar extends React.Component {
+  /**
+   * constructor
+   * @param {object} props
+   */
+  constructor(props) {
+    super(props);
+
+    this.logout = this.logout.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  /**
+   * onChange event
+   * @method
+   * @param {event} e
+   * @returns {action} - action based on condition
+   */
   onChange(e) {
     const query = e.target.value;
     if (location.pathname === '/documents' && query === '') {
@@ -23,11 +44,22 @@ class DashboardNavbar extends React.Component {
     }
   }
 
+  /**
+   * logout event
+   * @method
+   * @param {event} e
+   * @returns {action} - logout action
+   */
   logout(e) {
     e.preventDefault();
     this.props.logout();
   }
 
+  /**
+   * render
+   * @method
+   * @returns {jsx} - jsx
+   */
   render() {
     let message = null;
     const user = this.props.user;
@@ -42,7 +74,7 @@ class DashboardNavbar extends React.Component {
           <div className="row">
             <div className="col s2">
               <Link to="#" className="brand-logo">
-                <img src={image} height="25" alt="docmanager logo" /> 
+                <img src={image} height="25" alt="docmanager logo" />
                 DocManager
               </Link>
               <Link
@@ -55,12 +87,14 @@ class DashboardNavbar extends React.Component {
               <form>
                 <div className="input-field">
                   <input
-                    onChange={this.onChange.bind(this)}
-                    type="search" />
+                    onChange={this.onChange}
+                    type="search"
+                  />
                   <label className="label-icon" htmlFor="search">
                     <i
                       className="material-icons"
-                      style={{color: 'black'}}>search</i>
+                      style={{ color: 'black' }}
+                    >search</i>
                   </label>
                   <i className="material-icons closed">close</i>
                 </div>
@@ -89,7 +123,7 @@ class DashboardNavbar extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" onClick={this.logout.bind(this)}>
+                  <Link to="/" onClick={this.logout}>
                     <i className="material-icons left">list</i>Logout
                   </Link>
                 </li>
@@ -99,18 +133,23 @@ class DashboardNavbar extends React.Component {
 
           <ul className="side-nav" id="mobile-menu">
             <li>
-              <Link to="dashboard">
+              <Link to="/dashboard">
                 <i className="material-icons left">home</i>Dashboard
               </Link>
             </li>
             <li>
-              <Link to="documents">
+              <Link to="/documents">
                 <i className="material-icons left">description</i>Documents
               </Link>
             </li>
             <li>
-              <Link to="users">
+              <Link to="/users">
                 <i className="material-icons left">list</i>Users
+              </Link>
+            </li>
+            <li>
+              <Link to="/" onClick={this.logout}>
+                <i className="material-icons left">list</i>Logout
               </Link>
             </li>
           </ul>
@@ -130,9 +169,14 @@ DashboardNavbar.propTypes = {
   loadDocuments: PropTypes.func.isRequired,
   searchUsers: PropTypes.func.isRequired,
   loadUsers: PropTypes.func.isRequired,
-  user: PropTypes.object,
+  user: PropTypes.object.isRequired,
 };
 
+/**
+ * mapStateToProps
+ * @param {*} state
+ * @returns {object} - state
+ */
 function mapStateToProps(state) {
   return {
     user: state.auth.user.userData

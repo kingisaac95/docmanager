@@ -5,7 +5,7 @@ export const testDocument = {
   content: faker.lorem.sentence(),
   access: 'public'
 };
-export const testDocument2 = {
+export const anotherTestDocument = {
   title: 'John Doe\'s docs',
   content: 'This file contains John Doe\'s documents and all baba baa baaaaaa',
   access: 'public'

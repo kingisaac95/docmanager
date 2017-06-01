@@ -7,8 +7,8 @@ import React from 'react';
 class Footer extends React.Component {
   /**
    * Footer
-   * @function
-   * @returns {jsx} the current state
+   * @method
+   * @returns {jsx} jsx
    */
   render() {
     return (

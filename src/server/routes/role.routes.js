@@ -4,14 +4,14 @@ import auth from '../middleware/authenticate';
 const roleRoutes = (router) => {
   router
     .route('/roles')
-    .get(rolesController.findAll)
-    .post(rolesController.create);
+    .get(auth.authorize, rolesController.findAll)
+    .post(auth.authorize, rolesController.create);
 
   router
     .route('/roles/:roleId')
-    .get(rolesController.findOne)
-    .put(rolesController.update)
-    .delete(rolesController.delete);
+    .get(auth.authorize, rolesController.findOne)
+    .put(auth.authorize, rolesController.update)
+    .delete(auth.authorize, auth.isAdmin, rolesController.delete);
 };
 
 export default roleRoutes;

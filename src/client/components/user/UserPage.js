@@ -2,10 +2,18 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Pagination } from 'react-materialize';
+import $ from 'jquery';
 import { loadUsers } from '../../actions/UserActions';
 import UserCard from './UserCard';
 
+/**
+ * @class
+ */
 class UserPage extends React.Component {
+  /**
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
 
@@ -21,12 +29,21 @@ class UserPage extends React.Component {
     this.props.loadUsers(0);
   }
 
+  /**
+   * lifecycle method
+   * @method
+   * @returns {action} - activate select button
+   */
   componentDidMount() {
     $('select').material_select();
     $('.modal').modal();
   }
 
-
+  /**
+   * render
+   * @function
+   * @returns {jsx} jsx markup
+   */
   render() {
     let pageCount;
     let currentPage;

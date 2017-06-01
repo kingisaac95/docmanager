@@ -4,7 +4,14 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import { updateUser } from '../../actions/UserActions';
 
+/**
+ * @class
+ */
 class UserEdit extends React.Component {
+  /**
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
 
@@ -20,23 +27,45 @@ class UserEdit extends React.Component {
     this.onClickUpdate = this.onClickUpdate.bind(this);
   }
 
+  /**
+   * lifecycle method - componentDidMount
+   * @method
+   * @returns {action} - activates select button
+   */
   componentDidMount() {
     $(ReactDOM.findDOMNode(this.refs.access)).on('change', this.onChange);
     $('select').material_select();
   }
 
+  /**
+   * change event handler
+   * @method
+   * @param {event} e
+   * @returns {object} - state
+   */
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
+  /**
+   * change event handler
+   * @method
+   * @param {integer} id
+   * @returns {object} - user
+   */
   onClickUpdate(id) {
     this.props.updateUser(id, this.state).then(() => {
       this.context.router.push('/users');
     });
   }
 
+  /**
+   * render
+   * @function
+   * @returns {jsx} jsx markup
+   */
   render() {
     const { user } = this.props;
     return (
@@ -126,17 +155,22 @@ UserEdit.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
+/**
+ * mapStateToProps
+ * @param {object} state
+ * @param {object} ownProps
+ * @returns {object} - exposed state
+ */
 function mapStateToProps(state, ownProps) {
   const userId = ownProps.params.id;
   let user = {};
-  state.users.data.forEach(curUser => {
+  state.users.data.forEach((curUser) => {
     const curUserId = String(curUser.id);
     if (curUserId === userId) {
       user = curUser;
     }
   });
   return { user };
-  
 }
 
 export default connect(mapStateToProps, { updateUser })(UserEdit);

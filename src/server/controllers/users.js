@@ -11,7 +11,7 @@ export default {
   login(req, res) {
     if (req.body.username === '' || req.body.password === '') {
       res.status(400).json({
-        status: 'Bad Request',
+        status: 400,
         message: 'Fields cannot be empty'
       });
     } else {
