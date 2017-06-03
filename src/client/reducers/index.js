@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux';
-import documents from './DocumentReducer';
+import DocumentStore from './DocumentReducer';
 import signUp from './SignUpReducer';
 import signIn from './SignInReducer';
 import auth from './AuthenticationReducer';
-import users from './UserReducer';
+import UserStore from './UserReducer';
 import quote from './QuoteReducer';
 
 const rootReducer = combineReducers({
-  documents,
+  DocumentStore,
   signUp,
   signIn,
   auth,
-  users,
+  UserStore,
   quote,
 });
 

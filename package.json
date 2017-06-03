@@ -21,6 +21,7 @@
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
     "seed:test-db": "NODE_ENV=test babel-node ./src/tests/seeders/dbSeeders",
+    "seed-db": "babel-node ./src/tests/seeders/dbSeeders",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "server-side-test": "NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha \"src/tests/**/*.spec.js\" --timeout 10000 && npm run report-coverage",
     "test": "npm run seed:test-db && npm run server-side-test",
@@ -77,7 +78,8 @@
     "toastr": "2.1.2",
     "webpack": "1.13.0",
     "webpack-dev-middleware": "1.6.1",
-    "webpack-hot-middleware": "2.10.0"
+    "webpack-hot-middleware": "2.10.0",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "babel-cli": "6.8.0",

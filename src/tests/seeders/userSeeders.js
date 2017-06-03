@@ -28,5 +28,19 @@ export default [
     email: faker.internet.email(),
     password: 'password',
     RoleId: 1
+  },
+  {
+    name: 'John Doe',
+    username: 'jdoe1',
+    email: 'john.doe@andela.com',
+    password: 'password',
+    RoleId: 3
+  },
+  {
+    name: 'Super Admin',
+    username: 'admin',
+    email: faker.internet.email(),
+    password: 'password',
+    RoleId: 1
   }
 ];

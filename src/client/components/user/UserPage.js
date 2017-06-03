@@ -113,8 +113,8 @@ UserPage.propTypes = {
  */
 function mapStateToProps(state) {
   return {
-    users: state.users.data,
-    paginationDetails: state.users.paginationDetails
+    users: state.UserStore.users,
+    paginationDetails: state.UserStore.paginationDetails
   };
 }
 

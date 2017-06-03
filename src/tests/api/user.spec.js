@@ -9,7 +9,7 @@ process.env.NODE_ENV = 'test'; // set enviroment to test
 // supertest agent for executing http requests
 const app = request(server);
 
-let adminUser;
+let token;
 
 describe('User CRUD test', () => {
   before((done) => {
@@ -21,7 +21,7 @@ describe('User CRUD test', () => {
         .post('/api/v1/users/login')
         .send({ username: 'jdoe1', password: 'password' })
         .end((err, res) => {
-          adminUser = res.body.token;
+          token = res.body.token;
           done();
         });
     });
@@ -92,7 +92,7 @@ describe('User CRUD test', () => {
       app
         .post('/api/v1/users')
         .send(user.user)
-        .set('Authorization', adminUser)
+        .set('Authorization', token)
         .expect(201)
         .end((err, res) => {
           res.body.message.should.equal('User registration successful');
@@ -105,7 +105,7 @@ describe('User CRUD test', () => {
     it('should find all users and return a json containing all users', (done) => {
       app
         .get('api/v1/users')
-        .set('Authorization', adminUser)
+        .set('Authorization', token)
         .expect(200)
         .then((res) => {
           res.body.should.have.property('id');
@@ -116,7 +116,7 @@ describe('User CRUD test', () => {
     it('should find and return a user by id', (done) => {
       app
         .get('api/v1/users/1')
-        .set('Authorization', adminUser)
+        .set('Authorization', token)
         .expect(200);
       done();
     });
@@ -124,7 +124,7 @@ describe('User CRUD test', () => {
     it('should not find a user that does not exist', (done) => {
       app
         .get('api/v1/users/2000')
-        .set('Authorization', adminUser)
+        .set('Authorization', token)
         .expect(404)
         .then((res) => {
           res.body.should.have.property('message');
@@ -139,7 +139,7 @@ describe('User CRUD test', () => {
       app
         .put('/api/v1/users/5')
         .send(user.updateTestUser)
-        .set('Authorization', adminUser)
+        .set('Authorization', token)
         .expect(200)
         .then((res) => {
           res.body.name.should.equal('John Doe');
@@ -152,7 +152,7 @@ describe('User CRUD test', () => {
       app
         .put('/api/v1/users/2000')
         .send(user.updateTestuser)
-        .set('Authorization', adminUser)
+        .set('Authorization', token)
         .expect(404)
         .then((res) => {
           res.body.message.should.equal('User Not Found!');
@@ -164,7 +164,7 @@ describe('User CRUD test', () => {
     it('should delete a user from the database', (done) => {
       app
         .delete('/api/v1/users/4')
-        .set('Authorization', adminUser)
+        .set('Authorization', token)
         .expect(200)
         .then((res) => {
           should.not.exist(res.body.username);
@@ -178,7 +178,7 @@ describe('User CRUD test', () => {
     (done) => {
       app
         .delete('/api/v1/users/2000')
-        .set('Authorization', adminUser)
+        .set('Authorization', token)
         .expect(404)
         .then((res) => {
           res.body.should.have.property('message');
@@ -191,7 +191,7 @@ describe('User CRUD test', () => {
     (done) => {
       app
         .delete('/api/v1/users/')
-        .set('Authorization', adminUser)
+        .set('Authorization', token)
         .expect(401)
         .then((res) => {
           res.body.message.should.equal('Error! Unauthorized to perform this operation. Please contact system administrator');

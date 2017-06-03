@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { loadDocuments } from '../actions/DocumentActions';
-import { loadUsers } from '../actions/UserActions';
+import { loadUserDocuments } from '../actions/DocumentActions';
 import { loadQuote } from '../actions/onLoadActions';
 
 /**
@@ -25,8 +24,7 @@ class DashboardPage extends React.Component {
    */
   componentDidMount() {
     this.props.loadQuote();
-    this.props.loadDocuments(0);
-    this.props.loadUsers(0);
+    this.props.loadUserDocuments(0);
   }
 
   /**
@@ -46,18 +44,16 @@ class DashboardPage extends React.Component {
             <div className="space" />
             <div className="col m6">
               <i className="fa fa-file fa-3x blue-color" />
-              <p>Total files: {this.props.documents.totalCount}</p>
-            </div>
-            <div className="col m6">
-              <i className="fa fa-user fa-3x deep-red-color" />
-              <p>Total Users: {this.props.users.totalCount}</p>
+              <p>You have
+                <span className="deep-red-color"> {this.props.documents.totalCount} </span>
+                documents so far</p>
             </div>
           </div>
           <div className="col m6 about-card">
             <h5>Famous quotes tailored for you</h5>
             <hr />
             <p className="left-align">{this.props.quote.quote}</p>
-            <p className="right-align">-- {this.props.quote.author}</p>
+            <p className="right-align">- {this.props.quote.author}</p>
           </div>
         </div>
         <div className="space" />
@@ -79,11 +75,9 @@ class DashboardPage extends React.Component {
 }
 
 DashboardPage.propTypes = {
-  loadDocuments: PropTypes.func.isRequired,
-  loadUsers: PropTypes.func.isRequired,
+  loadUserDocuments: PropTypes.func.isRequired,
   loadQuote: PropTypes.func.isRequired,
   documents: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired,
   quote: PropTypes.object.isRequired,
 };
 
@@ -95,11 +89,10 @@ DashboardPage.propTypes = {
  */
 function mapStateToProps(state) {
   return {
-    documents: state.documents.paginationDetails,
-    users: state.users.paginationDetails,
+    documents: state.DocumentStore.paginationDetails,
     quote: state.quote
   };
 }
 
 export default connect(mapStateToProps,
-  { loadDocuments, loadUsers, loadQuote })(DashboardPage);
+  { loadUserDocuments, loadQuote })(DashboardPage);

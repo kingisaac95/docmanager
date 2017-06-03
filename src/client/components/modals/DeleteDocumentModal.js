@@ -50,10 +50,10 @@ class DeleteDocumentModal extends React.Component {
           <button
             onClick={() => this.onClickDelete(document.id)}
           className="modal-close left btn-large waves-effect deep-red-bg-color"
-            name="action">Delete</button>
+            name="action">Yes! Delete</button>
           <button
             className="modal-close right btn-large waves-effect blue-bg"
-            name="action">Cancel</button>
+            name="action">No</button>
         </div>
       </div>
     );

@@ -101,11 +101,7 @@ class DashboardNavbar extends React.Component {
               </form>
             </div>
 
-            <div className="col s2 hide-on-med-and-down center-align">
-              { message }
-            </div>
-
-            <div className="col s6 hide-on-med-and-down">
+            <div className="col s8 hide-on-med-and-down">
               <ul className="right">
                 <li>
                   <Link to="/dashboard">
@@ -126,6 +122,9 @@ class DashboardNavbar extends React.Component {
                   <Link to="/" onClick={this.logout}>
                     <i className="material-icons left">list</i>Logout
                   </Link>
+                </li>
+                <li>
+                  { message }
                 </li>
               </ul>
             </div>

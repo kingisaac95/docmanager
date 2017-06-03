@@ -60,7 +60,13 @@ class AddDocumentModal extends React.Component {
     if (this.state.title === '' || this.state.content === '') {
       return Materialize.toast('All fields must be filles', 3000, 'red');
     }
-    this.props.createDocument(this.state);
+    this.props.createDocument(this.state)
+    .then(
+      this.setState({
+        title: '',
+        content: ''
+      }));
+    e.content.setContent('');
     Materialize.toast('Document created.', 3000, 'green');
   }
 

@@ -14,10 +14,17 @@ export default {
           RoleId: req.decoded.userData.role,
           access: req.body.access
         })
-        .then(document => res.status(201).send(document))
-        .catch(error => res.status(400).send(error));
+        .then(document => res.status(201).send({
+          successful: true,
+          document
+        }))
+        .catch(error => res.status(400).send({
+          successful: false,
+          error
+        }));
     } else {
       return res.status(400).send({
+        successful: false,
         status: 400,
         message: 'Please fill in the all fields'
       });
@@ -39,6 +46,42 @@ export default {
       };
     }
 
+    // admin or super admin fetch all documents
+    if (role === 1 || role === 2) {
+      options.where = {};
+
+      options.include = [
+        {
+          model: models.User,
+          attributes: { exclude: ['password', 'RoleId'] }
+        }
+      ];
+    } else {
+      // filter documents for other users
+      options.where = {
+        $or: [
+          { access: 'public' },
+          { access: 'role',
+            $and: {
+              '$User.RoleId$': role
+            }
+          },
+          { access: 'private',
+            $and: {
+              UserId: currentUser
+            }
+          }
+        ]
+      };
+
+      options.include = [
+        {
+          model: models.User,
+          attributes: { exclude: ['password', 'RoleId'] }
+        }
+      ];
+    }
+
     options.offset = req.query.offset > 0 ? req.query.offset : 0;
     options.limit = req.query.limit > 0 ? req.query.limit : 12;
     options.order = [['createdAt', 'DESC']];
@@ -49,45 +92,22 @@ export default {
       .then((documents) => {
         if (documents < 1) {
           return res.status(404).json({
+            successful: false,
             status: 404,
             message: 'You currently have no documents, please create some.'
           });
         }
-        if (role === 1 || role === 2) {
-          const paginationDetails = pagination(
-            options.limit, options.offset, documents.count);
-          return res.status(200).send({
-            data: documents.rows,
-            paginationDetails });
-        }
-
-        if (role !== 1 && role !== 2) {
-          const availableDocuments = documents.rows.filter((document) => {
-            const availableDocumentsArray = [];
-
-            if (document.UserId === currentUser) {
-              return availableDocumentsArray.push(document);
-            }
-
-            if (document.UserId !== currentUser
-              && document.access === 'public') {
-              return availableDocumentsArray.push(document);
-            }
-            if (document.UserId !== currentUser && document.access === 'role') {
-              if (role === document.RoleId) {
-                return availableDocumentsArray.push(document);
-              }
-            }
-          });
-
-          const paginationDetails = pagination(
-            options.limit, options.offset, documents.count);
-          return res.status(200).send({
-            data: availableDocuments,
-            paginationDetails });
-        }
+        const paginationDetails = pagination(
+          options.limit, options.offset, documents.count);
+        return res.status(200).send({
+          successful: true,
+          documents: documents.rows,
+          paginationDetails });
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send({
+        successful: false,
+        error
+      }));
   },
   findOne(req, res) {
     const options = {};
@@ -102,13 +122,20 @@ export default {
       .then((document) => {
         if (!document) {
           res.status(404).send({
+            successful: false,
             message: 'Document Not Found.'
           });
         } else {
-          return res.status(200).send(document);
+          return res.status(200).send({
+            successful: true,
+            document
+          });
         }
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send({
+        successful: false,
+        error
+      }));
   },
   findUserDocuments(req, res) {
     const options = {};
@@ -125,6 +152,7 @@ export default {
       .then((documents) => {
         if (documents < 1) {
           res.status(404).json({
+            successful: true,
             status: 404,
             message: 'No document found for this user'
           });
@@ -132,34 +160,55 @@ export default {
           const paginationDetails = pagination(
             options.limit, options.offset, documents.count);
           return res.status(200).send({
-            data: documents.rows,
+            documents: documents.rows,
             paginationDetails });
         }
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send({
+        successful: false,
+        error
+      }));
   },
   update(req, res) {
-    return Document
-      .findById(req.params.documentId)
-      .then((document) => {
-        if (!document) {
-          return res.status(404).send({
-            status: 404,
-            message: 'Document Not Found!'
-          });
-        }
-        document
-          .update({
-            title: req.body.title,
-            content: req.body.content,
-            UserId: req.decoded.userData.userId,
-            RoleId: req.decoded.userData.role,
-            access: req.body.access
-          })
-          .then(() => res.status(200).send(document))
-          .catch(error => res.status(400).send(error));
-      })
-      .catch(error => res.status(400).send(error));
+    if (req.body.title && req.body.content && req.body.access) {
+      Document
+        .findById(req.params.documentId)
+        .then((document) => {
+          if (!document) {
+            return res.status(404).send({
+              successful: false,
+              status: 404,
+              message: 'Document Not Found!'
+            });
+          }
+          document
+            .update({
+              title: req.body.title,
+              content: req.body.content,
+              UserId: req.decoded.userData.userId,
+              RoleId: req.decoded.userData.role,
+              access: req.body.access
+            })
+            .then(() => res.status(200).send({
+              successful: true,
+              document
+            }))
+            .catch(error => res.status(400).send({
+              successful: false,
+              error
+            }));
+        })
+        .catch(error => res.status(400).send({
+          successful: false,
+          error
+        }));
+    } else {
+      return res.status(400).send({
+        successful: false,
+        status: 400,
+        message: 'Please fill in the all fields'
+      });
+    }
   },
   delete(req, res) {
     return Document
@@ -167,6 +216,7 @@ export default {
       .then((document) => {
         if (!document) {
           return res.status(404).send({
+            successful: false,
             status: 404,
             message: 'Document Not Found!'
           });
@@ -174,11 +224,18 @@ export default {
         document
           .destroy()
           .then(() => res.status(200).send({
+            successful: true,
             status: 200,
             message: 'Document Deleted!'
           }))
-          .catch(error => res.status(400).send(error));
+          .catch(error => res.status(400).send({
+            successful: false,
+            error
+          }));
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send({
+        successful: false,
+        error
+      }));
   }
 };

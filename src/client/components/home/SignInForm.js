@@ -74,7 +74,7 @@ class SignInForm extends React.Component {
                     type="text"
                     placeholder="&#xf2c0;"
                   />
-                  <label htmlFor="username">Username</label>
+                  <label className="active" htmlFor="username">Username</label>
                 </div>
               </div>
               <div className="row">
@@ -85,7 +85,7 @@ class SignInForm extends React.Component {
                     type="password"
                     placeholder="&#xf084;"
                   />
-                  <label htmlFor="password">Password</label>
+                  <label className="active" htmlFor="password">Password</label>
                 </div>
               </div>
               <div className="row center-align">

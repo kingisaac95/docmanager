@@ -96,7 +96,7 @@ class SignUpModal extends React.Component {
                     placeholder="&#xf234;"
                     className="validate"
                   />
-                  <label htmlFor="name">Full Name</label>
+                  <label className="active" htmlFor="name">Full Name</label>
                 </div>
               </div>
               <div className="row">
@@ -108,7 +108,7 @@ class SignUpModal extends React.Component {
                     placeholder="&#xf0e0;"
                     className="validate"
                   />
-                  <label htmlFor="email">Email</label>
+                  <label className="active" htmlFor="email">Email</label>
                 </div>
               </div>
               <div className="row">
@@ -120,7 +120,7 @@ class SignUpModal extends React.Component {
                     placeholder="&#xf2c0;"
                     className="validate"
                   />
-                  <label htmlFor="username">Username</label>
+                  <label className="active" htmlFor="username">Username</label>
                 </div>
               </div>
               <div className="row">
@@ -132,7 +132,7 @@ class SignUpModal extends React.Component {
                     placeholder="&#xf084;"
                     className="validate"
                   />
-                  <label htmlFor="password">Password</label>
+                  <label className="active" htmlFor="password">Password</label>
                 </div>
               </div>
               <div className="row">
@@ -144,7 +144,7 @@ class SignUpModal extends React.Component {
                     placeholder="&#xf084;"
                     className="validate"
                   />
-                  <label htmlFor="password">Confirm Password</label>
+                  <label className="active" htmlFor="password">Confirm Password</label>
                 </div>
               </div>
             </form>

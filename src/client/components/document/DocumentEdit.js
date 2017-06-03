@@ -82,7 +82,7 @@ class DocumentEdit extends React.Component {
    * @returns {action} - redirect user to a page back
    */
   redirect() {
-    this.window.history.back();
+    window.history.back();
   }
 
   /**
@@ -195,7 +195,7 @@ DocumentEdit.contextTypes = {
 function mapStateToProps(state, ownProps) {
   const documentId = ownProps.params.id;
   let document = {};
-  state.documents.data.forEach((doc) => {
+  state.DocumentStore.documents.forEach((doc) => {
     const curDocId = String(doc.id);
     if (curDocId === documentId) {
       document = doc;

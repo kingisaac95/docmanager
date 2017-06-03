@@ -12,7 +12,7 @@ export default {
         if (error) {
           res.status(400).send({
             status: false,
-            message: 'Error! Failed to authenticate token.'
+            message: 'The token you provided is incorrect.'
           });
         } else {
           req.decoded = decoded;
@@ -23,7 +23,7 @@ export default {
       // if no token was provided
       return res.status(401).send({
         status: 401,
-        message: 'Error! No access token provided.'
+        message: 'You did not provide any access token.'
       });
     }
   },
@@ -37,7 +37,7 @@ export default {
     }
     return res.status(401).send({
       status: 401,
-      message: 'Error! Unauthorized Access. Please contact system administrator'
+      message: 'Unauthorized Access. Please contact system administrator'
     });
   },
 
@@ -50,8 +50,7 @@ export default {
     }
     return res.status(401).send({
       status: 401,
-      message: `Error! Unauthorized to perform this operation.
-      Please contact system administrator`
+      message: 'You are unauthorized to perform this operation, please contact system administrator'
     });
   },
 };

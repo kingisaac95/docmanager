@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import http from 'axios';
 
 /**
@@ -40,7 +41,7 @@ class DocumentSingleView extends React.Component {
    * @returns {action} - redirect user to a page back
    */
   redirect() {
-    this.window.history.back();
+    window.history.back();
   }
 
   /**
@@ -58,7 +59,7 @@ class DocumentSingleView extends React.Component {
     function createContent(content) {
       return { __html: content };
     }
-    const { document: { access, User = {}, createdAt = '', content, title } } = this.state;
+    const { document: { access, createdAt = '', content, title } } = this.state;
 
     return (
       <div className="row">
@@ -69,17 +70,21 @@ class DocumentSingleView extends React.Component {
             onClick={this.redirect}
           />
           <h6>
-            <span className="right">Access:
-              <span className="blue-color"> {access}</span>
-            </span>
+            <Link
+              to={`documents/${document.id}/edit`}
+              style={{ cursor: 'pointer' }}
+              id="single-view-edit-icon"
+              className="blue-color right"
+            >
+              <i className="material-icons">edit</i>
+            </Link>
           </h6>
           <h5 className="center-align">{title}</h5>
           <p dangerouslySetInnerHTML={createContent(content)} />
           <hr />
           <p>
-            <span>
-              Created by:
-              <span className="blue-color"> {User.name}</span>
+            <span>Access:
+              <span className="blue-color"> {access}</span>
             </span>
             <br />
             <span>

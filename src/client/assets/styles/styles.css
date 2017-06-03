@@ -1,6 +1,19 @@
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
 body {
   font-family: 'Open Sans Condensed', sans-serif;
   font-size: 17px;
+  min-height: 100%;
+}
+
+#footer {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
 }
 
 .home-body {
@@ -165,7 +178,7 @@ nav .input-field .label-icon i {
 }
 
 #card-action, .card-header {
-  padding: 5px 24px;
+  padding: 5px 15px;
 }
 
 .card-header {
@@ -210,6 +223,10 @@ nav .input-field .label-icon i {
   transition: 0.3s;
 }
 
+.intro {
+  padding: 0 24px;
+}
+
 .tooltip::after {
     content: " ";
     position: absolute;
@@ -235,16 +252,19 @@ nav .input-field .label-icon i {
 }
 
 #edit-icon {
-  color: #03a9f4;
-	border-radius: 5px;
-	background: #ffffff;
 	z-index: 1;
 	position: absolute;
-	padding-left: 10px;
-	padding-right: 10px;
-	left: 80%;
-  top: 0;
+	left: 85%;
+  top: 8%;
   transform:translate(-50%,-50%)
+}
+
+#single-view-edit-icon {
+  /*z-index: 1;*/
+	/*position: absolute;*/
+	/*left: 60%;*/
+  /*top: 28%;*/
+  /*transform:translate(-50%,-50%)*/
 }
 
 .doc-card, .user-card {

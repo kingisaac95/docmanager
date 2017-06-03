@@ -91,7 +91,7 @@ class DocumentCard extends React.Component {
         <div className="card">
           <div className="card-header blue-bg">
             <h6
-              className="white-color center-align"
+              className="white-color"
             >
               {document.title.substring(0, 20)}...
               { edit }

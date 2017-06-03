@@ -18,8 +18,22 @@ export default [
   {
     title: faker.lorem.words(),
     content: faker.lorem.sentence(),
+    access: 'public',
+    UserId: 5,
+    RoleId: 3
+  },
+  {
+    title: faker.lorem.words(),
+    content: faker.lorem.sentence(),
     access: 'private',
-    UserId: 3,
+    UserId: 5,
+    RoleId: 3
+  },
+  {
+    title: faker.lorem.words(),
+    content: faker.lorem.sentence(),
+    access: 'role',
+    UserId: 5,
     RoleId: 3
   },
   {

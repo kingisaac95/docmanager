@@ -81,7 +81,7 @@ export default class UserCard extends React.Component {
           <div className="card-content center-align">
             { edit }
             { makeAdmin }
-            <i className="fa fa-user fa-5x" />
+            <i className="fa fa-user fa-4x" />
           </div>
           <div className="blue-bg">
             <div className="card-action white-color user-card">

@@ -13,8 +13,8 @@ export const roleIdTest = {
   title: faker.name.title()
 };
 export const testRole = {
-  title: "Test-User"
+  title: 'Test-User'
 };
 export const updateTestRole = {
-  title: "Test User"
+  title: 'Test User'
 };

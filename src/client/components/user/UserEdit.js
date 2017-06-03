@@ -164,7 +164,7 @@ UserEdit.contextTypes = {
 function mapStateToProps(state, ownProps) {
   const userId = ownProps.params.id;
   let user = {};
-  state.users.data.forEach((curUser) => {
+  state.UserStore.users.forEach((curUser) => {
     const curUserId = String(curUser.id);
     if (curUserId === userId) {
       user = curUser;

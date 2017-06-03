@@ -185,8 +185,8 @@ DocumentPage.propTypes = {
  */
 function mapStateToProps(state) {
   return {
-    documents: state.documents.data,
-    paginationDetails: state.documents.paginationDetails
+    documents: state.DocumentStore.documents,
+    paginationDetails: state.DocumentStore.paginationDetails
   };
 }
 

@@ -1,7 +1,7 @@
 import findIndex from 'lodash/findIndex';
 import * as types from '../constants/types';
 
-const initialState = { data: [], paginationDetails: {} };
+const initialState = { documents: [], paginationDetails: {} };
 /**
  * Quote Reducer
  * @function
