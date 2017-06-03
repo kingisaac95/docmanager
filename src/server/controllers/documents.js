@@ -39,13 +39,6 @@ export default {
     const currentUser = req.decoded.userData.userId;
     const role = req.decoded.userData.role;
 
-    if (req.query.q) {
-      options.where = {
-        title: { $iLike: `%${req.query.q}%` },
-        $or: [{ access: 'public' }, { UserId: currentUser }]
-      };
-    }
-
     // admin or super admin fetch all documents
     if (role === 1 || role === 2) {
       options.where = {};
@@ -86,6 +79,13 @@ export default {
     options.limit = req.query.limit > 0 ? req.query.limit : 12;
     options.order = [['createdAt', 'DESC']];
     options.include = [models.User];
+
+    if (req.query.q) {
+      options.where = {
+        title: { $iLike: `%${req.query.q}%` },
+        $or: [{ access: 'public' }, { UserId: currentUser }]
+      };
+    }
 
     return Document
       .findAndCountAll(options)

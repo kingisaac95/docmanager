@@ -4,13 +4,13 @@ import auth from '../middleware/authenticate';
 const roleRoutes = (router) => {
   router
     .route('/roles')
-    .get(auth.authorize, rolesController.findAll)
-    .post(auth.authorize, rolesController.create);
+    .get(auth.authorize, auth.isAdmin, rolesController.findAll)
+    .post(auth.authorize, auth.isAdmin, rolesController.create);
 
   router
     .route('/roles/:roleId')
-    .get(auth.authorize, rolesController.findOne)
-    .put(auth.authorize, rolesController.update)
+    .get(auth.authorize, auth.isAdmin, rolesController.findOne)
+    .put(auth.authorize, auth.isAdmin, rolesController.update)
     .delete(auth.authorize, auth.isAdmin, rolesController.delete);
 };
 

@@ -59,7 +59,7 @@ describe('Document Manager API', () => {
           .send(document.testDocument)
           .expect(401)
           .then((res) => {
-            res.body.message.should.equal('Error! No access token provided.');
+            res.body.message.should.equal('You did not provide any access token.');
           });
         done();
       });
@@ -71,7 +71,7 @@ describe('Document Manager API', () => {
         .set({ Authorization: adminToken })
         .end((err, res) => {
           res.status.should.equal(200);
-          res.body.documents.length.should.equal(7);
+          res.body.documents.length.should.equal(8);
           done();
         });
       });
@@ -94,7 +94,7 @@ describe('Document Manager API', () => {
           res.body.documents.length.should.equal(3);
           res.body.paginationDetails.pageSize.should.equal(3);
           res.body.paginationDetails.pageCount.should.equal(3);
-          res.body.paginationDetails.totalCount.should.equal(7);
+          res.body.paginationDetails.totalCount.should.equal(8);
           res.body.paginationDetails.currentPage.should.equal(1);
           done();
         });
@@ -158,6 +158,27 @@ describe('Document Manager API', () => {
           });
         });
       });
+
+      it('should return any public document based on search query',
+      (done) => {
+        app.get('/api/v1/documents/?q=production-testing')
+        .set({ Authorization: token })
+        .end((err, res) => {
+          res.status.should.equal(200);
+          res.body.documents.length.should.equal(1);
+          done();
+        });
+      });
+
+      it('should not get documents if no token is provided', (done) => {
+        app
+          .get('/api/v1/documents')
+          .expect(401)
+          .then((res) => {
+            res.body.message.should.equal('You did not provide any access token.');
+          });
+        done();
+      });
     });
 
     describe('PUT: api/v1/documents', () => {
@@ -169,7 +190,7 @@ describe('Document Manager API', () => {
           .set({ Authorization: token })
           .expect(200)
           .then((res) => {
-            res.body.name.should.equal('John Doe');
+            res.body.title.should.equal('John Doe - My Documents');
           });
         done();
       });
@@ -178,11 +199,23 @@ describe('Document Manager API', () => {
       (done) => {
         app
           .put('/api/v1/documents/2000')
-          .send(document.updateTestdocument)
-          .set({ Authorization: token })
+          .send(document.updateTestDocument)
+          .set({ Authorization: adminToken })
           .expect(404)
           .then((res) => {
+            res.body.successful.should.equal(false);
             res.body.message.should.equal('Document Not Found!');
+          });
+        done();
+      });
+
+      it('should not update a document if no token is provided', (done) => {
+        app
+          .put('/api/v1/documents/5')
+          .send(document.updateTestDocument)
+          .expect(401)
+          .then((res) => {
+            res.body.message.should.equal('You did not provide any access token.');
           });
         done();
       });
@@ -211,6 +244,16 @@ describe('Document Manager API', () => {
           .then((res) => {
             res.body.should.have.property('message');
             res.body.message.should.equal('Document Not Found!');
+          });
+        done();
+      });
+
+      it('should not delete a document if no token is provided', (done) => {
+        app
+          .delete('/api/v1/documents/2')
+          .expect(401)
+          .then((res) => {
+            res.body.message.should.equal('You did not provide any access token.');
           });
         done();
       });

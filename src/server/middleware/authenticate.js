@@ -39,18 +39,5 @@ export default {
       status: 401,
       message: 'Unauthorized Access. Please contact system administrator'
     });
-  },
-
-  isAdminOrUser(req, res, next) {
-    const role = req.decoded.userData.role;
-    const userId = req.decoded.userData.userId;
-    const currentUser = req.decoded.userData.userId;
-    if (role === 1 || currentUser === userId) {
-      return next();
-    }
-    return res.status(401).send({
-      status: 401,
-      message: 'You are unauthorized to perform this operation, please contact system administrator'
-    });
-  },
+  }
 };

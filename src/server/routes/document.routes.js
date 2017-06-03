@@ -14,7 +14,7 @@ const documentRoutes = (router) => {
     .route('/documents/:documentId')
     .get(auth.authorize, documentsController.findOne)
     .put(auth.authorize, documentsController.update)
-    .delete(auth.authorize, auth.isAdminOrUser, documentsController.delete);
+    .delete(auth.authorize, documentsController.delete);
 
   router
     .route('/users/:userId/documents')

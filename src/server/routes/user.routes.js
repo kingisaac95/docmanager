@@ -18,8 +18,8 @@ const userRoutes = (router) => {
     .route('/users/:userId')
     .get(auth.authorize, usersController.findOne)
     .put(auth.authorize, usersController.update)
-    .patch(auth.authorize, usersController.makeAdmin)
-    .delete(auth.authorize, auth.isAdminOrUser, usersController.delete);
+    .patch(auth.authorize, auth.isAdmin, usersController.makeAdmin)
+    .delete(auth.authorize, auth.isAdmin, usersController.delete);
 };
 
 export default userRoutes;

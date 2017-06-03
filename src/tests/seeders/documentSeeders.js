@@ -42,5 +42,12 @@ export default [
     access: 'role',
     UserId: 4,
     RoleId: 4
+  },
+  {
+    title: 'A test document for production-testing',
+    content: faker.lorem.sentence(),
+    access: 'public',
+    UserId: 4,
+    RoleId: 4
   }
 ];
