@@ -3,6 +3,12 @@
 [![Coverage Status](https://coveralls.io/repos/github/kingisaac95/docmanager/badge.svg?branch=staging)](https://coveralls.io/github/kingisaac95/docmanager?branch=staging)
 
 # DocManager
+
+<img width="1225" alt="screen shot 2017-06-04 at 11 31 20 pm" src="https://cloud.githubusercontent.com/assets/26261917/26765914/3fd6dbbc-497e-11e7-9e9d-f01ca60b2fa0.png">
+
+<img width="1204" alt="screen shot 2017-06-04 at 11 34 53 pm" src="https://cloud.githubusercontent.com/assets/26261917/26765931/76fc5ff4-497e-11e7-8d8e-3557de7de0b5.png">
+
+
 Docmanager is a fullstack application (API endpoints and user interface) that allows users to create and manage documents. It also comes with API endpoints for creating and managing users.
 
 View the app live [here](https://dmsdoctor.herokuapp.com/)
