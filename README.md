@@ -25,6 +25,9 @@ git clone https://github.com/kingisaac95/docmanager.git
 # Change directory
 cd docmanager
 
+# Create .env file in the root directory
+touch .env
+
 # Copy .env.example to .env
 cp .env.example .env
 
