@@ -66,7 +66,6 @@ class AddDocumentModal extends React.Component {
         title: '',
         content: ''
       }));
-    e.content.setContent('');
     Materialize.toast('Document created.', 3000, 'green');
   }
 

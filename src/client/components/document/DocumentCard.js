@@ -83,7 +83,7 @@ class DocumentCard extends React.Component {
      * @returns {object} - object containing plain text
      */
     function createContent() {
-      return { __html: document.content.substring(0, 206) };
+      return { __html: document.content.substring(0, 180) };
     }
 
     return (

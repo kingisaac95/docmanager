@@ -15,7 +15,14 @@ class DocumentSingleView extends React.Component {
     super(props);
 
     this.state = {
-      document: {}
+      document: {
+        document: {
+          title: '',
+          createdAt: '',
+          access: '',
+          id: ''
+        }
+      }
     };
   }
 
@@ -24,7 +31,7 @@ class DocumentSingleView extends React.Component {
    * @method
    * @returns {object} - response object
    */
-  componentDidMount() {
+  componentWillMount() {
     http.get(`/api/v1/documents/${this.props.params.id}`)
       .then((res) => {
         this.setState({
@@ -59,7 +66,7 @@ class DocumentSingleView extends React.Component {
     function createContent(content) {
       return { __html: content };
     }
-    const { document: { access, createdAt = '', content, title } } = this.state;
+    const { document: { access, createdAt = '', content, title, id } } = this.state.document;
 
     return (
       <div className="row">
@@ -71,7 +78,7 @@ class DocumentSingleView extends React.Component {
           />
           <h6>
             <Link
-              to={`documents/${document.id}/edit`}
+              to={`documents/${id}/edit`}
               style={{ cursor: 'pointer' }}
               id="single-view-edit-icon"
               className="blue-color right"
@@ -99,8 +106,7 @@ class DocumentSingleView extends React.Component {
   }
 }
 
-DocumentSingleView.contextTypes = {
-  router: PropTypes.object.isRequired,
+DocumentSingleView.propTypes = {
   params: PropTypes.object.isRequired
 };
 

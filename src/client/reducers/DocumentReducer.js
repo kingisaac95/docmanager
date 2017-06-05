@@ -13,7 +13,7 @@ export default function documentReducer(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_DOCUMENT_SUCCESS: {
       const newState = Object.assign({}, state);
-      newState.data.push(action.document);
+      newState.documents.push(action.document);
       return newState;
     }
     case types.CREATE_DOCUMENT_FAILURE:

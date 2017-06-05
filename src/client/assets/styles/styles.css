@@ -3,6 +3,7 @@ html {
   box-sizing: border-box;
 }
 body {
+  position: relative;
   font-family: 'Open Sans Condensed', sans-serif;
   font-size: 17px;
   min-height: 100%;
@@ -13,7 +14,7 @@ body {
   right: 0;
   left: 0;
   bottom: 0;
-  padding: 20px;
+  padding: 5px;
 }
 
 .home-body {
@@ -187,6 +188,7 @@ nav .input-field .label-icon i {
 
 #card-content {
   padding: 10px;
+  max-width: 210px;
 }
 
 .pagination li a {
@@ -257,14 +259,6 @@ nav .input-field .label-icon i {
 	left: 85%;
   top: 8%;
   transform:translate(-50%,-50%)
-}
-
-#single-view-edit-icon {
-  /*z-index: 1;*/
-	/*position: absolute;*/
-	/*left: 60%;*/
-  /*top: 28%;*/
-  /*transform:translate(-50%,-50%)*/
 }
 
 .doc-card, .user-card {
