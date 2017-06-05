@@ -8,7 +8,7 @@ export default {
   entry: [
     'eventsource-polyfill',
     'webpack-hot-middleware/client?reload=true',
-    path.resolve(__dirname, 'src/client/index.js')
+    path.resolve(__dirname, 'src/client/index.jsx')
   ],
   target: 'web',
   output: {
@@ -22,7 +22,8 @@ export default {
   resolve: {
     alias: {
       jquery: path.join(__dirname, 'node_modules/jquery/dist/jquery'),
-    }
+    },
+    extensions: ['', '.jsx', '.js']
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -37,6 +38,11 @@ export default {
   module: {
     loaders: [
       { test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel'] },
+      {
+        test: [/\.jsx$/],
+        include: path.join(__dirname, 'src/client'),
+        loaders: ['react-hot-loader', 'babel-loader']
+      },
       { test: /(\.css)$/, loaders: ['style', 'css'] },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
       { test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000' },
