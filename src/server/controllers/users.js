@@ -144,7 +144,17 @@ export default {
     options.offset = req.query.offset > 0 ? req.query.offset : 0;
     options.limit = req.query.limit > 0 ? req.query.limit : 12;
     options.order = [['createdAt', 'DESC']];
-    options.include = [models.Role];
+    options.attributes = {
+      exclude: ['password', 'createdAt', 'updatedAt']
+    };
+    options.include = [
+      {
+        model: models.Role,
+        attributes: {
+          exclude: ['title', 'createdAt', 'updatedAt']
+        }
+      }
+    ];
 
     return User
       .findAndCountAll(options)

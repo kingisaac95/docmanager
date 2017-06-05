@@ -46,7 +46,9 @@ export default {
       options.include = [
         {
           model: models.User,
-          attributes: { exclude: ['password', 'RoleId'] }
+          attributes: {
+            exclude: ['username', 'email', 'password', 'createdAt', 'updatedAt']
+          }
         }
       ];
     } else {
@@ -70,7 +72,9 @@ export default {
       options.include = [
         {
           model: models.User,
-          attributes: { exclude: ['password', 'RoleId'] }
+          attributes: {
+            exclude: ['username', 'email', 'password', 'createdAt', 'updatedAt']
+          }
         }
       ];
     }
@@ -78,7 +82,6 @@ export default {
     options.offset = req.query.offset > 0 ? req.query.offset : 0;
     options.limit = req.query.limit > 0 ? req.query.limit : 12;
     options.order = [['createdAt', 'DESC']];
-    options.include = [models.User];
 
     if (req.query.q) {
       options.where = {
