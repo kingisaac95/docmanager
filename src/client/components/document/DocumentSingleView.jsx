@@ -78,7 +78,7 @@ class DocumentSingleView extends React.Component {
           />
           <h6>
             <Link
-              to={`documents/${id}/edit`}
+              to={`/documents/${id}/edit`}
               style={{ cursor: 'pointer' }}
               id="single-view-edit-icon"
               className="blue-color right"
