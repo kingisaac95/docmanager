@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { Pagination } from 'react-materialize';
 import $ from 'jquery';
 import AddDocumentModal from '../modals/AddDocumentModal';
+import logout from '../../actions/LogoutActions';
 
 import {
     loadDocuments,
@@ -34,6 +35,7 @@ class DocumentPage extends React.Component {
     this.props.loadDocuments(0);
     this.roleChange = this.roleChange.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +62,17 @@ class DocumentPage extends React.Component {
    */
   openDocumentModal() {
     $('#addDocumentModal').modal('open');
+  }
+
+  /**
+   * logout event
+   * @method
+   * @param {event} e
+   * @returns {action} - logout action
+   */
+  logout(e) {
+    e.preventDefault();
+    this.props.logout();
   }
 
   /**
@@ -135,6 +148,12 @@ class DocumentPage extends React.Component {
             <div className="col m12">
               <div className="left">
                 <h5>Documents</h5>
+                <p className="hide-on-med-and-up">
+                  <Link to="/dashboard">Dashboard</Link> |
+                  <Link to="/documents">Documents</Link> |
+                  <Link to="/users">Users</Link> |
+                  <Link to="/" onClick={this.logout}>Logout</Link>
+                </p>
               </div>
               <div className="doc-access right">
                 <select
@@ -175,7 +194,8 @@ DocumentPage.propTypes = {
   documents: PropTypes.array.isRequired,
   paginationDetails: PropTypes.object.isRequired,
   loadDocuments: PropTypes.func.isRequired,
-  loadUserDocuments: PropTypes.func.isRequired
+  loadUserDocuments: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
 /**
@@ -191,4 +211,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps,
-  { loadDocuments, loadUserDocuments })(DocumentPage);
+  { loadDocuments, loadUserDocuments, logout })(DocumentPage);

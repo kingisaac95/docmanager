@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { Pagination } from 'react-materialize';
 import $ from 'jquery';
 import { loadUsers } from '../../actions/UserActions';
+import logout from '../../actions/LogoutActions';
 import UserCard from './UserCard';
 
 /**
@@ -28,6 +29,7 @@ class UserPage extends React.Component {
 
     this.props.loadUsers(0);
     this.onClick = this.onClick.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   /**
@@ -49,6 +51,17 @@ class UserPage extends React.Component {
   onClick(pageNumber) {
     const offset = (pageNumber - 1) * 8;
     this.props.loadUsers(offset);
+  }
+
+  /**
+   * logout event
+   * @method
+   * @param {event} e
+   * @returns {action} - logout action
+   */
+  logout(e) {
+    e.preventDefault();
+    this.props.logout();
   }
 
   /**
@@ -83,6 +96,12 @@ class UserPage extends React.Component {
           <div className="row intro">
             <div className="col m12">
               <h5>Users</h5>
+              <p className="hide-on-med-and-up">
+                <Link to="/dashboard">Dashboard</Link> |
+                <Link to="/documents">Documents</Link> |
+                <Link to="/users">Users</Link> |
+                <Link to="/" onClick={this.logout}>Logout</Link>
+              </p>
             </div>
           </div>
 
@@ -114,6 +133,7 @@ UserPage.defaultProps = {
 UserPage.propTypes = {
   users: PropTypes.array.isRequired,
   loadUsers: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   paginationDetails: PropTypes.object.isRequired,
 };
 
@@ -130,4 +150,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { loadUsers })(UserPage);
+export default connect(mapStateToProps, { loadUsers, logout })(UserPage);

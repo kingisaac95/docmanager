@@ -9,6 +9,15 @@ import image from '../../assets/img/icon.png';
  */
 class Navbar extends React.Component {
   /**
+   * lifecycle method
+   * @method
+   * @returns {action} - activate select button
+   */
+  componentDidMount() {
+    $('.button-collapse').sideNav();
+  }
+
+  /**
    * sign up modal invocator
    * @method
    * @returns {boolean} - true
@@ -34,7 +43,16 @@ class Navbar extends React.Component {
                 height="25" alt="docmanager logo" />
               DocManager
             </Link>
+            <a href="#" data-activates="mobile-demo" className="button-collapse">
+              <i className="material-icons">menu</i>
+            </a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <a
+                onClick={this.openSignUpModal}>
+                No account? Sign Up Here
+              </a>
+            </ul>
+            <ul id="mobile-demo" className="side-nav">
               <a
                 onClick={this.openSignUpModal}>
                 No account? Sign Up Here

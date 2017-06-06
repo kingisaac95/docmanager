@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 import { signInUser } from '../../actions/SignInActions';
 
 /**
@@ -51,13 +52,22 @@ class SignInForm extends React.Component {
   }
 
   /**
+   * sign up modal invocator
+   * @method
+   * @returns {boolean} - true
+   */
+  openSignUpModal() {
+    $('#signUpModal').modal('open');
+  }
+
+  /**
    * render
    * @method
    * @returns {jsx} - jsx
    */
   render() {
     return (
-      <div className="card intro-card col m5 offset-m8">
+      <div className="card intro-card col s12 m5 offset-m8">
         <div className="center-align">
           <h5 className="deep-grey-color">Sign In</h5>
           <h6 className="pink-color">Please sign in to continue!</h6>
@@ -101,6 +111,9 @@ class SignInForm extends React.Component {
             </div>
           </div>
         </form>
+        <p className="center-align">No account?
+          <a href="#" onClick={this.openSignUpModal}> Sign Up Here</a>
+        </p>
       </div>
     );
   }

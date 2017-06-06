@@ -18,9 +18,10 @@ class App extends React.Component {
       <div>
         {currentRoute.includes('user')
           || currentRoute.includes('dashboard')
-          || currentRoute.includes('document') ? 
+          || currentRoute.includes('document') ?
             <DashboardNavbar /> : <Navbar /> }
         { this.props.children }
+        <div className="space" />
         <Footer />
       </div>
     );
