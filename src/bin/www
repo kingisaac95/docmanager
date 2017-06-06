@@ -1,0 +1,36 @@
+// Application entrypoint
+import http from 'http';
+import webpack from 'webpack';
+import path from 'path';
+import open from 'open';
+import winston from 'winston';
+import config from '../../webpack.config';
+import app from '../server/app';
+
+const port = process.env.PORT || 8000;
+app.set('port', port);
+
+const compiler = webpack(config);
+
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
+app.get('*', function(req, res) {
+  res.sendFile(path.join( __dirname, '../client/index.html'));
+});
+
+const server = http.createServer(app);
+server.listen(port, function(err) {
+  if (err) {
+    winston.error(err);
+  } else {
+    open(`http://localhost:${port}`);
+  }
+});
+winston.info('DocManager running on port: ' + port);
+
+export default app;
