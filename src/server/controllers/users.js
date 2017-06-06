@@ -151,7 +151,7 @@ export default {
       {
         model: models.Role,
         attributes: {
-          exclude: ['title', 'createdAt', 'updatedAt']
+          exclude: ['id', 'createdAt', 'updatedAt']
         }
       }
     ];

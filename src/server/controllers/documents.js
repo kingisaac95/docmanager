@@ -43,6 +43,10 @@ export default {
     if (role === 1 || role === 2) {
       options.where = {};
 
+      options.attributes = {
+        exclude: ['RoleId']
+      };
+
       options.include = [
         {
           model: models.User,
@@ -67,6 +71,10 @@ export default {
             }
           }
         ]
+      };
+
+      options.attributes = {
+        exclude: ['RoleId']
       };
 
       options.include = [

@@ -27,6 +27,7 @@ class UserPage extends React.Component {
     };
 
     this.props.loadUsers(0);
+    this.onClick = this.onClick.bind(this);
   }
 
   /**
@@ -37,6 +38,17 @@ class UserPage extends React.Component {
   componentDidMount() {
     $('select').material_select();
     $('.modal').modal();
+  }
+
+  /**
+   * onClick handler
+   * @method
+   * @param {integer} pageNumber
+   * @returns {object} - docs
+   */
+  onClick(pageNumber) {
+    const offset = (pageNumber - 1) * 8;
+    this.props.loadUsers(offset);
   }
 
   /**
