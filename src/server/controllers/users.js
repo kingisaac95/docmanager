@@ -100,12 +100,15 @@ export default {
               RoleId: 3,
             })
             .then((curUser) => {
+              // create token
               const userData = {
                 name: curUser.name,
                 username: curUser.username,
                 email: curUser.email,
-                role: 3
+                role: 3,
+                userId: curUser.id
               };
+
               // create token
               const token = jwt.sign({
                 expiresIn: 86400,
@@ -142,7 +145,7 @@ export default {
     }
 
     options.offset = req.query.offset > 0 ? req.query.offset : 0;
-    options.limit = req.query.limit > 0 ? req.query.limit : 12;
+    options.limit = req.query.limit > 0 ? req.query.limit : 9;
     options.order = [['createdAt', 'DESC']];
     options.attributes = {
       exclude: ['password', 'createdAt', 'updatedAt']

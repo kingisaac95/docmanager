@@ -66,7 +66,10 @@ class SignUpModal extends React.Component {
       return Materialize.toast('Passwords do not match!', 3000, 'red');
     }
 
-    this.props.dispatch(createUser(this.state));
+    this.props.dispatch(createUser(this.state))
+      .then(() => {
+        this.context.router.push('/dashboard');
+      });
   }
 
   /**
@@ -169,6 +172,10 @@ class SignUpModal extends React.Component {
 
 SignUpModal.propTypes = {
   dispatch: PropTypes.func.isRequired,
+};
+
+SignUpModal.contextTypes = {
+  router: PropTypes.object.isRequired
 };
 
 /**

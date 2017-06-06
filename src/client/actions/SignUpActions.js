@@ -1,5 +1,8 @@
 import request from 'axios';
+import jwt from 'jsonwebtoken';
 import * as types from '../constants/types';
+import setAuthorizationToken from '../utils/setAuthorizationToken';
+import setCurrentUser from './SetCurrentUserAction';
 
 /**
  * @function
@@ -34,10 +37,16 @@ export function createUserFailure() {
 export function createUser(user) {
   return (dispatch) => {
     dispatch(willCreateUser());
-    request.post('/api/v1/users', user)
+    return request.post('/api/v1/users', user)
       .then((res) => {
         dispatch(createUserSuccess(res.data));
-        Materialize.toast('Account created! Please login to continue', 3000, 'green');
+        const token = res.data.token;
+        localStorage.setItem('jwtToken', token);
+        // set the authorization token to header
+        setAuthorizationToken(token);
+
+        dispatch(setCurrentUser(jwt.decode(token)));
+        Materialize.toast('Account created successfully!', 3000, 'green');
       }, (err) => {
         dispatch(createUserFailure());
         Materialize.toast(err.response.data.message, 3000, 'red');
