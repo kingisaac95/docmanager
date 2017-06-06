@@ -6,7 +6,7 @@
 
 <img width="1225" alt="screen shot 2017-06-04 at 11 31 20 pm" src="https://cloud.githubusercontent.com/assets/26261917/26765914/3fd6dbbc-497e-11e7-9e9d-f01ca60b2fa0.png">
 
-<img width="1204" alt="screen shot 2017-06-04 at 11 34 53 pm" src="https://cloud.githubusercontent.com/assets/26261917/26765931/76fc5ff4-497e-11e7-8d8e-3557de7de0b5.png">
+<img width="1212" alt="screen shot 2017-06-06 at 3 25 19 pm" src="https://cloud.githubusercontent.com/assets/26261917/26834143/6dbeae84-4acc-11e7-8730-d94ffc197364.png">
 
 
 Docmanager is a fullstack application (API endpoints and user interface) that allows users to create and manage documents. It also comes with API endpoints for creating and managing users.
