@@ -7,7 +7,7 @@ import { createUser } from '../../actions/SignUpActions';
 /**
  * @class
  */
-class SignUpModal extends React.Component {
+export class SignUpModal extends React.Component {
   /**
    * @constructor
    * @param {object} props
@@ -83,9 +83,7 @@ class SignUpModal extends React.Component {
         <div className="modal-content">
           <div className="center-align">
             <h5 className="deep-grey-color">Sign Up</h5>
-            <h6 className="pink-color">
-              * Note that all fields are required *
-            </h6>
+            <h6 className="pink-color">* Note that all fields are required *</h6>
           </div>
 
           <div className="row">

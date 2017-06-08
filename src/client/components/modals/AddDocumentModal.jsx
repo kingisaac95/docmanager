@@ -8,7 +8,7 @@ import { createDocument } from '../../actions/DocumentActions';
 /**
  * @class
  */
-class AddDocumentModal extends React.Component {
+export class AddDocumentModal extends React.Component {
   /**
    * @constructor
    * @param {object} props
@@ -99,9 +99,7 @@ class AddDocumentModal extends React.Component {
         <div className="modal-content">
           <div className="center-align">
             <h5 className="blue-color">Add New Document</h5>
-            <h6 className="pink-color">
-              * Note that all fields are required *
-            </h6>
+            <h6 className="pink-color">* Note that all fields are required *</h6>
           </div>
           <form>
             <div className="row">

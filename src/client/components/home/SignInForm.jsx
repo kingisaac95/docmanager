@@ -7,7 +7,7 @@ import { signInUser } from '../../actions/SignInActions';
  * SignInForm
  * @class
  */
-class SignInForm extends React.Component {
+export class SignInForm extends React.Component {
   /**
    * @constructor
    * @param {object} props

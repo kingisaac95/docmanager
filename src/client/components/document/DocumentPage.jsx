@@ -17,7 +17,7 @@ import DocumentCard from './DocumentCard';
  * DocumentPage
  * @class
  */
-class DocumentPage extends React.Component {
+export class DocumentPage extends React.Component {
   /**
    * @param {object} props
    */
@@ -107,9 +107,7 @@ class DocumentPage extends React.Component {
     if (this.props.documents.length === 0) {
       noDoc = (
         <div className="row center-align">
-          <h6>Sorry, no documents found.
-            Please try to create a document by clicking the ( + ) below.
-          </h6>
+          <h6>Sorry, no documents found. Click the ( + ) to create a new document.</h6>
         </div>
       );
     } else {

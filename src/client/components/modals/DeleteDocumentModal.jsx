@@ -7,7 +7,7 @@ import { deleteDocument } from '../../actions/DocumentActions';
 /**
  * @class
  */
-class DeleteDocumentModal extends React.Component {
+export class DeleteDocumentModal extends React.Component {
   /**
    * lifecycle method - componentDidMount
    * @method
@@ -41,9 +41,7 @@ class DeleteDocumentModal extends React.Component {
       <div id={`deleteDocumentModal-${document.id}`} className="modal">
         <div className="modal-content">
           <div className="center-align">
-            <h5 className="deep-red-color">
-              Are you sure you want to delete this document?
-            </h5>
+            <h5 className="deep-red-color">Are you sure you want to delete this document?</h5>
           </div>
         </div>
         <div className="modal-footer">

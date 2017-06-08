@@ -9,7 +9,7 @@ import { updateDocument } from '../../actions/DocumentActions';
  * Document edit
  * @class
  */
-class DocumentEdit extends React.Component {
+export class DocumentEdit extends React.Component {
   /**
    * @method
    * @param {object} props

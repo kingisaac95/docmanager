@@ -24,7 +24,9 @@
     "seed-db": "babel-node ./src/server/tests/seeders/dbSeeders",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "server-side-test": "NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha \"src/server/tests/**/*.spec.js\" --timeout 10000 && npm run report-coverage",
+    "component-test": "NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha --require \"src/client/tests/setup.js\" --recursive \"src/client/tests/**/*.spec.js\"",
     "test": "npm run seed:test-db && npm run server-side-test",
+    "e2e": "",
     "test:watch": "npm run test -- --watch",
     "webpack-fix": "webpack --progress --profile --colors --display-error-details --display-cached"
   },
@@ -115,6 +117,7 @@
     "image-webpack-loader": "^3.3.0",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.5",
+    "jsdom-global": "3.0.2",
     "mocha": "2.4.5",
     "nock": "8.0.0",
     "npm-run-all": "1.8.0",
@@ -124,6 +127,7 @@
     "redux-mock-store": "1.0.2",
     "rimraf": "2.5.2",
     "should": "^11.2.1",
+    "sinon": "^2.3.2",
     "style-loader": "0.13.1",
     "supertest": "^3.0.0",
     "url-loader": "0.5.7"

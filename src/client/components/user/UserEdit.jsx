@@ -7,7 +7,7 @@ import { updateUser } from '../../actions/UserActions';
 /**
  * @class
  */
-class UserEdit extends React.Component {
+export class UserEdit extends React.Component {
   /**
    * @constructor
    * @param {object} props

@@ -10,7 +10,7 @@ import UserCard from './UserCard';
 /**
  * @class
  */
-class UserPage extends React.Component {
+export class UserPage extends React.Component {
   /**
    * @constructor
    * @param {object} props

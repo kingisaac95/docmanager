@@ -6,7 +6,7 @@ import { makeAdmin } from '../../actions/UserActions';
 /**
  * @class
  */
-class MakeAdminModal extends React.Component {
+export class MakeAdminModal extends React.Component {
   /**
    * componentDidMoount
    * @method
@@ -38,9 +38,7 @@ class MakeAdminModal extends React.Component {
       <div id={`makeAdminModal-${user.id}`} className="modal">
         <div className="modal-content">
           <div className="center-align">
-            <h5 className="deep-red-color">
-              Are you sure you want to make this user an Admin?
-            </h5>
+            <h5 className="deep-red-color">Are you sure you want to make this user an Admin?</h5>
           </div>
         </div>
         <div className="modal-footer">
