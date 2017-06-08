@@ -20,10 +20,10 @@
     "start:dev:server": "./node_modules/.bin/babel-node -- \"./src/bin/www\"",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
-    "seed:test-db": "NODE_ENV=test babel-node ./src/tests/seeders/dbSeeders",
-    "seed-db": "babel-node ./src/tests/seeders/dbSeeders",
+    "seed:test-db": "NODE_ENV=test babel-node ./src/server/tests/seeders/dbSeeders",
+    "seed-db": "babel-node ./src/server/tests/seeders/dbSeeders",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
-    "server-side-test": "NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha \"src/tests/**/*.spec.js\" --timeout 10000 && npm run report-coverage",
+    "server-side-test": "NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha \"src/server/tests/**/*.spec.js\" --timeout 10000 && npm run report-coverage",
     "test": "npm run seed:test-db && npm run server-side-test",
     "test:watch": "npm run test -- --watch",
     "webpack-fix": "webpack --progress --profile --colors --display-error-details --display-cached"
