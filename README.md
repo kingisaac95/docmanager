@@ -13,7 +13,7 @@ Docmanager is a fullstack application (API endpoints and user interface) that al
 
 View the app live [here](https://dmsdoctor.herokuapp.com/)
 
-# API Summary
+## API Summary
 
 #### Note
 
