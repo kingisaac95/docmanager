@@ -12,7 +12,49 @@
 Docmanager is a fullstack application (API endpoints and user interface) that allows users to create and manage documents. It also comes with API endpoints for creating and managing users.
 
 View the app live [here](https://dmsdoctor.herokuapp.com/)
-For the API documentation, visit [our docs](https://docmanager-docs.herokuapp.com/)
+
+# API Summary
+
+#### Note
+
+All requests must be prefixed with **api/v1**
+For full API documentation, visit [our docs](https://docmanager-docs.herokuapp.com/)
+
+## Users
+
+EndPoint | Functionality
+-------- | -------------
+POST /users/login | Logs in a user.
+POST /users/logout | Logs out a user.
+POST /users/ | Creates a new user.
+GET /users/ | Find matching instances of user.
+GET /users/?limit={integer}&offset={integer} | Pagination for users.
+GET /users/<id> | Find user.
+PUT /users/<id> | Update user attributes.
+DELETE /users/<id> | Delete user.
+GET /search/users/?q={} | Search for a user.
+
+## Documents
+
+EndPoint | Functionality
+-------- | -------------
+POST /documents/ | Creates a new document instance.
+GET /documents/ | Find matching instances of document.
+GET /documents/?limit={integer}&offset={integer} | Pagination for docs.
+GET /documents/<id> | Find document.
+PUT /documents/<id> | Update document attributes.
+DELETE /documents/<id> | Delete document.
+GET /users/<id>/documents | Find all documents belonging to the user.
+GET /search/documents/?q={doctitle} | Search for a doc.
+
+## Roles
+
+EndPoint | Functionality
+-------- | -------------
+POST /roles/ | Creates a new role instance.
+GET /roles/ | Find matching instances of role.
+PUT /roles/:id | Update role attributes.
+DELETE /roles/:id | Delete role.
 
 # Getting Started
 
