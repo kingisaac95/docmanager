@@ -56,7 +56,7 @@ GET /roles/ | Find matching instances of role.
 PUT /roles/:id | Update role attributes.
 DELETE /roles/:id | Delete role.
 
-# Getting Started
+## Getting Started
 
 #### Via Cloning The Repository:
 
@@ -98,10 +98,10 @@ npm run test
 npm run e2e
 ```
 
-# Issues?
+## Issues?
 Submit your issue [here](https://github.com/kingisaac95/docmanager/issues/new)
 
-# How can I thank you?
+## How can I thank you?
 
 Why not star the github repo? The attention would be appreciated! How about sharing the link for this repository on Twitter?
 
@@ -109,6 +109,6 @@ Don't forget to [follow me on twitter!](https://twitter.com/kingisaac95)
 
 Thanks! Orjiewuru Kingdom.
 
-License
+## License
 
 The MIT License (MIT). Please see [License File](/LICENSE) for more information.
