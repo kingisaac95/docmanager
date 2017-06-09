@@ -40,12 +40,79 @@ export const regularUser = {
   roleId: 3
 };
 
+export const validUser = {
+  name: 'John Doe I',
+  username: 'jdoe1',
+  email: 'john.doe@andela.com',
+  password: 'password',
+  RoleId: 1
+};
+
+export const emptyUsername = {
+  name: '',
+  username: 'jdoe1',
+  email: 'john.doe@andela.com',
+  password: 'password',
+  RoleId: 1
+};
+
 export const updateTestUser = {
   name: 'John Doe',
   username: 'jdoe1',
   email: 'john.doe@andela.com',
   password: 'password',
-  roleId: 1
+  RoleId: 1
+};
+
+export const noName = {
+  username: 'jdoe1',
+  email: 'john.doe@andela.com',
+  password: 'password',
+  RoleId: 1
+};
+
+export const noUsername = {
+  name: 'John Doe',
+  email: 'john.doe@andela.com',
+  password: 'password',
+  RoleId: 1
+};
+
+export const noEmail = {
+  name: 'John Doe',
+  username: 'jdoe1',
+  password: 'password',
+  RoleId: 1
+};
+
+export const noPassword = {
+  name: 'John Doe',
+  username: 'jdoe1',
+  email: 'john.doe@andela.com',
+  RoleId: 1
+};
+
+export const tooShortPassword = {
+  name: 'John Doe',
+  username: 'jdoe1',
+  email: 'john.doe@andela.com',
+  password: 'pas',
+  RoleId: 1
+};
+
+export const noRole = {
+  name: 'John Doe',
+  username: 'jdoe1',
+  email: 'john.doe@andela.com',
+  password: 'password',
+};
+
+export const invalidRole = {
+  name: 'John Doe',
+  username: 'jdoe1',
+  email: 'john.doe@andela.com',
+  password: 'password',
+  RoleId: 100
 };
 
 export const invalid = {
