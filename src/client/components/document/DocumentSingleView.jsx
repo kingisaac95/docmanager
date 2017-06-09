@@ -27,7 +27,7 @@ class DocumentSingleView extends React.Component {
   }
 
   /**
-   * lifecycle method
+   * fetch single document with id before intial render
    * @method
    * @returns {object} - response object
    */

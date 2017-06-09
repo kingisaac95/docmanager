@@ -38,6 +38,11 @@ export class DocumentPage extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
+  /**
+   * activate materialize select and modal components
+   * @method
+   * @returns {action} - activate modal and select button
+   */
   componentDidMount() {
     $('select').material_select();
     $('.modal').modal();

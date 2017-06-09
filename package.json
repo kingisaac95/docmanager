@@ -17,7 +17,7 @@
     "migrate": "cross-env NODE_ENV=development sequelize db:migrate",
     "undo:migrate": "NODE_ENV=development sequelize db:migrate:undo:all",
     "start:dev": "npm-run-all --parallel start:dev:server lint:watch",
-    "start:dev:server": "babel-node -- \"./src/bin/www\"",
+    "start:dev:server": "./node_modules/.bin/babel-node -- \"./src/bin/www\"",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
     "seed:test-db": "NODE_ENV=test babel-node ./src/server/tests/seeders/dbSeeders",

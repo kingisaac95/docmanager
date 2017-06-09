@@ -22,7 +22,7 @@ class DocumentCard extends React.Component {
   }
 
   /**
-   * componentDidMount
+   * activate materialize select and modal components
    * @method
    * @returns {action} - open modal
    */
@@ -33,7 +33,7 @@ class DocumentCard extends React.Component {
   }
 
   /**
-   * componentDidMount
+   * open delete modal when button is clicked
    * @method
    * @param {number} id - id of the modal
    * @returns {action} - open modal

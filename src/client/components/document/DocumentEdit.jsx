@@ -30,7 +30,7 @@ export class DocumentEdit extends React.Component {
   }
 
   /**
-   * handle chage event
+   * activate materialize select component before initial render
    * @method
    * @param {event} e
    * @returns {object} - changed state
@@ -41,7 +41,7 @@ export class DocumentEdit extends React.Component {
   }
 
   /**
-   * handle chage event
+   * update state on chage event
    * @method
    * @param {event} e
    * @returns {object} - changed state
@@ -53,7 +53,7 @@ export class DocumentEdit extends React.Component {
   }
 
   /**
-   * handle chage event
+   * update document on button click
    * @method
    * @param {event} id
    * @returns {object} - updated doc
@@ -77,7 +77,7 @@ export class DocumentEdit extends React.Component {
   }
 
   /**
-   * redirect method
+   * redirect to previous page
    * @method
    * @returns {action} - redirect user to a page back
    */
