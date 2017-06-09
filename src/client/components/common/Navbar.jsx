@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import $ from 'jquery';
-import image from '../../assets/img/icon.png';
 
 /**
  * Navbar
@@ -39,7 +38,7 @@ class Navbar extends React.Component {
           <div className="nav-wrapper">
             <Link to="#" className="brand-logo">
               <img
-                src={image}
+                src="http://i36.photobucket.com/albums/e9/kingisaac95/icon_zpsuphcdv6q.png"
                 height="25" alt="docmanager logo" />
               DocManager
             </Link>

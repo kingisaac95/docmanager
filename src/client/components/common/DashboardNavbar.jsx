@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import image from '../../assets/img/icon.png';
 import logout from '../../actions/LogoutActions';
 import { loadDocuments, searchDocuments } from '../../actions/DocumentActions';
 import { loadUsers, searchUsers } from '../../actions/UserActions';
@@ -74,7 +73,11 @@ export class DashboardNavbar extends React.Component {
           <div className="row">
             <div className="col s2">
               <Link to="#" className="brand-logo">
-                <img src={image} height="25" alt="docmanager logo" />
+                <img
+                  src="http://i36.photobucket.com/albums/e9/kingisaac95/icon_zpsuphcdv6q.png"
+                  height="25"
+                  alt="docmanager logo"
+                />
                 DocManager
               </Link>
               <Link
