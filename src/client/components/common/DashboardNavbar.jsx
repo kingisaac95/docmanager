@@ -10,7 +10,7 @@ import { loadUsers, searchUsers } from '../../actions/UserActions';
  * Dashboard navbar
  * @class
  */
-class DashboardNavbar extends React.Component {
+export class DashboardNavbar extends React.Component {
   /**
    * constructor
    * @param {object} props

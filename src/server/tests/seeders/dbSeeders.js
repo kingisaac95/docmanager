@@ -1,4 +1,4 @@
-import models from '../../server/models';
+import models from '../../models';
 import roleSeeds from '../seeders/roleSeeders';
 import userSeeds from '../seeders/userSeeders';
 import documentSeeds from '../seeders/documentSeeders';

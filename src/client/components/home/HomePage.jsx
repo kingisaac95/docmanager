@@ -5,7 +5,7 @@ import SignInForm from './SignInForm';
 /**
  * @class
  */
-class HomePage extends React.Component {
+export class HomePage extends React.Component {
   /**
    * render method
    * @method

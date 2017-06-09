@@ -1,7 +1,7 @@
 // import dependencies
 import request from 'supertest'; // import test tool
 import should from 'should'; // import should for accertion
-import server from '../../server/app'; // import the app
+import server from '../../../server/app'; // import the app
 import * as user from '../helpers/users'; // import user helper
 
 process.env.NODE_ENV = 'test'; // set enviroment to test

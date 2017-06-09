@@ -8,7 +8,7 @@ import { loadQuote } from '../actions/onLoadActions';
 /**
  * @class
  */
-class DashboardPage extends React.Component {
+export class DashboardPage extends React.Component {
   /**
    * @constructor
    * @param {object} props
