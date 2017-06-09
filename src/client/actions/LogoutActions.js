@@ -1,5 +1,5 @@
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import setCurrentUser from './SetCurrentUserAction';
+import { setCurrentUser } from './SetCurrentUserAction';
 
 /**
  * @function

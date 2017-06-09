@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import jwt from 'jsonwebtoken';
 import storeConfig from './store/store.config';
 import setAuthorizationToken from './utils/setAuthorizationToken';
-import setCurrentUser from './actions/SetCurrentUserAction';
+import { setCurrentUser } from './actions/SetCurrentUserAction';
 import routes from './routes';
 import './assets/scripts/custom';
 import '../../node_modules/materialize-css/dist/js/materialize.min';
