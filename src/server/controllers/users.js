@@ -42,7 +42,7 @@ export default {
               expiresIn: 86400,
               userData
             }, process.env.SECRETE_KEY);
-
+            console.log('user');
             // return token
             res.status(200).json({
               successful: true,
