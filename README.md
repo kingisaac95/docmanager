@@ -85,8 +85,11 @@ npm install
 # Run your migrations
 npm run migrate
 
+# Run your migrations
+npm run seed-db
+
 # Run the application
-npm star
+npm start
 
 # Run test migrations
 npm run migrate:test
