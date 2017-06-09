@@ -89,8 +89,8 @@ export function updateDocumentSuccess(document) {
  * @param {object} document
  * @returns {object} - action type
  */
-export function updateDocumentFailure(document) {
-  return { type: types.UPDATE_DOCUMENT_FAILURE, document };
+export function updateDocumentFailure() {
+  return { type: types.UPDATE_DOCUMENT_FAILURE };
 }
 
 /**
@@ -129,8 +129,8 @@ export function deleteDocumentSuccess(document) {
  * @param {object} document
  * @returns {object} - action type
  */
-export function deleteDocumentFailure(document) {
-  return { type: types.DELETE_DOCUMENT_FAILURE, document };
+export function deleteDocumentFailure() {
+  return { type: types.DELETE_DOCUMENT_FAILURE };
 }
 
 /**

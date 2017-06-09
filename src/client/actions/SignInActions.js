@@ -2,7 +2,7 @@ import request from 'axios';
 import jwt from 'jsonwebtoken';
 import * as types from '../constants/types';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import setCurrentUser from './SetCurrentUserAction';
+import { setCurrentUser } from './SetCurrentUserAction';
 
 /**
  * @function
