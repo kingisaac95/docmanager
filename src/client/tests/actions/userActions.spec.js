@@ -64,20 +64,35 @@ describe('User Actions', () => {
     });
   });
 
-  // describe('deleteUser', () => {
-  //   it('should create a DELETE_USER actions', () => {
-  //     // perpare mock data
-  //     const curUser = {};
-  //     const expectedAction = {
-  //       type: types.DELETE_USER,
-  //       user: curUser
-  //     };
+  describe('deleteUserSuccess', () => {
+    it('should create a DELETE_USER_SUCCESS actions', () => {
+      // perpare mock data
+      const curUser = 1;
+      const expectedAction = {
+        type: types.DELETE_USER_SUCCESS,
+        user: curUser
+      };
 
-  //     // fire off the action
-  //     const action = userActions.deleteUser(curUser);
+      // fire off the action
+      const action = userActions.deleteDocumentSuccess(curUser);
 
-  //     // assert
-  //     expect(action).toEqual(expectedAction);
-  //   });
-  // });
+      // assert
+      expect(action).toEqual(expectedAction);
+    });
+  });
+
+  describe('deleteUserFailure', () => {
+    it('should create a DELETE_USER_FAILURE actions', () => {
+      // perpare mock data
+      const expectedAction = {
+        type: types.DELETE_USER_FAILURE,
+      };
+
+      // fire off the action
+      const action = userActions.deleteUserFailure();
+
+      // assert
+      expect(action).toEqual(expectedAction);
+    });
+  });
 });

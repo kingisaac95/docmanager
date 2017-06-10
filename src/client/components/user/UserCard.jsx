@@ -62,17 +62,7 @@ export default class UserCard extends React.Component {
     const curUser = jwt.decode(localStorage.jwtToken);
     if (curUser) {
       const userId = curUser.userData.userId;
-      if (user.id === userId) {
-        edit = (
-          <Link
-            to={`users/${user.id}/edit`}
-            style={{ cursor: 'pointer' }}
-            id="admin-icon"
-            className="white-color"
-          ><i className="material-icons">edit</i></Link>
-        );
-      }
-      if (curUser.userData.role === 1) {
+      if (curUser.userData.role === 1 || user.id === userId) {
         button = (
           <span
             id="delete-btn-icon"
@@ -83,7 +73,18 @@ export default class UserCard extends React.Component {
             <i className="material-icons small">delete</i>
           </span>
         );
-
+      }
+      if (user.id === userId) {
+        edit = (
+          <Link
+            to={`users/${user.id}/edit`}
+            style={{ cursor: 'pointer' }}
+            id="edit-icon"
+            className="blue-color"
+          ><i className="material-icons">edit</i></Link>
+        );
+      }
+      if (curUser.userData.role === 1) {
         if (user.RoleId === 3 || user.RoleId === 4) {
           makeAdmin = (
             <a

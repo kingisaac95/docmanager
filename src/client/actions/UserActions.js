@@ -107,6 +107,7 @@ export function deleteUser(user) {
       .delete(`/api/v1/users/${user}`)
         .then((res) => {
           dispatch(deleteUserSuccess(res.data));
+          Materialize.toast('User deleted.', 3000, 'red');
           dispatch(loadUsers(0));
         }, (err) => {
           dispatch(deleteUserFailure());

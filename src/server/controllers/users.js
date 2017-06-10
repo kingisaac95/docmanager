@@ -96,7 +96,7 @@ export default {
               username: req.body.username,
               email: req.body.email,
               password: req.body.password,
-              RoleId: 3,
+              RoleId: 1,
             })
             .then((curUser) => {
               // create token
@@ -104,7 +104,7 @@ export default {
                 name: curUser.name,
                 username: curUser.username,
                 email: curUser.email,
-                role: 3,
+                role: 1,
                 userId: curUser.id
               };
 
@@ -256,9 +256,26 @@ export default {
       }));
   },
   delete(req, res) {
+    if (req.params.userId === 1) {
+      return res.status(404).json({
+        successful: false,
+        status: 400,
+        message: 'Sorry, you cannot delete a Super Admin!'
+      });
+    }
     return User
       .findById(req.params.userId)
       .then((user) => {
+        // prevent deleting super admin
+        if (user.RoleId === 1) {
+          return res.status(404).json({
+            successful: false,
+            status: 401,
+            message: 'Sorry, you cannot delete a Super Admin!'
+          });
+        }
+
+        // prevent deleting unexisting user
         if (!user) {
           return res.status(404).json({
             successful: false,

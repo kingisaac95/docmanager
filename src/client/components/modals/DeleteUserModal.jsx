@@ -27,7 +27,6 @@ export class DeleteUserModal extends React.Component {
    */
   onClickDelete(id) {
     this.props.deleteUser(id);
-    Materialize.toast('User deleted.', 3000, 'red');
   }
 
   /**
