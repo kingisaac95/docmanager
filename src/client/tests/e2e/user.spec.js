@@ -27,7 +27,7 @@
 //       .pause(2000)
 //       .end();
 //   },
-//
+
 //   'Invalid User Registration - Missing Values': (client) => {
 //     client
 //       .url('http://localhost:8000')

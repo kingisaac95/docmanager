@@ -96,7 +96,7 @@ export default {
               username: req.body.username,
               email: req.body.email,
               password: req.body.password,
-              RoleId: 1,
+              RoleId: 3,
             })
             .then((curUser) => {
               // create token
@@ -104,7 +104,7 @@ export default {
                 name: curUser.name,
                 username: curUser.username,
                 email: curUser.email,
-                role: 1,
+                role: 3,
                 userId: curUser.id
               };
 
