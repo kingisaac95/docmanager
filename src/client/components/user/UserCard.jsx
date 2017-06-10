@@ -113,6 +113,7 @@ export default class UserCard extends React.Component {
               <h6>Role: <span>{user.Role.title}</span></h6>
               <h6>Email: <br />
                 <span>{user.email}</span>
+                <br />
                 { button }
               </h6>
             </div>
