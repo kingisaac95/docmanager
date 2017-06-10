@@ -64,20 +64,20 @@ describe('User Actions', () => {
     });
   });
 
-  describe('deleteUser', () => {
-    it('should create a DELETE_USER actions', () => {
-      // perpare mock data
-      const curUser = {};
-      const expectedAction = {
-        type: types.DELETE_USER,
-        user: curUser
-      };
+  // describe('deleteUser', () => {
+  //   it('should create a DELETE_USER actions', () => {
+  //     // perpare mock data
+  //     const curUser = {};
+  //     const expectedAction = {
+  //       type: types.DELETE_USER,
+  //       user: curUser
+  //     };
 
-      // fire off the action
-      const action = userActions.deleteUser(curUser);
+  //     // fire off the action
+  //     const action = userActions.deleteUser(curUser);
 
-      // assert
-      expect(action).toEqual(expectedAction);
-    });
-  });
+  //     // assert
+  //     expect(action).toEqual(expectedAction);
+  //   });
+  // });
 });

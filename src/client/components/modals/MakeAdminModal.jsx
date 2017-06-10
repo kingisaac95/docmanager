@@ -46,10 +46,10 @@ export class MakeAdminModal extends React.Component {
             onClick={() => this.onClickUpgrade(user.id)}
             className="modal-close left btn-large waves-effect deep-red-bg-color"
             name="action"
+            id="yes-upgrade"
           >Make Admin</button>
           <button
             className="modal-close right btn-large waves-effect blue-bg"
-            name="action"
           >Cancel</button>
         </div>
       </div>

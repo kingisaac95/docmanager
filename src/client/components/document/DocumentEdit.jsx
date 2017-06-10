@@ -152,7 +152,7 @@ export class DocumentEdit extends React.Component {
               <div className="col s12">
                 <button
                   className="btn-large waves-effect waves-light deep-red-bg-color left"
-                  name="update"
+                  name="cancel"
                   onClick={this.redirect}
                 >
                   Cancel

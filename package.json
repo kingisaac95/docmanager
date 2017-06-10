@@ -26,7 +26,8 @@
     "server-side-test": "NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha \"src/server/tests/**/*.spec.js\" --timeout 10000 && npm run report-coverage",
     "frontend-test": "NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha --require \"src/client/tests/setup.js\" --recursive \"src/client/tests/**/*.spec.js\"",
     "test": "npm run seed:test-db && npm run server-side-test",
-    "e2e": "",
+    "e2e-test": "npm run seed:test-db && NODE_ENV=test nightwatch",
+    "e2e-config": "selenium-standalone install",
     "test:watch": "npm run test -- --watch",
     "webpack-fix": "webpack --progress --profile --colors --display-error-details --display-cached"
   },
@@ -119,9 +120,11 @@
     "istanbul": "^0.4.5",
     "jsdom-global": "3.0.2",
     "mocha": "2.4.5",
+    "nightwatch": "^0.9.15",
     "nock": "8.0.0",
     "nyc": "^10.3.2",
     "react-addons-test-utils": "^15.0.2",
+    "selenium-standalone": "5.9.0",
     "should": "^11.2.1",
     "sinon": "^2.3.2",
     "supertest": "^3.0.0"

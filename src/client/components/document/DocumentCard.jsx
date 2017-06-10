@@ -56,6 +56,7 @@ class DocumentCard extends React.Component {
       if (document.User.id === userId) {
         button = (
           <span
+            id="delete-btn-icon"
             onClick={() => this.openDeleteDocumentModal(document.id)}
             className="right deep-red-color delete-icon"
             style={{ cursor: 'pointer' }}
@@ -91,9 +92,10 @@ class DocumentCard extends React.Component {
         <div className="card">
           <div className="card-header blue-bg">
             <h6
+              id="title-text"
               className="white-color"
             >
-              {document.title.substring(0, 20)}...
+              {document.title.substring(0, 20)}
               { edit }
             </h6>
           </div>

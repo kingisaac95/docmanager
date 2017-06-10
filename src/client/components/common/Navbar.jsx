@@ -47,6 +47,7 @@ class Navbar extends React.Component {
             </a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <a
+                id="signUpButton"
                 onClick={this.openSignUpModal}>
                 No account? Sign Up Here
               </a>

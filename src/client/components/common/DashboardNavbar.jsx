@@ -112,17 +112,17 @@ export class DashboardNavbar extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/documents">
+                  <Link to="/documents" id="documents">
                     <i className="material-icons left">description</i>Documents
                   </Link>
                 </li>
                 <li>
-                  <Link to="/users">
+                  <Link to="/users" id="users">
                     <i className="material-icons left">list</i>Users
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" onClick={this.logout}>
+                  <Link to="/" onClick={this.logout} id="logout">
                     <i className="material-icons left">list</i>Logout
                   </Link>
                 </li>

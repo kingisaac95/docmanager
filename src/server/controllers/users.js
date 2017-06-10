@@ -42,7 +42,6 @@ export default {
               expiresIn: 86400,
               userData
             }, process.env.SECRETE_KEY);
-            console.log('user');
             // return token
             res.status(200).json({
               successful: true,
@@ -75,7 +74,7 @@ export default {
   },
   create(req, res) {
     if (req.body.name && req.body.username && req.body.email
-      && req.body.password && req.body.roleId) {
+      && req.body.password) {
       User
         .findOne({
           where: {
@@ -145,7 +144,7 @@ export default {
     }
 
     options.offset = req.query.offset > 0 ? req.query.offset : 0;
-    options.limit = req.query.limit > 0 ? req.query.limit : 9;
+    options.limit = req.query.limit > 0 ? req.query.limit : 8;
     options.order = [['createdAt', 'DESC']];
     options.attributes = {
       exclude: ['password', 'createdAt', 'updatedAt']

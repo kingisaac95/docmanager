@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import jwt from 'jsonwebtoken';
 import $ from 'jquery';
 import MakeAdminModal from '../modals/MakeAdminModal';
+import DeleteUserModal from '../modals/DeleteUserModal';
 
 /**
  * @class
@@ -39,6 +40,16 @@ export default class UserCard extends React.Component {
   }
 
   /**
+   * open delete modal when button is clicked
+   * @method
+   * @param {number} id - id of the modal
+   * @returns {action} - open modal
+   */
+  openDeleteUserModal(id) {
+    $(`#deleteUserModal-${id}`).modal('open');
+  }
+
+  /**
    * render
    * @function
    * @returns {jsx} jsx markup
@@ -46,6 +57,7 @@ export default class UserCard extends React.Component {
   render() {
     const { user } = this.props;
     let edit = null;
+    let button = null;
     let makeAdmin = null;
     const curUser = jwt.decode(localStorage.jwtToken);
     if (curUser) {
@@ -61,6 +73,17 @@ export default class UserCard extends React.Component {
         );
       }
       if (curUser.userData.role === 1) {
+        button = (
+          <span
+            id="delete-btn-icon"
+            onClick={() => this.openDeleteUserModal(user.id)}
+            className="right deep-red-color delete-icon"
+            style={{ cursor: 'pointer' }}
+          >
+            <i className="material-icons small">delete</i>
+          </span>
+        );
+
         if (user.RoleId === 3 || user.RoleId === 4) {
           makeAdmin = (
             <a
@@ -90,11 +113,13 @@ export default class UserCard extends React.Component {
               <h6>Role: <span>{user.Role.title}</span></h6>
               <h6>Email: <br />
                 <span>{user.email}</span>
+                { button }
               </h6>
             </div>
           </div>
         </div>
         <MakeAdminModal user={user} />
+        <DeleteUserModal user={user} />
       </div>
     );
   }

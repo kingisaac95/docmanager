@@ -93,6 +93,7 @@ export class SignUpModal extends React.Component {
                   <input
                     onChange={this.onChange}
                     name="name"
+                    id="signup-name"
                     type="text"
                     placeholder="&#xf234;"
                     className="validate"
@@ -105,6 +106,7 @@ export class SignUpModal extends React.Component {
                   <input
                     onChange={this.onChange}
                     name="email"
+                    id="signup-email"
                     type="email"
                     placeholder="&#xf0e0;"
                     className="validate"
@@ -117,6 +119,7 @@ export class SignUpModal extends React.Component {
                   <input
                     onChange={this.onChange}
                     name="username"
+                    id="signup-username"
                     type="text"
                     placeholder="&#xf2c0;"
                     className="validate"
@@ -129,6 +132,7 @@ export class SignUpModal extends React.Component {
                   <input
                     onChange={this.onChange}
                     name="password"
+                    id="signup-password"
                     type="password"
                     placeholder="&#xf084;"
                     className="validate"
@@ -141,6 +145,7 @@ export class SignUpModal extends React.Component {
                   <input
                     onChange={this.onChange}
                     name="confirm_password"
+                    id="signup_confirm_password"
                     type="password"
                     placeholder="&#xf084;"
                     className="validate"
@@ -153,6 +158,7 @@ export class SignUpModal extends React.Component {
         </div>
         <div className="modal-footer">
           <button
+            id="registerBtn"
             className="modal-close btn-large right waves-effect deep-grey-bg"
             name="action"
             onClick={this.onClickSubmit}
