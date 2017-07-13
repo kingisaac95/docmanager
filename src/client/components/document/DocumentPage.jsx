@@ -112,7 +112,8 @@ export class DocumentPage extends React.Component {
     if (this.props.documents.length === 0) {
       noDoc = (
         <div className="row center-align">
-          <h6>Sorry, no documents found. Click the ( + ) to create a new document.</h6>
+          <h6
+          id="page-title">Sorry, no documents found. Click the ( + ) to create a new document.</h6>
         </div>
       );
     } else {
@@ -133,15 +134,16 @@ export class DocumentPage extends React.Component {
       <div>
         <div className="fixed-action-btn horizontal right">
           <a
+            id="create-document"
             onClick={this.openDocumentModal}
             className="btn-floating btn-large blue-bg">
             <i className="large material-icons">add</i>
           </a>
           <ul>
             <li>
-              <Link to="#" className="tooltip blue-bg white-color">
+              <span className="tooltip blue-bg white-color">
                 Create new document
-              </Link>
+              </span>
             </li>
           </ul>
         </div>

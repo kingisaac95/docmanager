@@ -150,6 +150,7 @@ export class AddDocumentModal extends React.Component {
         </div>
         <div className="modal-footer">
           <button
+            id="createBtn"
             className="modal-close btn-large right waves-effect blue-bg"
             name="action"
             onClick={this.onClickSave}

@@ -79,11 +79,42 @@ export function updateUser(id, user) {
 
 /**
  * @function
+ * @param {object} document
+ * @returns {object} - action type
+ */
+export function deleteUserSuccess(document) {
+  return { type: types.DELETE_USER_SUCCESS, document };
+}
+
+/**
+ * @function
+ * @param {object} document
+ * @returns {object} - action type
+ */
+export function deleteUserFailure() {
+  return { type: types.DELETE_USER_FAILURE };
+}
+
+/**
+ * @function
  * @param {object} user
- * @returns {object} - action type, user
+ * @returns {object} - response
  */
 export function deleteUser(user) {
-  return { type: types.DELETE_USER, user };
+  return (dispatch) => {
+    request.defaults.headers.common.Authorization = localStorage.jwtToken;
+    return request
+      .delete(`/api/v1/users/${user}`)
+        .then((res) => {
+          dispatch(deleteUserSuccess(res.data));
+          Materialize.toast('User deleted.', 3000, 'red');
+          dispatch(loadUsers(0));
+        }, (err) => {
+          dispatch(deleteUserFailure());
+          Materialize.toast(err.response.data.message, 3000, 'red');
+          throw ('error', err.response.data.message);
+        });
+  };
 }
 
 /**

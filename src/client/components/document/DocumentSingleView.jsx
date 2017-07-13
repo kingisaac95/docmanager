@@ -72,6 +72,7 @@ class DocumentSingleView extends React.Component {
       <div className="row">
         <div className="col m8 offset-m2">
           <a
+            id="back"
             className="fa fa-arrow-left fa-2x left"
             style={{ cursor: 'pointer', color: '#767b8d' }}
             onClick={this.redirect}

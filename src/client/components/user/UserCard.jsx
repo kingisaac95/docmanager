@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import jwt from 'jsonwebtoken';
 import $ from 'jquery';
 import MakeAdminModal from '../modals/MakeAdminModal';
+import DeleteUserModal from '../modals/DeleteUserModal';
 
 /**
  * @class
@@ -39,6 +40,16 @@ export default class UserCard extends React.Component {
   }
 
   /**
+   * open delete modal when button is clicked
+   * @method
+   * @param {number} id - id of the modal
+   * @returns {action} - open modal
+   */
+  openDeleteUserModal(id) {
+    $(`#deleteUserModal-${id}`).modal('open');
+  }
+
+  /**
    * render
    * @function
    * @returns {jsx} jsx markup
@@ -46,17 +57,30 @@ export default class UserCard extends React.Component {
   render() {
     const { user } = this.props;
     let edit = null;
+    let button = null;
     let makeAdmin = null;
     const curUser = jwt.decode(localStorage.jwtToken);
     if (curUser) {
       const userId = curUser.userData.userId;
+      if (curUser.userData.role === 1 || user.id === userId) {
+        button = (
+          <span
+            id="delete-btn-icon"
+            onClick={() => this.openDeleteUserModal(user.id)}
+            className="right deep-red-color delete-icon"
+            style={{ cursor: 'pointer' }}
+          >
+            <i className="material-icons small">delete</i>
+          </span>
+        );
+      }
       if (user.id === userId) {
         edit = (
           <Link
             to={`users/${user.id}/edit`}
             style={{ cursor: 'pointer' }}
-            id="admin-icon"
-            className="white-color"
+            id="edit-icon"
+            className="blue-color"
           ><i className="material-icons">edit</i></Link>
         );
       }
@@ -90,11 +114,14 @@ export default class UserCard extends React.Component {
               <h6>Role: <span>{user.Role.title}</span></h6>
               <h6>Email: <br />
                 <span>{user.email}</span>
+                <br />
+                { button }
               </h6>
             </div>
           </div>
         </div>
         <MakeAdminModal user={user} />
+        <DeleteUserModal user={user} />
       </div>
     );
   }
