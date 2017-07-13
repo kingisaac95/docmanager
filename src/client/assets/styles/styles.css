@@ -1,0 +1,289 @@
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+body {
+  position: relative;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 17px;
+  min-height: 100%;
+}
+
+#footer {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 5px;
+}
+
+.home-body {
+  background: url('http://i36.photobucket.com/albums/e9/kingisaac95/library_automation_zpsqhtpq7ab.jpg');
+  background-repeat: no-repeat;
+  background-size: 55%;
+  background-position: left center;
+}
+
+textarea, input {
+	font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+}
+
+.single-view {
+  font-family: 'Nunito', sans-serif;
+}
+
+.container {
+  width: 80%;
+}
+
+nav .brand-logo, nav ul a {
+  color: #767b8d;
+}
+
+nav {
+  background: #fefefe;
+  padding: 0 60px;
+}
+
+nav .brand-logo, h1, h2, h3, h4, h5, h6, p {
+  padding: 5px;
+}
+
+h6 {
+  font-size: 17px;
+}
+
+.nav-wrapper .input-field input[type="search"] {
+  height: 64px;
+}
+.nav-wrapper input[type="search"]:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.input-field label {
+  max-height: 64px;
+}
+.nav-wrapper input[type="search"]:focus ~ .label-icon.active {
+  position: fixed;
+  left: 10px;
+}
+
+.nav-wrapper input[type="search"]:focus ~ .closed {
+  position: fixed;
+  right: 10px;
+}
+nav .input-field .label-icon i {
+  color: #000;
+}
+
+#user {
+  color: #000;
+  padding-top: 15px;
+}
+
+.space {
+  padding: 20px;
+}
+
+.modal {
+  max-height: 80%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.pink-color {
+  color: #ef9a9a;
+}
+
+.white-color {
+  color: #fefefe
+}
+
+.deep-red-color {
+  color: #E96D63
+}
+
+.deep-red-bg-color, .deep-red-bg-color:hover, .deep-red-bg-color:focus {
+  background-color: #E96D63
+}
+
+.blue-color {
+  color: #03a9f4;
+}
+
+.black-color {
+  color: #000;
+}
+
+.deep-grey-color, #card-action {
+  color: #767b8d;
+}
+
+.deep-grey-bg, .deep-grey-bg:hover, .deep-grey-bg:focus, .pagination li.active a {
+  background-color: #767b8d;
+}
+
+.blue-bg, .blue-bg:hover, .blue-bg:focus {
+  background-color: #03a9f4;
+}
+
+.modal .modal-footer {
+  padding-bottom: 100px;
+}
+
+.parallax {
+  width: 100%;
+}
+
+.dashboard-body {
+  background-color: #d9e0e7;
+}
+
+.home-body nav {
+  box-shadow: none;
+}
+
+.container > .home {
+  margin-top: 5%;
+}
+
+#close-add-document {
+	border-radius: 5px;
+	z-index: 1;
+	position: absolute;
+	padding-left: 10px;
+	padding-right: 10px;
+	right: 2%;
+  top: 35px;
+  transform:translate(-50%,-50%)
+}
+
+#make-admin {
+	border-radius: 5px;
+	z-index: 1;
+	position: absolute;
+	padding-left: 10px;
+	padding-right: 10px;
+	right: 5%;
+  top: 98px;
+  transform:translate(-50%,-50%)
+}
+
+#addDocumentModal {
+  max-height: 100%;
+  width: 100%;
+  top: 0% !important;
+}
+
+#card-action, .card-header {
+  padding: 5px 15px;
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(160,160,160,0.2)
+}
+
+#card-content {
+  padding: 10px;
+  max-width: 210px;
+}
+
+.pagination li a {
+  border-radius: 2px;
+}
+
+.input-field input[type="text"]:focus + label, .input-field input[type="password"]:focus + label,
+.input-field input[type="email"]:focus + label {
+  color: #8b929a;
+}
+
+.input-field input[type="text"]:focus, .input-field input[type="password"]:focus,
+.input-field input[type="email"]:focus {
+  border-bottom: 1px solid #8b929a;
+  box-shadow: 0 1px 0 0 #8b929a;
+}
+
+#view {
+  display: inline-block;
+  padding: 0, 100px;
+}
+
+.tooltip {
+  padding: 10px;
+}
+
+.tooltip, .intro-card, .card {
+  box-shadow: 0 32px 64px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.intro-card:hover, .card:hover, .about-card {
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.intro {
+  padding: 0 24px;
+}
+
+.tooltip::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 100%; /* To the right of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent black;
+}
+
+#view-icon {
+  color: #03a9f4;
+	border-radius: 5px;
+	background: #ffffff;
+	z-index: 1;
+	position: absolute;
+	padding-left: 10px;
+	padding-right: 10px;
+	left: 40%;
+  top: 0;
+  transform:translate(-50%,-50%)
+}
+
+#edit-icon {
+	z-index: 1;
+	position: absolute;
+	left: 85%;
+  top: 8%;
+  transform:translate(-50%,-50%)
+}
+
+.doc-card, .user-card {
+  height: 210px;
+  overflow: hidden;
+}
+
+#signUpModal {
+  max-height: 80%;
+}
+
+.doc-access {
+  z-index: 2;
+}
+
+.form-labels {
+  padding: 0;
+}
+
+.delete-icon {
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+  transition: transform .8s ease-in-out;
+}
+
+.delete-icon:hover {
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
