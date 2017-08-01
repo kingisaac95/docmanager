@@ -74,7 +74,7 @@ export class DashboardNavbar extends React.Component {
             <div className="col s2">
               <Link to="#" className="brand-logo">
                 <img
-                  src="http://i36.photobucket.com/albums/e9/kingisaac95/icon_zpsuphcdv6q.png"
+                  src="https://image.ibb.co/bKQHn5/document.png"
                   height="25"
                   alt="docmanager logo"
                 />
